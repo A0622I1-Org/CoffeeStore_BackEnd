@@ -22,3 +22,9 @@ function tinhTien() {
 function tinhTien1() {
     alert("Không có món để tính tiền!")
 }
+
+// $(document).ready(function() {
+//     $(".numbers").each(function() {
+//         $(this).format({format:"#,###", locale:"us"});
+//     });
+// });

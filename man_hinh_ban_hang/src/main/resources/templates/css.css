@@ -48,6 +48,10 @@ body {
         grid-gap: 0;
         padding-right: 0 !important;
     }
+
+    .background {
+        background-repeat: repeat !important;
+    }
 }
 
 @media (max-width: 500px) {
@@ -84,7 +88,7 @@ body {
 
     .background {
         height: 100%;
-        background-repeat: repeat;
+        background-repeat: repeat !important;
     }
 }
 
@@ -136,7 +140,10 @@ hr {
     background-repeat: no-repeat;
     background-size: cover !important;
     background-attachment: fixed;
-    height: 1000px;
+    /*height: 1000px;*/
+    /*height: auto;*/
+    display: inline-block;
+    padding-bottom: 120px;
 }
 
 .title {
@@ -151,10 +158,12 @@ hr {
 .container_table {
     margin-left: 15px;
     padding-left: 40px !important;
-    height: 750px;
+    padding-bottom: 100px;
+    /*height: 750px;*/
     background-color: #2c3034;
     opacity: 0.9;
     display: inline-block;
+    background-repeat: repeat;
 }
 
 .card-body {
