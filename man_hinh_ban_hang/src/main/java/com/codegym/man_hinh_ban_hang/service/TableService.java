@@ -7,7 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ITableService {
-
-    List<Table> getAllTable();
+@Service
+public class TableService implements ITableService{
+    @Autowired
+    ITableRepository tableRepository;
+    @Override
+    public List<Table> getAllTable() {
+        return tableRepository.getAllTable();
+    }
 }
