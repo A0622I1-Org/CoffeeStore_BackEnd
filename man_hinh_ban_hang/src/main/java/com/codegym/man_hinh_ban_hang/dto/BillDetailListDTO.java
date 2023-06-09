@@ -1,6 +1,6 @@
 package com.codegym.man_hinh_ban_hang.dto;
 
-public interface BillDetailList {
+public interface BillDetailListDTO {
     public Integer billId();
     public Integer tableId();
     public String imgUrl();

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ITableRepository extends JpaRepository<CoffeeTable, Integer> {
+public interface ICoffeeTableRepository extends JpaRepository<CoffeeTable, Integer> {
     /**
      *
      * @param tableId
