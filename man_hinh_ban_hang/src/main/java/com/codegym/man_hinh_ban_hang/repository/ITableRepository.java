@@ -1,6 +1,6 @@
 package com.codegym.man_hinh_ban_hang.repository;
 
-import com.codegym.man_hinh_ban_hang.model.Table;
+import com.codegym.man_hinh_ban_hang.model.CoffeeTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ITableRepository extends JpaRepository<Table, Integer> {
+public interface ITableRepository extends JpaRepository<CoffeeTable, Integer> {
     /**
      *
      * @param tableId
@@ -22,5 +22,5 @@ public interface ITableRepository extends JpaRepository<Table, Integer> {
 
     @Modifying
     @Query(value = "SELECT * FROM `table` WHERE status = 'Tốt' OR 'tốt';", nativeQuery = true)
-    List<Table> getAllTable();
+    List<CoffeeTable> getAllTable();
 }

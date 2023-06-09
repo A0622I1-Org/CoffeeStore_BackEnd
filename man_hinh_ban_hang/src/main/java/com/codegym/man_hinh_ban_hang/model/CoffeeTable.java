@@ -1,31 +1,36 @@
 package com.codegym.man_hinh_ban_hang.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
-public class Table {
+@Table(name = "table")
+public class CoffeeTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    private String name;
-    private String status;
-    private boolean enableFlag;
-    @OneToMany(mappedBy = "bill")
-    @JsonBackReference
-    private Set<Bill> billSet;
 
-    public Table() {
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "enable_flag")
+    private boolean enableFlag;
+
+    // Constructors, getters, and setters
+
+    public CoffeeTable() {
     }
 
-    public Table(int id, String name, String status, boolean enableFlag) {
-        this.id = id;
+    public CoffeeTable(String name, String status, boolean enableFlag) {
         this.name = name;
         this.status = status;
         this.enableFlag = enableFlag;
     }
+
+    // Getters and Setters
 
     public int getId() {
         return id;
