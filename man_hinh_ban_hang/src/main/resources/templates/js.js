@@ -28,3 +28,13 @@ function tinhTien1() {
 //         $(this).format({format:"#,###", locale:"us"});
 //     });
 // });
+
+function displayModal() {
+    let img = $('img').src;
+    alert(img);
+    if (img.includes('table1.png')) {
+        $('#modelId').modal('show');
+    } else {
+        alert("Không có gì để xem")
+    }
+}

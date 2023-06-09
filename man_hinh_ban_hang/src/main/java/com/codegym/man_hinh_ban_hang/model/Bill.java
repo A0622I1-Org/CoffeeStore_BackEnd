@@ -14,4 +14,7 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+    private boolean paymentStatus;
+    private String paymentTime;
+
 }
