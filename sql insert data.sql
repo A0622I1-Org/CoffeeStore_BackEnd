@@ -252,10 +252,26 @@ INSERT INTO bill_detail (bill_id,service_id,quantity) values
 (27,3,6),
 (28,1,4);
 SET FOREIGN_KEY_CHECKS=0;
-INSERT INTO feedback_img (feedback_id, imgUrl) values
-(1,'kjhqdkjhsqkjhd'),
-(1,'kjhqdkjhsqkjhd'),
-(1,'qksjdhkqhsdjqsd'),
-(1,'kqjhdqsjkhdkjhqsd'),
-(1,'qkjdshqjshdkqsd');
-select * from feedback;
+INSERT INTO feedback_img (feedback_id, imgUrl)
+VALUES
+  (1, 'https://images.pexels.com/photos/16979638/pexels-photo-16979638/free-photo-of-dia-ca-phe-c-c-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (2, 'https://images.pexels.com/photos/16074688/pexels-photo-16074688/free-photo-of-dia-u-ng-ban-m-a.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (2, 'https://images.pexels.com/photos/42322/tea-tea-time-person-summer-42322.jpeg?auto=compress&cs=tinysrgb&h=566.525&fit=crop&w=633.175&dpr=1'),
+  (2, 'https://images.pexels.com/photos/16053051/pexels-photo-16053051/free-photo-of-mon-an-ca-phe-may-nh-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (2, 'https://images.pexels.com/photos/16064371/pexels-photo-16064371/free-photo-of-mon-an-dia-dan-ba-tay.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (2, 'https://images.pexels.com/photos/16050226/pexels-photo-16050226/free-photo-of-mon-an-dia-rau-xa-lach-ca-phe.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (3, 'https://images.pexels.com/photos/16043312/pexels-photo-16043312/free-photo-of-dia-c-c-u-ng-tra.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (3, 'https://images.pexels.com/photos/16043282/pexels-photo-16043282/free-photo-of-dia-c-c-tay-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (4, 'https://images.pexels.com/photos/16050230/pexels-photo-16050230/free-photo-of-mon-an-dia-b-a-an-ly.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (5, 'https://images.pexels.com/photos/16050227/pexels-photo-16050227/free-photo-of-mon-an-ca-phe-c-c-tao.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+    (6, 'https://images.pexels.com/photos/16979638/pexels-photo-16979638/free-photo-of-dia-ca-phe-c-c-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (7, 'https://images.pexels.com/photos/16074688/pexels-photo-16074688/free-photo-of-dia-u-ng-ban-m-a.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (7, 'https://images.pexels.com/photos/42322/tea-tea-time-person-summer-42322.jpeg?auto=compress&cs=tinysrgb&h=566.525&fit=crop&w=633.175&dpr=1'),
+  (7, 'https://images.pexels.com/photos/16053051/pexels-photo-16053051/free-photo-of-mon-an-ca-phe-may-nh-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (8, 'https://images.pexels.com/photos/16064371/pexels-photo-16064371/free-photo-of-mon-an-dia-dan-ba-tay.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (8, 'https://images.pexels.com/photos/16050226/pexels-photo-16050226/free-photo-of-mon-an-dia-rau-xa-lach-ca-phe.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (8, 'https://images.pexels.com/photos/16043312/pexels-photo-16043312/free-photo-of-dia-c-c-u-ng-tra.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (8, 'https://images.pexels.com/photos/16043282/pexels-photo-16043282/free-photo-of-dia-c-c-tay-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (9, 'https://images.pexels.com/photos/16050230/pexels-photo-16050230/free-photo-of-mon-an-dia-b-a-an-ly.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (10, 'https://images.pexels.com/photos/16050227/pexels-photo-16050227/free-photo-of-mon-an-ca-phe-c-c-tao.jpeg?auto=compress&cs=tinysrgb&w=1600');
+  

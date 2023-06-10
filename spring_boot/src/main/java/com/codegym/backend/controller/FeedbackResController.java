@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -40,8 +39,8 @@ public class FeedbackResController {
         return new ResponseEntity<>(feedbackDetail,HttpStatus.OK);
     }
 
-    @GetMapping("/feedbackImg")
-    public ResponseEntity<?> getImgUrlById(@RequestParam int id){
+    @GetMapping("/feedbackImg/{id}")
+    public ResponseEntity<?> getImgUrlById(@PathVariable int id){
         List<String> imgList = feedbackService.findImgUrlById(id);
         if(imgList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

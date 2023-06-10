@@ -25,7 +25,7 @@ public interface IFeedbackRepository extends JpaRepository<Feedback, Integer> {
     @Query(value =selectFeedbackDetail_sql, countQuery = selectFeedbackDetail_sql, nativeQuery = true)
     FeedbackDetailDto findFeedbackById(int id);
 
-    String selectFeedbackImg_sql = "select f.id , fi.imgUrl from feedback f\n" +
+    String selectFeedbackImg_sql = "select fi.imgUrl from feedback f\n" +
             "left join feedback_img fi on f.id= fi.feedback_id\n" +
             "where f.id = ? \n" +
             "order by fi.id asc;";

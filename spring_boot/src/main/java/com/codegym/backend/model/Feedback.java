@@ -1,7 +1,6 @@
 package com.codegym.backend.model;
 
 import javax.persistence.*;
-import javax.persistence.Table;
 
 @Entity
 public class Feedback {
@@ -34,7 +33,7 @@ public class Feedback {
     private FeedbackType feedbackType;
 
     @Column(name = "rate")
-    private String rate;
+    private Integer rate;
 
     // Constructors, getters, and setters
 
@@ -43,7 +42,7 @@ public class Feedback {
 
 // test merge done
 
-    public Feedback(String feedbackId, Bill bill, String name, String email, String date, String content, FeedbackType feedbackType, String rate) {
+    public Feedback(String feedbackId, Bill bill, String name, String email, String date, String content, FeedbackType feedbackType, Integer rate) {
         this.feedbackId = feedbackId;
         this.bill = bill;
         this.name = name;
@@ -120,11 +119,11 @@ public class Feedback {
         this.feedbackType = feedbackType;
     }
 
-    public String getRate() {
+    public Integer getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
 }

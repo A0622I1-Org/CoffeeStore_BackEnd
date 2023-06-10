@@ -10,7 +10,7 @@ where f.id = 3;
 -- get img url
 select f.id , fi.imgUrl from feedback f
 left join feedback_img fi on f.id= fi.feedback_id
-where f.id = 1
+where f.id = 2
 order by fi.id asc;
 -- order
 select t.id as table_id, s.imgUrl ,s.name, sum(bd.quantity) quantity, s.price, t.name, quantity*s.price as sum, b.payment_status from bill b
