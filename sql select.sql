@@ -1,7 +1,8 @@
 use a0622i1_coffee;
 -- Quản lý phản hồi
 select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f
-left join feedback_type ft on f.type_id = ft.id;
+left join feedback_type ft on f.type_id = ft.id
+order by f.id asc;
 -- chi tiết phản hồi
 select f.id, f.rate, ft.type ,f.name, f.content, fi.imgUrl from feedback f
 left join feedback_img fi on f.id = fi.feedback_id
@@ -40,12 +41,3 @@ select sql_insert,sql_insert2;
 end//
 delimiter ;
 call sp_create_new_order(3, 5, 2);
-
-		PREPARE excuteQuery1 from @sql_insert;
-		EXECUTE excuteQuery1;
-		DEALLOCATE PREPARE excuteQuery1;
-		PREPARE excuteQuery2 from @sql_insert2;
-		EXECUTE excuteQuery2;
-		DEALLOCATE PREPARE excuteQuery2;
-INSERT INTO bill (created_time,user_id,table_id,payment_status,payment_time) values ("2023-06-05 21:24:47",6,3,0,"2023-06-05 21:24:47");
-delete from bill where created_time like "2023-06-05"
