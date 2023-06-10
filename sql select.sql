@@ -4,9 +4,14 @@ select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f
 left join feedback_type ft on f.type_id = ft.id
 order by f.id asc;
 -- chi tiết phản hồi
-select f.id, f.rate, ft.type ,f.name, f.content, fi.imgUrl from feedback f
-left join feedback_img fi on f.id = fi.feedback_id
-left join feedback_type ft on f.type_id = ft.id;
+select f.rate, ft.type ,f.name, f.content from feedback f
+left join feedback_type ft on f.type_id = ft.id
+where f.id = 3;
+-- get img url
+select f.id , fi.imgUrl from feedback f
+left join feedback_img fi on f.id= fi.feedback_id
+where f.id = 1
+order by fi.id asc;
 -- order
 select t.id as table_id, s.imgUrl ,s.name, sum(bd.quantity) quantity, s.price, t.name, quantity*s.price as sum, b.payment_status from bill b
 join `table` t on b.table_id = t.id
@@ -15,6 +20,7 @@ join service s on bd.service_id = s.id
 where payment_status = 0 and table_id = 2
 group by s.id
 order by table_id asc;
+select * from bill;
 -- payment
 select b.id as bill_id, sum(bd.quantity*s.price) as sum from bill b
 join `table` t on b.table_id = t.id
@@ -41,3 +47,4 @@ select sql_insert,sql_insert2;
 end//
 delimiter ;
 call sp_create_new_order(3, 5, 2);
+truncate table feedback;

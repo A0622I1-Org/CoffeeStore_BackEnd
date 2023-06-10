@@ -31,8 +31,8 @@ public class FeedbackResController {
         return ResponseEntity.ok(feedbackList);
     }
 
-    @GetMapping("/feedbackDetail")
-    public ResponseEntity<?> getFeedbackById(@RequestParam int id){
+    @GetMapping("/feedbackDetail/{id}")
+    public ResponseEntity<?> getFeedbackById(@PathVariable int id){
         FeedbackDetailDto feedbackDetail = feedbackService.findFeedbackById(id);
         if(Objects.equals(feedbackDetail.getName(), "")){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
