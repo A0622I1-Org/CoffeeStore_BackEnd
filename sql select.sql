@@ -2,6 +2,7 @@ use a0622i1_coffee;
 -- Quản lý phản hồi
 select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f
 left join feedback_type ft on f.type_id = ft.id
+-- where f.date = '2022-06-01'
 order by f.id asc;
 -- chi tiết phản hồi
 select f.rate, ft.type ,f.name, f.content from feedback f

@@ -29,4 +29,9 @@ public class FeedbackService implements IFeedbackService {
     public List<String> findImgUrlById(int id) {
         return feedbackRepository.findImgUrlById(id);
     }
+
+    @Override
+    public Page<FeedbackDto> findListFeedbackByDate(Pageable pageable, String date) {
+        return feedbackRepository.findListFeedbackByDate(pageable, date);
+    }
 }

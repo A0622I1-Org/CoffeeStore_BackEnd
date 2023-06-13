@@ -21,9 +21,19 @@ public class FeedbackResController {
     private IFeedbackService feedbackService;
 
     @GetMapping("/listFeedback")
-    public ResponseEntity<Page<FeedbackDto>> getFeedbacklist(@RequestParam(defaultValue = "0") int page) {
-        Pageable pageable = PageRequest.of(page, 10);
+    public ResponseEntity<Page<FeedbackDto>> getFeedbacklist(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<FeedbackDto> feedbackList = feedbackService.findAll(pageable);
+        if (feedbackList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(feedbackList);
+    }
+
+    @GetMapping("/getListByDate")
+    public ResponseEntity<Page<FeedbackDto>> getListByDate(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam String date) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<FeedbackDto> feedbackList = feedbackService.findListFeedbackByDate(pageable, date);
         if (feedbackList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

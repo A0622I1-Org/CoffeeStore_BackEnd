@@ -21,14 +21,21 @@ public interface IFeedbackRepository extends JpaRepository<Feedback, Integer> {
 
     String selectFeedbackDetail_sql = "select f.rate, ft.type ,f.name, f.content from feedback f\n" +
             "left join feedback_type ft on f.type_id = ft.id\n" +
-            "where f.id = ?;";
+            "where f.id = ?";
     @Query(value =selectFeedbackDetail_sql, countQuery = selectFeedbackDetail_sql, nativeQuery = true)
     FeedbackDetailDto findFeedbackById(int id);
 
     String selectFeedbackImg_sql = "select fi.imgUrl from feedback f\n" +
             "left join feedback_img fi on f.id= fi.feedback_id\n" +
             "where f.id = ? \n" +
-            "order by fi.id asc;";
+            "order by fi.id asc";
     @Query(value =selectFeedbackImg_sql, countQuery = selectFeedbackImg_sql, nativeQuery = true)
     List<String> findImgUrlById(int id);
+
+    String selectAllFeedbackByDate_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f\n" +
+            "left join feedback_type ft on f.type_id = ft.id\n" +
+            "where f.date = ?\n" +
+            "order by f.id asc";
+    @Query(value =selectAllFeedbackByDate_sql, countQuery = selectAllFeedbackByDate_sql, nativeQuery = true)
+    Page<FeedbackDto> findListFeedbackByDate(Pageable pageable, String date);
 }
