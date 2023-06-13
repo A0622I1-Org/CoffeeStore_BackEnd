@@ -1,3 +1,11 @@
+/**
+ * IFeedbackRepository interface is used to interact with the database to get data
+ *
+ * @author TuLG
+ * @version 1.0
+ * @since 2023-06-13
+ */
+
 package com.codegym.backend.repository;
 
 import com.codegym.backend.dto.FeedbackDetailDto;

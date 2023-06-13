@@ -1,3 +1,11 @@
+/**
+ * FeedbackService class to create shared methods
+ *
+ * @author TuLG
+ * @version 1.0
+ * @since 2023-06-13
+ */
+
 package com.codegym.backend.service;
 
 import com.codegym.backend.dto.FeedbackDetailDto;

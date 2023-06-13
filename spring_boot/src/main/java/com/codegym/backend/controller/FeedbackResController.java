@@ -1,3 +1,12 @@
+/**
+ * FeedbackResController class use to make API
+ *
+ * @author TuLG
+ * @version 1.0
+ * @since 2023-06-13
+ */
+
+
 package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.FeedbackDetailDto;

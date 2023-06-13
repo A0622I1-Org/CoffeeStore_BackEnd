@@ -1,3 +1,11 @@
+/**
+ * CorsConfig is to use for controlling http method
+ *
+ * @author TuLG
+ * @version 1.0
+ * @since 2023-06-13
+ */
+
 package com.codegym.backend.config;
 
 import org.springframework.context.annotation.Configuration;

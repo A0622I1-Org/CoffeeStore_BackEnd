@@ -1,3 +1,11 @@
+/**
+ * Feedback class to define the Feedback entity
+ *
+ * @author TuLG
+ * @version 1.0
+ * @since 2023-06-13
+ */
+
 package com.codegym.backend.model;
 
 import javax.persistence.*;
