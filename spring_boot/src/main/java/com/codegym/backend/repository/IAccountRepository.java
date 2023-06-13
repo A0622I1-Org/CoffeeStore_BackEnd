@@ -1,0 +1,32 @@
+package com.codegym.backend.repository;
+
+import com.codegym.backend.model.Account;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface IAccountRepository extends JpaRepository<Account, Integer> {
+    @Query(value = "SELECT * FROM account where user_name = ?1", nativeQuery = true)
+    Optional<Account> findAccountByUserName(String username);
+
+    @Query(value = "SELECT id FROM account where user_name = ?1", nativeQuery = true)
+    Integer findIdByUserName(String username);
+
+    @Query(value = "SELECT user_name FROM account where user_name = ?1", nativeQuery = true)
+    String existsByUserName(String username);
+
+    @Query(value = "SELECT email FROM account where email = ?1", nativeQuery = true)
+    String existsByEmail(String email);
+
+    @Modifying
+    @Query(value = "update project_coffee_a0622i1.account set verification_code= ?1 where user_name = ?2", nativeQuery = true)
+    void addVerificationCode(String code, String username);
+
+    @Query(value = "select * from account where verification_code = ?1", nativeQuery = true)
+    Account findAccountByVerificationCode(String code);
+}
