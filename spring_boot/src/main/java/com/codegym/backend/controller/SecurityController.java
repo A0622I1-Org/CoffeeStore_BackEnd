@@ -66,7 +66,7 @@ public class SecurityController {
         );
     }
 
-    @PostMapping("/reset-password")
+    @PostMapping("/forgot-password")
     public ResponseEntity<?> reset(@Valid @RequestBody LoginRequest loginRequest) throws MessagingException, UnsupportedEncodingException {
         if (accountService.existsByUserName(loginRequest.getUsername()) != null) {
             accountService.addVerificationCode(loginRequest.getUsername());
