@@ -4,10 +4,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "table")
-<<<<<<< HEAD:spring_boot/src/main/java/com/codegym/backend/model/CoffeTable.java
-public class CoffeTable {
-=======
-
 public class CoffeeTable {
 
     @Id
@@ -26,10 +22,10 @@ public class CoffeeTable {
 
     // Constructors, getters, and setters
 
-    public CoffeTable() {
+    public CoffeeTable() {
     }
 
-    public CoffeTable(String name, String status, boolean enableFlag) {
+    public CoffeeTable(String name, String status, boolean enableFlag) {
         this.name = name;
         this.status = status;
         this.enableFlag = enableFlag;
