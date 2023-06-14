@@ -1,7 +1,6 @@
 package com.codegym.backend.model;
 
 import javax.persistence.*;
-import javax.persistence.Table;
 
 @Entity
 public class Feedback {
@@ -126,6 +125,3 @@ public class Feedback {
         this.rate = rate;
     }
 }
-
-
-
