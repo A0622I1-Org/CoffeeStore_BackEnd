@@ -20,7 +20,7 @@ public class Bill {
 
     @ManyToOne
     @JoinColumn(name = "table_id")
-    private CoffeeTable table;
+    private CoffeTable table;
 
     @Column(name = "payment_status")
     private boolean paymentStatus;
@@ -36,7 +36,7 @@ public class Bill {
     public Bill() {
     }
 
-    public Bill(String createdTime, User user, CoffeeTable table, boolean paymentStatus, String paymentTime) {
+    public Bill(String createdTime, User user, CoffeTable table, boolean paymentStatus, String paymentTime) {
         this.createdTime = createdTime;
         this.user = user;
         this.table = table;
@@ -78,11 +78,11 @@ public class Bill {
         this.user = user;
     }
 
-    public CoffeeTable getTable() {
+    public CoffeTable getTable() {
         return table;
     }
 
-    public void setTable(CoffeeTable table) {
+    public void setTable(CoffeTable table) {
         this.table = table;
     }
 

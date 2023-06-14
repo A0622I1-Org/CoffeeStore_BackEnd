@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "table")
-public class CoffeeTable {
+public class CoffeTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -21,10 +21,10 @@ public class CoffeeTable {
 
     // Constructors, getters, and setters
 
-    public CoffeeTable() {
+    public CoffeTable() {
     }
 
-    public CoffeeTable(String name, String status, boolean enableFlag) {
+    public CoffeTable(String name, String status, boolean enableFlag) {
         this.name = name;
         this.status = status;
         this.enableFlag = enableFlag;
