@@ -1,7 +1,8 @@
-package com.codegym.backend.service;
+package com.codegym.backend.service.Impl;
 
 import com.codegym.backend.model.FeedbackType;
 import com.codegym.backend.repository.IFeedbackTypeRepository;
+import com.codegym.backend.service.IFeedbackTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

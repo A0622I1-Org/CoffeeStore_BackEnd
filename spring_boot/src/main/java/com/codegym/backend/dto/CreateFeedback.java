@@ -7,12 +7,12 @@ public class CreateFeedback {
     private String date;
     private String content;
     private String feedbackType;
-    private String rate;
+    private Integer rate;
 
     public CreateFeedback() {
     }
 
-    public CreateFeedback(String feedbackId, String name, String email, String date, String content, String feedbackType, String rate) {
+    public CreateFeedback(String feedbackId, String name, String email, String date, String content, String feedbackType, Integer rate) {
         this.feedbackId = feedbackId;
         this.name = name;
         this.email = email;
@@ -70,11 +70,11 @@ public class CreateFeedback {
         this.feedbackType = feedbackType;
     }
 
-    public String getRate() {
+    public Integer getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
 }

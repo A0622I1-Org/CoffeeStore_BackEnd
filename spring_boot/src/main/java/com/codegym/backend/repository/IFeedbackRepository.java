@@ -1,25 +1,59 @@
+/**
+ * IFeedbackRepository interface is used to interact with the database to get data
+ *
+ * @author TuLG
+ * @version 1.0
+ * @since 2023-06-13
+ */
+
 package com.codegym.backend.repository;
 
+import com.codegym.backend.dto.FeedbackDetailDto;
+import com.codegym.backend.dto.FeedbackDto;
+import com.codegym.backend.dto.IFeedbackDto;
 import com.codegym.backend.model.Feedback;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+
 @Transactional
 public interface IFeedbackRepository extends JpaRepository<Feedback, Integer> {
-    String createFeedback_sql = "insert into feedback(fb_id,name,email,date,content,type_id,rate) " +
-            "values (?1,?2,?3,?4,?5,?6,?7)";
 
     @Modifying
     @Query(value = "insert into feedback(fb_id,name,email,date,content,type_id,rate) values (?1,?2,?3,?4,?5,?6,?7);", nativeQuery = true)
-//    void createFeedback(@Param("fb_id") String fb_id, @Param("name") String name,
-//                        @Param("email") String email, @Param("date") String date, @Param("content") String content,
-//                        @Param("type_id") int type_id, @Param("rate") String rate);
     void createFeedback(String fb_id, String name,
                         String email, String date, String content,
-                        int type_id, String rate);
+                        int type_id, Integer rate);
 
-//    @Query(value = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback left join feedback_type ft on f.type_id = ft.id", nativeQuery = true)
-//    List<FeedbackDto> getAllList();
+    String selectAllFeedback_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f\n" +
+            "left join feedback_type ft on f.type_id = ft.id\n" +
+            "order by f.id asc";
+    @Query(value = selectAllFeedback_sql, countQuery = selectAllFeedback_sql, nativeQuery = true)
+    Page<IFeedbackDto> findAllList(Pageable pageable);
+
+    String selectFeedbackDetail_sql = "select f.rate, ft.type ,f.name, f.content from feedback f\n" +
+            "left join feedback_type ft on f.type_id = ft.id\n" +
+            "where f.id = ?";
+    @Query(value = selectFeedbackDetail_sql, countQuery = selectFeedbackDetail_sql, nativeQuery = true)
+    FeedbackDetailDto findFeedbackById(int id);
+
+    String selectFeedbackImg_sql = "select fi.imgUrl from feedback f\n" +
+            "left join feedback_img fi on f.id= fi.feedback_id\n" +
+            "where f.id = ? \n" +
+            "order by fi.id asc";
+    @Query(value = selectFeedbackImg_sql, countQuery = selectFeedbackImg_sql, nativeQuery = true)
+    List<String> findImgUrlById(int id);
+
+    String selectAllFeedbackByDate_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f\n" +
+            "left join feedback_type ft on f.type_id = ft.id\n" +
+            "where f.date = ?\n" +
+            "order by f.id asc";
+    @Query(value = selectAllFeedbackByDate_sql, countQuery = selectAllFeedbackByDate_sql, nativeQuery = true)
+    Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String date);
 }

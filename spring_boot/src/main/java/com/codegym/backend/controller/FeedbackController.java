@@ -21,15 +21,6 @@ public class FeedbackController {
     @Autowired
     private IFeedbackTypeService feedbackTypeService;
 
-    @GetMapping("/list")
-    public ResponseEntity<List<Feedback>> getAllType() {
-        List<Feedback> feedbackList = feedbackService.getAll();
-        if (feedbackList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(feedbackList, HttpStatus.OK);
-    }
-
     @PostMapping("/create")
     public ResponseEntity<?> createFeedback(@RequestBody CreateFeedback feedbackCreate) {
         Feedback feedback = new Feedback();

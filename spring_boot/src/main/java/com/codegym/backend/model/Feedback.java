@@ -1,7 +1,15 @@
+/**
+ * Feedback class to define the Feedback entity
+ *
+ * @author TuLG
+ * @version 1.0
+ * @since 2023-06-13
+ * fix conflict done
+ */
+
 package com.codegym.backend.model;
 
 import javax.persistence.*;
-import javax.persistence.Table;
 
 @Entity
 public class Feedback {
@@ -13,9 +21,9 @@ public class Feedback {
     @Column(name = "fb_id")
     private String feedbackId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "bill_id")
-//    private Bill bill;
+    @ManyToOne
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
 
     @Column(name = "name")
     private String name;
@@ -34,27 +42,18 @@ public class Feedback {
     private FeedbackType feedbackType;
 
     @Column(name = "rate")
-    private String rate;
+    private Integer rate;
 
     // Constructors, getters, and setters
 
     public Feedback() {
     }
 
-//    public Feedback(String feedbackId, Bill bill, String name, String email, String date, String content, FeedbackType feedbackType, String rate) {
-//        this.feedbackId = feedbackId;
-//        this.bill = bill;
-//        this.name = name;
-//        this.email = email;
-//        this.date = date;
-//        this.content = content;
-//        this.feedbackType = feedbackType;
-//        this.rate = rate;
-//    }
+// test merge done
 
-    public Feedback(int id, String feedbackId, String name, String email, String date, String content, FeedbackType feedbackType, String rate) {
-        this.id = id;
+    public Feedback(String feedbackId, Bill bill, String name, String email, String date, String content, FeedbackType feedbackType, Integer rate) {
         this.feedbackId = feedbackId;
+        this.bill = bill;
         this.name = name;
         this.email = email;
         this.date = date;
@@ -81,13 +80,13 @@ public class Feedback {
         this.feedbackId = feedbackId;
     }
 
-//    public Bill getBill() {
-//        return bill;
-//    }
-//
-//    public void setBill(Bill bill) {
-//        this.bill = bill;
-//    }
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
 
     public String getName() {
         return name;
@@ -129,11 +128,11 @@ public class Feedback {
         this.feedbackType = feedbackType;
     }
 
-    public String getRate() {
+    public Integer getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
 }
