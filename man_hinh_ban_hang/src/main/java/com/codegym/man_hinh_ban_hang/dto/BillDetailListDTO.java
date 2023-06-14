@@ -1,12 +1,12 @@
 package com.codegym.man_hinh_ban_hang.dto;
 
 public interface BillDetailListDTO {
-    public Integer billId();
-    public Integer tableId();
-    public String imgUrl();
-    public String serviecName();
-    public Integer quantity();
-    public Double price();
-    public Double sum();
-    public Boolean paymentStatus();
+//    public Integer getBillId();
+    public Integer getTableId();
+    public String getImgUrl();
+    public String getServiceName();
+    public Integer getQuantity();
+    public Double getPrice();
+    public Double getSum();
+    public Boolean getPaymentStatus();
 }
