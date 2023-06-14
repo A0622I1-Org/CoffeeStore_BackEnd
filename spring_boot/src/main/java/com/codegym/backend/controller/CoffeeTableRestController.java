@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/api")
 public class CoffeeTableRestController {
     @Autowired
     ICoffeeTableService tableService;

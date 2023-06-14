@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/api")
 public class BillChargingRestController {
     @Autowired
     IBillChargingService billChargingService;
