@@ -21,8 +21,7 @@ public interface IFeedbackService {
     void createFeedback(Feedback feedback);
     FeedbackDetailDto findFeedbackById(int id);
     List<String> findImgUrlById(int id);
-    Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String date);
     List<Feedback> getAll();
-
+    Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String date);
     Page<IFeedbackDto> findAll(Pageable pageable);
 }

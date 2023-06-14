@@ -22,11 +22,11 @@ INSERT INTO account_role (account_id,role_id) values
 (2,2);
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO user (name,address,phone_number,birthday,gender,salary,position_id,account_id,enable_flag,imgUrl) values
-('Lê Gia Tú','Quảng Trị','0123456789','10/05/1991',1,10000000,1,1,0,'url img1'),
-('Lê Thị Việt Hà','Quảng Trị','0123456789','34335',0,11000000,2,2,0,'url img1'),
-('Huỳnh Minh Cường','Đà Nẵng','0123456789','37673',1,11000000,1,3,0,'url img2'),
-('Lê Văn An','Quảng Nam','0123456789','35522',0,11000000,1,4,0,'url img3'),
-('Trần Sĩ Tiến','Huế','0123456789','36526',1,11000000,1,5,0,'url img4'),
+('Lê Gia Tú','Quảng Trị','0123456789','1991/05/10',1,10000000,1,1,0,'url img1'),
+('Lê Thị Việt Hà','Quảng Trị','0123456789','1994/01/01',0,11000000,2,2,0,'url img1'),
+('Huỳnh Minh Cường','Đà Nẵng','0123456789','1994/01/01',1,11000000,1,3,0,'url img2'),
+('Lê Văn An','Quảng Nam','0123456789','1994/01/01',0,11000000,1,4,0,'url img3'),
+('Trần Sĩ Tiến','Huế','0123456789','1994/01/01',1,11000000,1,5,0,'url img4'),
 ('nobody','','','',1,1,1,5,0,'url img4');
 
 SET FOREIGN_KEY_CHECKS=0;

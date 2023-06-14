@@ -1,4 +1,4 @@
-package com.codegym.backend.service.impl;
+package com.codegym.backend.service.Impl;
 
 import com.codegym.backend.dto.ServiceDto;
 import com.codegym.backend.model.Service;
