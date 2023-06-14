@@ -32,7 +32,7 @@ public interface ICoffeeTableRepository extends JpaRepository<CoffeeTable, Integ
 
     @Modifying
     @Query(value = "SELECT t.id AS tableId, s.img_url AS imgUrl, s.name AS serviceName, \n" +
-            "               sum(bd.quantity) quantity, s.price, t.name AS tableName, sum(quantity*s.price) AS sum, \n" +
+            "               sum(bd.quantity) quantity, s.price, t.name AS tableName, sum(bd.quantity * s.price) AS sum, \n" +
             "               b.payment_status as paymentStatus from bill b \n" +
             "        JOIN `table` t ON b.table_id = t.id \n" +
             "        JOIN bill_detail bd ON b.id = bd.bill_id \n" +
@@ -41,6 +41,9 @@ public interface ICoffeeTableRepository extends JpaRepository<CoffeeTable, Integ
             "        GROUP BY s.id \n" +
             "        ORDER BY table_id asc", nativeQuery = true)
     List<BillDetailListDTO> getBillDetailByTableId(Integer tableId);
+
+    @Query(value = "SELECT * from `table` WHERE id = ?", nativeQuery = true)
+    CoffeeTable findCoffeeTableById(int tableId);
 
     @Modifying
     @Query(value = "UPDATE `table` SET enable_flag = false", nativeQuery = true)
