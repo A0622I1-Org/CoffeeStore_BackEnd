@@ -6,7 +6,7 @@ import com.codegym.backend.model.Service;
 import java.util.List;
 
 public interface IServiceService {
-    List<Service> findBestSeller();
+    List<ServiceDto> findBestSeller();
 
-    List<Service> findNewService();
+    List<ServiceDto> findNewService();
 }
