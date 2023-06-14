@@ -1,7 +1,6 @@
 package com.codegym.backend.model;
 
 import java.util.List;
-
 import javax.persistence.*;
 import javax.persistence.Table;
 
@@ -101,4 +100,8 @@ public class Account {
     public void setAccountRoles(List<AccountRole> accountRoles) {
         this.accountRoles = accountRoles;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1e7ef5c9ab278f5d32306dbf6730502baa904bee

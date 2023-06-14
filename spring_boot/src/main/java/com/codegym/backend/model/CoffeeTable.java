@@ -4,7 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "table")
+<<<<<<< HEAD:spring_boot/src/main/java/com/codegym/backend/model/CoffeTable.java
 public class CoffeTable {
+=======
+
+public class CoffeeTable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -64,4 +69,3 @@ public class CoffeTable {
         this.enableFlag = enableFlag;
     }
 }
-

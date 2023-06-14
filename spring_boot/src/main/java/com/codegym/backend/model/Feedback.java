@@ -136,6 +136,3 @@ public class Feedback {
         this.rate = rate;
     }
 }
-
-
-
