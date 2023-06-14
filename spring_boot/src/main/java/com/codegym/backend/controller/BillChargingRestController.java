@@ -1,11 +1,10 @@
-package com.codegym.man_hinh_ban_hang.controller;
+package com.codegym.backend.controller;
 
-import com.codegym.man_hinh_ban_hang.dto.BillChargingListDTO;
-import com.codegym.man_hinh_ban_hang.dto.BillDetailListDTO;
-import com.codegym.man_hinh_ban_hang.model.Bill;
-import com.codegym.man_hinh_ban_hang.model.CoffeeTable;
-import com.codegym.man_hinh_ban_hang.service.IBillChargingService;
-import com.codegym.man_hinh_ban_hang.service.ICoffeeTableService;
+import com.codegym.backend.dto.BillChargingListDTO;
+import com.codegym.backend.model.Bill;
+import com.codegym.backend.model.CoffeeTable;
+import com.codegym.backend.service.IBillChargingService;
+import com.codegym.backend.service.ICoffeeTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/api")
 public class BillChargingRestController {
     @Autowired
     IBillChargingService billChargingService;
@@ -31,14 +31,16 @@ public class BillChargingRestController {
         }
         return new ResponseEntity<>(billChargingList, HttpStatus.OK);
     }
-    @PutMapping("/sales/bill-charging")
-    public ResponseEntity<CoffeeTable> updateBillStatus(@RequestParam int tableId, @RequestParam int userId) {
-        Optional<CoffeeTable> table = Optional.ofNullable(tableService.findCoffeeTableById(tableId));
-        if (!table.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PutMapping("/sales/bill-charge/{tableId}/{userId}")
+    public ResponseEntity<List<BillChargingListDTO>> updateBillStatus(@PathVariable int tableId, @PathVariable int userId) {
+        List<BillChargingListDTO> billChargingList = billChargingService.getAllBillCharging(tableId);
+        if (billChargingList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime date = LocalDateTime.now();
         billChargingService.updateBillStatusByTableId(dtf.format(date), userId, tableId);
+        tableService.updateTableStatus(tableId);
+        return new ResponseEntity<>(billChargingList, HttpStatus.OK);
     }
 }

@@ -1,17 +1,15 @@
-package com.codegym.man_hinh_ban_hang.service;
+package com.codegym.backend.service.impl;
 
-import com.codegym.man_hinh_ban_hang.dto.BillChargingListDTO;
-import com.codegym.man_hinh_ban_hang.repository.IBillChargingRepository;
+import com.codegym.backend.dto.BillChargingListDTO;
+import com.codegym.backend.repository.IBillChargingRepository;
+import com.codegym.backend.service.IBillChargingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Service
-public class BillChargingService implements IBillChargingService{
+public class BillChargingService implements IBillChargingService {
     @Autowired
     IBillChargingRepository billChargingRepository;
 

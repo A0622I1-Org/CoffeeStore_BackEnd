@@ -1,4 +1,4 @@
-package com.codegym.man_hinh_ban_hang.dto;
+package com.codegym.backend.dto;
 
 public interface BillChargingListDTO {
     public Integer getBillId();

@@ -1,6 +1,6 @@
-package com.codegym.man_hinh_ban_hang.service;
+package com.codegym.backend.service;
 
-import com.codegym.man_hinh_ban_hang.dto.BillChargingListDTO;
+import com.codegym.backend.dto.BillChargingListDTO;
 
 import java.util.List;
 

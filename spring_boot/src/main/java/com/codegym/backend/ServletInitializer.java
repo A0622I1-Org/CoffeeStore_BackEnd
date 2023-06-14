@@ -1,4 +1,4 @@
-package com.codegym.man_hinh_ban_hang;
+package com.codegym.backend;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

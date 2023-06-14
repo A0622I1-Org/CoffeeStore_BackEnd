@@ -1,15 +1,17 @@
-package com.codegym.man_hinh_ban_hang.repository;
+package com.codegym.backend.repository;
 
-import com.codegym.man_hinh_ban_hang.dto.BillDetailListDTO;
-import com.codegym.man_hinh_ban_hang.model.CoffeeTable;
+import com.codegym.backend.dto.BillDetailListDTO;
+import com.codegym.backend.model.CoffeeTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public interface ICoffeeTableRepository extends JpaRepository<CoffeeTable, Integer> {
     /**
      * @param tableId
@@ -37,7 +39,7 @@ public interface ICoffeeTableRepository extends JpaRepository<CoffeeTable, Integ
             "        JOIN `table` t ON b.table_id = t.id \n" +
             "        JOIN bill_detail bd ON b.id = bd.bill_id \n" +
             "        JOIN service s ON bd.service_id = s.id \n" +
-            "        WHERE payment_status = 0 AND table_id = 1\n" +
+            "        WHERE payment_status = 0 AND table_id = ?1\n" +
             "        GROUP BY s.id \n" +
             "        ORDER BY table_id asc", nativeQuery = true)
     List<BillDetailListDTO> getBillDetailByTableId(Integer tableId);
@@ -46,6 +48,6 @@ public interface ICoffeeTableRepository extends JpaRepository<CoffeeTable, Integ
     CoffeeTable findCoffeeTableById(int tableId);
 
     @Modifying
-    @Query(value = "UPDATE `table` SET enable_flag = false", nativeQuery = true)
-    void updateTableStatus();
+    @Query(value = "UPDATE `table` SET enable_flag = false WHERE id = ?", nativeQuery = true)
+    void updateTableStatus(int tableId);
 }

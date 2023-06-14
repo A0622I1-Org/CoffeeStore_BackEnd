@@ -1,8 +1,8 @@
-package com.codegym.man_hinh_ban_hang.controller;
+package com.codegym.backend.controller;
 
-import com.codegym.man_hinh_ban_hang.dto.BillDetailListDTO;
-import com.codegym.man_hinh_ban_hang.model.CoffeeTable;
-import com.codegym.man_hinh_ban_hang.service.ICoffeeTableService;
+import com.codegym.backend.dto.BillDetailListDTO;
+import com.codegym.backend.model.CoffeeTable;
+import com.codegym.backend.service.ICoffeeTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/api")
 public class CoffeeTableRestController {
     @Autowired
     ICoffeeTableService tableService;

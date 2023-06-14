@@ -1,8 +1,9 @@
-package com.codegym.man_hinh_ban_hang.service;
+package com.codegym.backend.service.impl;
 
-import com.codegym.man_hinh_ban_hang.dto.BillDetailListDTO;
-import com.codegym.man_hinh_ban_hang.model.CoffeeTable;
-import com.codegym.man_hinh_ban_hang.repository.ICoffeeTableRepository;
+import com.codegym.backend.dto.BillDetailListDTO;
+import com.codegym.backend.model.CoffeeTable;
+import com.codegym.backend.repository.ICoffeeTableRepository;
+import com.codegym.backend.service.ICoffeeTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,10 @@ public class CoffeeTableService implements ICoffeeTableService {
     @Override
     public List<BillDetailListDTO> getBillDetailByTableId(Integer tableId) {
         return tableRepository.getBillDetailByTableId(tableId);
+    }
+
+    @Override
+    public void updateTableStatus(int tableId) {
+        tableRepository.updateTableStatus(tableId);
     }
 }

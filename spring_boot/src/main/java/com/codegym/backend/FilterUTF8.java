@@ -1,4 +1,4 @@
-package com.codegym.man_hinh_ban_hang;
+package com.codegym.backend;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
