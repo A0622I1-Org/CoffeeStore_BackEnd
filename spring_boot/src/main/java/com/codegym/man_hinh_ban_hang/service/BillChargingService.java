@@ -21,9 +21,7 @@ public class BillChargingService implements IBillChargingService{
     }
 
     @Override
-    public void updateBillStatusById(String paymentTime, int userId, int billId) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime date = LocalDateTime.now();
-        billChargingRepository.updateBillStatusById(dtf.format(date), userId, billId);
+    public void updateBillStatusByTableId(String paymentTime, int userId, int tableId) {
+        billChargingRepository.updateBillStatusByTableId(paymentTime, userId, tableId);
     }
 }

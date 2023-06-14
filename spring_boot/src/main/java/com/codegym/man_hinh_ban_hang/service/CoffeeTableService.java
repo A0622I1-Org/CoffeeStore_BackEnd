@@ -18,6 +18,11 @@ public class CoffeeTableService implements ICoffeeTableService {
     }
 
     @Override
+    public CoffeeTable findCoffeeTableById(int tableId) {
+        return tableRepository.findCoffeeTableById(tableId);
+    }
+
+    @Override
     public List<BillDetailListDTO> getBillDetailByTableId(Integer tableId) {
         return tableRepository.getBillDetailByTableId(tableId);
     }

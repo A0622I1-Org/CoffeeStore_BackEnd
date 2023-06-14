@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface ICoffeeTableService {
     List<CoffeeTable> getAllTable();
+    CoffeeTable findCoffeeTableById(int tableId);
+
     List<BillDetailListDTO> getBillDetailByTableId(Integer tableId);
 }

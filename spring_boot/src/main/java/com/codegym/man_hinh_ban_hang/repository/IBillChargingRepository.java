@@ -17,12 +17,12 @@ public interface IBillChargingRepository extends JpaRepository<Bill, Integer> {
             "JOIN bill_detail bd ON bd.bill_id = b.id\n" +
             "JOIN service s ON s.id = bd.service_id\n" +
             "WHERE b.payment_status = 0 AND b.table_id = ?1 \n" +
-            "GROUP BY b.id;", nativeQuery = true)
+            "GROUP BY b.table_id;", nativeQuery = true)
     List<BillChargingListDTO> getAllBillCharging(Integer tableId);
 
     @Modifying
     @Query(value = "UPDATE bill SET payment_status = 1, payment_time = ?, user_id = ?\n" +
-            "WHERE id = ?", nativeQuery = true)
-    void updateBillStatusById(String paymentTime, int userId, int billId);
+            "WHERE table_id = ?", nativeQuery = true)
+    void updateBillStatusByTableId(String paymentTime, int userId, int tableId);
 
 }
