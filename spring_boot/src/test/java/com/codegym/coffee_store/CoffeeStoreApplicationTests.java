@@ -1,4 +1,4 @@
-package com.codegym.man_hinh_ban_hang;
+package com.codegym.coffee_store;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
