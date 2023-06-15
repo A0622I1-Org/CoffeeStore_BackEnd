@@ -20,12 +20,17 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public Page<IUserDto> findUserByName(Pageable pageable, String name) {
+        return repository.findUserByName(pageable, name);
+    }
+
+    @Override
     public Page<IUserDto> findAll(Pageable pageable) {
         return repository.findAllList(pageable);
     }
 
     @Override
-    public void deleteById(int id) {
-        repository.deleteById(id);
+    public boolean deleteById(int id) {
+        return repository.deleteById(id) > 0;
     }
 }

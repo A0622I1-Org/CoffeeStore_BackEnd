@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface IUserService {
     Page<IUserDto> findUserByNameOrDate(Pageable pageable, String date, String name);
+    Page<IUserDto> findUserByName(Pageable pageable, String name);
     Page<IUserDto> findAll(Pageable pageable);
-    void deleteById(int id);
+    boolean deleteById(int id);
 }

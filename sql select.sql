@@ -65,5 +65,19 @@ select u.id, a.user_name account, u.name userName, u.address, u.phone_number Pho
 u.salary, p.name position  from user u 
 join account a on u.account_id = a.id
 join position p on p.id = u.position_id
-where u.name like "%l%" and u.birthday = "" 
-order by u.id
+where u.birthday = "1994-01-01" and u.name like "%%"
+order by u.id;
+
+
+drop procedure sp_deleteUser;
+delimiter //
+create procedure sp_deleteUser(IN deleteId int)
+begin
+	SET FOREIGN_KEY_CHECKS=0;
+	delete from user where id = deleteId;
+end//
+delimiter ;
+call sp_deleteUser(2);
+select * from user;
+
+
