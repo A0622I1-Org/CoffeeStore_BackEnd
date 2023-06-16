@@ -2,14 +2,9 @@ package com.codegym.backend.service.impl;
 
 import com.codegym.backend.dto.UserDTO;
 import com.codegym.backend.dto.UserEditDTO;
-import com.codegym.backend.dto.UserFindIdDTO;
-
-import com.codegym.backend.model.Account;
 import com.codegym.backend.repository.UserRepository;
 import com.codegym.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -24,11 +19,6 @@ public class UserServiceImpl implements UserService {
 //    @Autowired
 //    private AccoutService accoutService;
 
-
-    @Override
-    public UserFindIdDTO findById(int id) {
-        return userRepository.findById(id);
-    }
 
     @Override
     public void editUser(UserEditDTO userEditDTO, int id) {
