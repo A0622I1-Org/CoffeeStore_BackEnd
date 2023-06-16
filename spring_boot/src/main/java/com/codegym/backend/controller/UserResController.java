@@ -1,9 +1,8 @@
 package com.codegym.backend.controller;
 
-import com.codegym.backend.dto.FeedbackDetailDto;
+
 import com.codegym.backend.dto.IUserDto;
 import com.codegym.backend.dto.IUserInforDTO;
-import com.codegym.backend.service.IFeedbackService;
 import com.codegym.backend.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @CrossOrigin("*")
