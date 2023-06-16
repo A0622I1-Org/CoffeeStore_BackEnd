@@ -1,6 +1,7 @@
 package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.BillChargingListDTO;
+import com.codegym.backend.model.Bill;
 import com.codegym.backend.model.CoffeeTable;
 import com.codegym.backend.service.IBillChargingService;
 import com.codegym.backend.service.ICoffeeTableService;
@@ -20,8 +21,8 @@ import java.util.Optional;
 public class BillChargingRestController {
     @Autowired
     IBillChargingService billChargingService;
+    @Autowired
     ICoffeeTableService tableService;
-
     @GetMapping("/sales/bill-charging/{tableId}")
     public ResponseEntity<List<BillChargingListDTO>> getBillChargingByTableId(@PathVariable Integer tableId) {
         List<BillChargingListDTO> billChargingList = billChargingService.getAllBillCharging(tableId);
@@ -30,16 +31,16 @@ public class BillChargingRestController {
         }
         return new ResponseEntity<>(billChargingList, HttpStatus.OK);
     }
-
-    @PutMapping("/sales/bill-charging")
-    public ResponseEntity<CoffeeTable> updateBillStatus(@RequestParam int tableId, @RequestParam int userId) {
-        Optional<CoffeeTable> table = Optional.ofNullable(tableService.findCoffeeTableById(tableId));
-        if (!table.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping("/sales/bill-charge/{tableId}/{userId}")
+    public ResponseEntity<List<BillChargingListDTO>> updateBillStatus(@PathVariable int tableId, @PathVariable int userId) {
+        List<BillChargingListDTO> billChargingList = billChargingService.getAllBillCharging(tableId);
+        if (billChargingList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime date = LocalDateTime.now();
         billChargingService.updateBillStatusByTableId(dtf.format(date), userId, tableId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        tableService.updateTableStatus(tableId);
+        return new ResponseEntity<>(billChargingList, HttpStatus.OK);
     }
 }
