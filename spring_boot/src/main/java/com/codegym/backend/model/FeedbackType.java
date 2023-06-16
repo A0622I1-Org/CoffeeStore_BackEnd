@@ -2,6 +2,7 @@ package com.codegym.backend.model;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 public class FeedbackType {
@@ -13,8 +14,6 @@ public class FeedbackType {
     @Column(name = "type")
     private String type;
 
-    // Constructors, getters, and setters
-
     public FeedbackType() {
     }
 
@@ -22,7 +21,11 @@ public class FeedbackType {
         this.type = type;
     }
 
-    // Getters and Setters
+    public FeedbackType(int id, String type) {
+        this.id = id;
+        this.type = type;
+    }
+// Getters and Setters
 
     public int getId() {
         return id;
@@ -39,4 +42,5 @@ public class FeedbackType {
     public void setType(String type) {
         this.type = type;
     }
+
 }

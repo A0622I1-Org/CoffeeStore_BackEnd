@@ -1,19 +1,34 @@
 use a0622i1_coffee;
 -- Quản lý phản hồi
 select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f
-left join feedback_type ft on f.type_id = ft.id;
+left join feedback_type ft on f.type_id = ft.id
+-- where f.date = '2022-06-01'
+order by f.id asc;
 -- chi tiết phản hồi
-select f.id, f.rate, ft.type ,f.name, f.content, fi.imgUrl from feedback f
-left join feedback_img fi on f.id = fi.feedback_id
-left join feedback_type ft on f.type_id = ft.id;
+select f.rate, ft.type ,f.name, f.content from feedback f
+left join feedback_type ft on f.type_id = ft.id
+where f.id = 3;
+-- get img url
+select f.id , fi.imgUrl from feedback f
+left join feedback_img fi on f.id= fi.feedback_id
+where f.id = 2
+order by fi.id asc;
 -- order
-select t.id as table_id, s.imgUrl ,s.name, sum(bd.quantity) quantity, s.price, t.name, quantity*s.price as sum, b.payment_status from bill b
+select t.id as table_id, s.imgUrl ,s.name, sum(bd.quantity) quantity, s.price, t.name, quantity*s.price as sum, b.payment_status 
+from bill b
 join `table` t on b.table_id = t.id
 join bill_detail bd on b.id = bd.bill_id
 join service s on bd.service_id = s.id
 where payment_status = 0 and table_id = 2
 group by s.id
 order by table_id asc;
+-- quản lý bill
+select b.id, b.user_id, b.table_id, sum(bd.quantity*s.price) sum from bill b
+join bill_detail bd on bd.bill_id = b.id
+join service s on s.id = bd.service_id
+group by b.id;
+-- feedback
+select * from feedback;
 -- payment
 select b.id as bill_id, sum(bd.quantity*s.price) as sum from bill b
 join `table` t on b.table_id = t.id
@@ -40,12 +55,30 @@ select sql_insert,sql_insert2;
 end//
 delimiter ;
 call sp_create_new_order(3, 5, 2);
+truncate table feedback;
+-- get list user STT	Tài Khoản	Họ tên	Địa chỉ	SDT	Giới tính	Ngày sinh	Lương	Chức vụ	
+use a0622i1_coffee;
 
-		PREPARE excuteQuery1 from @sql_insert;
-		EXECUTE excuteQuery1;
-		DEALLOCATE PREPARE excuteQuery1;
-		PREPARE excuteQuery2 from @sql_insert2;
-		EXECUTE excuteQuery2;
-		DEALLOCATE PREPARE excuteQuery2;
-INSERT INTO bill (created_time,user_id,table_id,payment_status,payment_time) values ("2023-06-05 21:24:47",6,3,0,"2023-06-05 21:24:47");
-delete from bill where created_time like "2023-06-05"
+select * from account;
+select * from user;
+select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday,
+u.salary, p.name position, u.enable_flag  from user u 
+join account a on u.account_id = a.id
+join position p on p.id = u.position_id
+-- and u.birthday = "1994-01-01" and u.name like "%%"
+order by u.id;
+
+
+drop procedure sp_deleteUser;
+delimiter //
+create procedure sp_deleteUser(IN deleteId int)
+begin
+	SET FOREIGN_KEY_CHECKS=0;
+	delete from user where id = deleteId;
+end//
+delimiter ;
+call sp_deleteUser(2);
+select * from user;
+update user set enable_flag = 1 
+
+
