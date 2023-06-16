@@ -69,7 +69,7 @@ public class AccountService implements IAccountService {
     @Override
     public void sendVerificationEmailForResetPassWord(String name, String randomCode, String email) throws MessagingException, UnsupportedEncodingException {
         String subject = "\uD83D\uDCE2 Xác thực để thay đổi mật khẩu mới \uD83D\uDCE2";
-        String confirmUrl = "http://localhost:4200/verify-reset-password?code=" + randomCode;
+        String confirmUrl = "http://localhost:4200/verify-change-password/" + randomCode;
         Map<String, Object> props = new HashMap<>();
         props.put("name", name);
         props.put("confirmUrl", confirmUrl);
@@ -90,6 +90,11 @@ public class AccountService implements IAccountService {
     @Override
     public Account findAccountByVerificationCode(String code) {
         return accountRepository.findAccountByVerificationCode(code);
+    }
+
+    @Override
+    public void saveNewPassword(String encryptPassword, String code) {
+        accountRepository.saveNewPassword(encryptPassword,code);
     }
 
 

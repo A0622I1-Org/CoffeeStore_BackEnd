@@ -5,11 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Transactional
 public interface IAccountRepository extends JpaRepository<Account, Integer> {
     @Query(value = "SELECT * FROM account where user_name = ?1", nativeQuery = true)
     Optional<Account> findAccountByUserName(String username);
@@ -29,4 +31,8 @@ public interface IAccountRepository extends JpaRepository<Account, Integer> {
 
     @Query(value = "select * from account where verification_code = ?1", nativeQuery = true)
     Account findAccountByVerificationCode(String code);
+
+    @Modifying
+    @Query(value = "update account set password = ?1,verification_code= null where verification_code= ?2", nativeQuery = true)
+    void saveNewPassword(String encryptPassword, String code);
 }

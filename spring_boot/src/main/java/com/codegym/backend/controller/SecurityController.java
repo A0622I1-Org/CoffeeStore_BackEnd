@@ -4,6 +4,7 @@ import com.codegym.backend.jwt.JwtUtility;
 import com.codegym.backend.model.Account;
 import com.codegym.backend.model.User;
 import com.codegym.backend.payload.request.LoginRequest;
+import com.codegym.backend.payload.request.NewPasswordRequest;
 import com.codegym.backend.payload.request.VerificationCodeRequest;
 import com.codegym.backend.payload.response.JwtResponse;
 import com.codegym.backend.payload.response.MessageResponse;
@@ -77,11 +78,21 @@ public class SecurityController {
                 .body(new MessageResponse("Tài khoản không đúng"));
     }
 
+    //Kiểm tra đường dẫn xác thực của Email có chính xác không
     @PostMapping("/verify-change-password")
     public ResponseEntity<?> verifyPassword(@Valid @RequestBody VerificationCodeRequest verificationCodeRequest) {
         if (accountService.findAccountByVerificationCode(verificationCodeRequest.getCode()) != null) {
             return ResponseEntity.ok(new MessageResponse("Xác minh thành công"));
         }
         return ResponseEntity.badRequest().body(new MessageResponse("Xác minh thất bại"));
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> doChangePassword(@RequestBody NewPasswordRequest newPasswordRequest) {
+        if (accountService.findAccountByVerificationCode(newPasswordRequest.getCode()) != null) {
+            accountService.saveNewPassword(passwordEncoder.encode(newPasswordRequest.getNewPassword()), newPasswordRequest.getCode());
+            return ResponseEntity.ok(new MessageResponse("Thay đổi mật khẩu thành công"));
+        }
+        return ResponseEntity.badRequest().body(new MessageResponse("Thay đổi mật khẩu thất bại"));
     }
 }

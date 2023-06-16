@@ -21,4 +21,6 @@ public interface IAccountService {
     void sendVerificationEmailForResetPassWord(String name, String randomCode, String email) throws MessagingException, UnsupportedEncodingException;
 
     Account findAccountByVerificationCode(String code);
+
+    void saveNewPassword(String encryptPassword, String code);
 }
