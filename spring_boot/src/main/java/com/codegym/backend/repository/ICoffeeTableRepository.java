@@ -48,6 +48,6 @@ public interface ICoffeeTableRepository extends JpaRepository<CoffeeTable, Integ
     CoffeeTable findCoffeeTableById(int tableId);
 
     @Modifying
-    @Query(value = "UPDATE `table` SET enable_flag = false WHERE id = ?", nativeQuery = true)
+    @Query(value = "UPDATE `table` SET enable_flag = 0 WHERE id = ?", nativeQuery = true)
     void updateTableStatus(int tableId);
 }

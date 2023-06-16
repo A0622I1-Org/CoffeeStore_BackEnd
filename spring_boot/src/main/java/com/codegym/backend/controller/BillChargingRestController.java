@@ -21,8 +21,8 @@ import java.util.Optional;
 public class BillChargingRestController {
     @Autowired
     IBillChargingService billChargingService;
+    @Autowired
     ICoffeeTableService tableService;
-
     @GetMapping("/sales/bill-charging/{tableId}")
     public ResponseEntity<List<BillChargingListDTO>> getBillChargingByTableId(@PathVariable Integer tableId) {
         List<BillChargingListDTO> billChargingList = billChargingService.getAllBillCharging(tableId);
@@ -31,7 +31,7 @@ public class BillChargingRestController {
         }
         return new ResponseEntity<>(billChargingList, HttpStatus.OK);
     }
-    @PutMapping("/sales/bill-charge/{tableId}/{userId}")
+    @GetMapping("/sales/bill-charge/{tableId}/{userId}")
     public ResponseEntity<List<BillChargingListDTO>> updateBillStatus(@PathVariable int tableId, @PathVariable int userId) {
         List<BillChargingListDTO> billChargingList = billChargingService.getAllBillCharging(tableId);
         if (billChargingList.isEmpty()) {
