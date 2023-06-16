@@ -8,5 +8,5 @@ public interface IUserService {
     Page<IUserDto> findUserByNameOrDate(Pageable pageable, String date, String name);
     Page<IUserDto> findUserByName(Pageable pageable, String name);
     Page<IUserDto> findAll(Pageable pageable);
-    boolean deleteById(int id);
+    void deleteById(int id);
 }

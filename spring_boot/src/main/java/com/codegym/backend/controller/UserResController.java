@@ -23,7 +23,7 @@ public class UserResController {
     private IUserService userService;
 
     @GetMapping("/listUser")
-    public ResponseEntity<Page<IUserDto>> getFeedbacklist(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<Page<IUserDto>> getUserlist(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<IUserDto> userList = userService.findAll(pageable);
         if (userList.isEmpty()) {
@@ -33,28 +33,30 @@ public class UserResController {
     }
 
     @GetMapping("/getUserByNameOrBirthday")
-    public ResponseEntity<Page<IUserDto>> getListByDate(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "") String date, @RequestParam(defaultValue = "") String name) {
+    public ResponseEntity<Page<IUserDto>> getListByNameOrDate(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "") String date, @RequestParam(defaultValue = "") String name) {
         Pageable pageable = PageRequest.of(page, size);
+        Page<IUserDto> userList;
         if (Objects.equals(date, "")) {
-            Page<IUserDto> userList = userService.findUserByName(pageable, "%" + name + "%");
-            if (userList.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.ok(userList);
+            userList = userService.findUserByName(pageable, "%" + name + "%");
         } else {
-            Page<IUserDto> userList = userService.findUserByNameOrDate(pageable, date, "%" + name + "%");
-            if (userList.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return ResponseEntity.ok(userList);
+            userList = userService.findUserByNameOrDate(pageable, date, "%" + name + "%");
         }
+        if (userList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(userList);
     }
 
-    @DeleteMapping("/userDelete/{id}")
+    @PutMapping("/userDelete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable int id) {
-        if (!userService.deleteById(id)) {
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<IUserDto> userList = userService.findAll(pageable);
+        if (userList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy tài khoản cần xóa!");
+        } else if (Objects.equals(userList.getContent().get(id-1).getEnableFlag(), "false")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy tài khoản cần xóa!");
         } else {
+            userService.deleteById(id);
             return ResponseEntity.ok("Đã xóa thành công!");
         }
     }
