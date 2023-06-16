@@ -48,4 +48,10 @@ public class BillController {
         List<BillDetailDto> billDetail = billDetailService.findBillById(id);
         return ResponseEntity.ok(billDetail);
     }
+
+    @GetMapping("/getListByUser")
+    public ResponseEntity<List<BillDto>> getBillByUser(@RequestParam String name){
+        List<BillDto> billList = billService.findBillByUser(name);
+        return ResponseEntity.ok(billList);
+    }
 }

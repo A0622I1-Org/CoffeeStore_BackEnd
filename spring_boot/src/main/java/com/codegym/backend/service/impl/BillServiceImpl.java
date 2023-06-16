@@ -19,12 +19,17 @@ public class BillServiceImpl implements BillService {
 
 
     @Override
-    public List<BillDto> findAll( ) {
+    public List<BillDto> findAll() {
         return billRepository.getAllBill();
     }
 
     @Override
     public Page<BillDto> findAll(Pageable pageable) {
         return billRepository.findAllList(pageable);
+    }
+
+    @Override
+    public List<BillDto> findBillByUser(String name) {
+        return billRepository.getBillByUser("%" + name + "%");
     }
 }

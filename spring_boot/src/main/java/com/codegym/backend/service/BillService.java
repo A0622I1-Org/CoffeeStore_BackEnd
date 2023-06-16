@@ -17,5 +17,6 @@ import java.util.List;
 public interface BillService {
     List<BillDto> findAll();
     Page<BillDto> findAll(Pageable pageable);
+    List<BillDto> findBillByUser(String name);
 
 }

@@ -14,16 +14,16 @@ import java.util.List;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
-    @Query(value = "select b.id, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b " +
+    @Query(value = "select b.id,b.created_time, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as total_price from  bill b " +
             "join `table` t on b.table_id = t.id " +
             "join user u on b.user_id =u.id " +
             "join bill_detail bd on bd.bill_id = b.id " +
             "join service s on bd.service_id = s.id " +
             "group by b.id " +
-            "order by b.id", nativeQuery = true)
+            "order by b.id;", nativeQuery = true)
     Page<BillDto> findAllList(Pageable pageable);
 
-    @Query(value = "select b.id, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b " +
+    @Query(value = "select b.id,b.created_time as createdTime, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b " +
             "join `table` t on b.table_id = t.id " +
             "join user u on b.user_id =u.id " +
             "join bill_detail bd on bd.bill_id = b.id " +
@@ -31,4 +31,14 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
             "group by b.id " +
             "order by b.id", nativeQuery = true)
     List<BillDto> getAllBill();
+
+    @Query(value ="select b.id,b.created_time as createdTime, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b " +
+            "join `table` t on b.table_id = t.id " +
+            "join user u on b.user_id =u.id " +
+            "join bill_detail bd on bd.bill_id = b.id " +
+            "join service s on bd.service_id = s.id " +
+            "where u.name like ? "+
+            "group by b.id " +
+            "order by b.id",nativeQuery = true )
+    List<BillDto> getBillByUser(String name);
 }
