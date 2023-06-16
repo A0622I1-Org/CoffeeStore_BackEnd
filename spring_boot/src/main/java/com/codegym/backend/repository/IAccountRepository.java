@@ -26,7 +26,7 @@ public interface IAccountRepository extends JpaRepository<Account, Integer> {
     String existsByEmail(String email);
 
     @Modifying
-    @Query(value = "update project_coffee_a0622i1.account set verification_code= ?1 where user_name = ?2", nativeQuery = true)
+    @Query(value = "update account set verification_code= ?1 where user_name = ?2", nativeQuery = true)
     void addVerificationCode(String code, String username);
 
     @Query(value = "select * from account where verification_code = ?1", nativeQuery = true)
