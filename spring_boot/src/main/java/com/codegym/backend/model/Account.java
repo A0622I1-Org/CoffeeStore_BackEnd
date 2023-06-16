@@ -1,7 +1,8 @@
 package com.codegym.backend.model;
 
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "account")
@@ -99,4 +100,5 @@ public class Account {
     public void setAccountRoles(List<AccountRole> accountRoles) {
         this.accountRoles = accountRoles;
     }
+
 }

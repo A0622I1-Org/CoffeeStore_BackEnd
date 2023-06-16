@@ -1,6 +1,8 @@
 package com.codegym.backend.model;
 
+import java.util.List;
 import javax.persistence.*;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "account_role")
@@ -18,7 +20,7 @@ public class AccountRole {
     @JoinColumn(name = "role_id")
     private AppRole role;
 
-    // Constructors, getters, and setters
+   // Constructors, getters, and setters
 
     public AccountRole() {
     }
