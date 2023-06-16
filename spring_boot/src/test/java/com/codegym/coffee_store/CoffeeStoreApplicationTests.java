@@ -1,10 +1,10 @@
-package com.codegym.backend;
+package com.codegym.coffee_store;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Module06ApplicationTests {
+class CoffeeStoreApplicationTests {
 
     @Test
     void contextLoads() {

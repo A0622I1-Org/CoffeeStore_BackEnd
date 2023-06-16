@@ -1,7 +1,7 @@
 package com.codegym.backend.repository;
 
 import com.codegym.backend.dto.BillDetailDto;
-import com.codegym.backend.dto.BillDto;
+import com.codegym.backend.dto.BillListDto;
 import com.codegym.backend.model.Bill;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,14 +14,15 @@ import java.util.List;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
-    @Query(value = "select b.id,b.created_time, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as total_price from  bill b " +
-            "join `table` t on b.table_id = t.id " +
-            "join user u on b.user_id =u.id " +
-            "join bill_detail bd on bd.bill_id = b.id " +
-            "join service s on bd.service_id = s.id " +
-            "group by b.id " +
-            "order by b.id;", nativeQuery = true)
-    Page<BillDto> findAllList(Pageable pageable);
+    String SelectAllBill_Sql = "select b.id,b.created_time as createdTime, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b\n" +
+            "            join `table` t on b.table_id = t.id\n" +
+            "            join user u on b.user_id =u.id\n" +
+            "            join bill_detail bd on bd.bill_id = b.id\n" +
+            "            join service s on bd.service_id = s.id\n" +
+            "            group by b.id\n" +
+            "            order by b.id";
+    @Query(value = SelectAllBill_Sql, countQuery = SelectAllBill_Sql, nativeQuery = true)
+    Page<BillListDto> findAllList(Pageable pageable);
 
     @Query(value = "select b.id,b.created_time as createdTime, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b " +
             "join `table` t on b.table_id = t.id " +
@@ -30,7 +31,7 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
             "join service s on bd.service_id = s.id " +
             "group by b.id " +
             "order by b.id", nativeQuery = true)
-    List<BillDto> getAllBill();
+    List<BillListDto> getAllBill();
 
     @Query(value ="select b.id,b.created_time as createdTime, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b " +
             "join `table` t on b.table_id = t.id " +
@@ -40,5 +41,5 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
             "where u.name like ? "+
             "group by b.id " +
             "order by b.id",nativeQuery = true )
-    List<BillDto> getBillByUser(String name);
+    List<BillListDto> getBillByUser(String name);
 }

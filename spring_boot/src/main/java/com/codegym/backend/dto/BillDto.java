@@ -1,11 +1,10 @@
 package com.codegym.backend.dto;
 
-import java.util.Date;
-
-public interface BillDto {
-    Integer getId();
-    String getTableNumber();
-    String getName();
-    Integer getTotalPrice();
-    String getCreatedTime();
+public interface BillDTO {
+    public Integer getId();
+    public String getCreatedTime();
+    public Boolean getPaymentStatus();
+    public String getPaymentTime();
+    public Integer getTableId();
+    public Integer getUserId();
 }

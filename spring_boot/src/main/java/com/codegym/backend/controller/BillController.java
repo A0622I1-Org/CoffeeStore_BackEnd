@@ -1,7 +1,7 @@
 package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.BillDetailDto;
-import com.codegym.backend.dto.BillDto;
+import com.codegym.backend.dto.BillListDto;
 import com.codegym.backend.model.Bill;
 import com.codegym.backend.service.BillDetailService;
 import com.codegym.backend.service.BillService;
@@ -27,19 +27,18 @@ public class BillController {
     private BillDetailService billDetailService;
 
     @GetMapping("list")
-    public ResponseEntity<Page<BillDto>> getBill(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+    public ResponseEntity<Page<BillListDto>> getBill(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
         Pageable pageable = PageRequest.of(page,size);
-        Page<BillDto> billList = billService.findAll(pageable);
+        Page<BillListDto> billList = billService.findAll(pageable);
         if(billList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(billList);
     }
 
-
     @GetMapping("")
-    public ResponseEntity<List<BillDto>> getBillList(){
-        List<BillDto> billList = billService.findAll();
+    public ResponseEntity<List<BillListDto>> getBillList(){
+        List<BillListDto> billList = billService.findAll();
         return ResponseEntity.ok(billList);
     }
 
@@ -50,8 +49,8 @@ public class BillController {
     }
 
     @GetMapping("/getListByUser")
-    public ResponseEntity<List<BillDto>> getBillByUser(@RequestParam String name){
-        List<BillDto> billList = billService.findBillByUser(name);
+    public ResponseEntity<List<BillListDto>> getBillByUser(@RequestParam String name){
+        List<BillListDto> billList = billService.findBillByUser(name);
         return ResponseEntity.ok(billList);
     }
 }
