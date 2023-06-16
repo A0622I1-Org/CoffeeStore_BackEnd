@@ -27,4 +27,9 @@ public class CoffeeTableService implements ICoffeeTableService {
     public List<BillDetailListDTO> getBillDetailByTableId(Integer tableId) {
         return tableRepository.getBillDetailByTableId(tableId);
     }
+
+    @Override
+    public void updateTableStatus(int tableId) {
+        tableRepository.updateTableStatus(tableId);
+    }
 }

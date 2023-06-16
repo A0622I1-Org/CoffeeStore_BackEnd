@@ -6,7 +6,6 @@ public interface BillDetailListDTO {
     public String getServiceName();
     public Integer getQuantity();
     public Double getPrice();
-    public String getTableName();
     public Double getSum();
     public Boolean getPaymentStatus();
 }

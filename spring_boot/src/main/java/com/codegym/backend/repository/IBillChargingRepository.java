@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public interface IBillChargingRepository extends JpaRepository<Bill, Integer> {
     @Modifying
     @Query(value = "SELECT b.id AS billId, b.user_id AS userId, b.table_id AS tableId, " +
@@ -21,8 +23,8 @@ public interface IBillChargingRepository extends JpaRepository<Bill, Integer> {
     List<BillChargingListDTO> getAllBillCharging(Integer tableId);
 
     @Modifying
-    @Query(value = "UPDATE bill SET payment_status = 1, payment_time = ?, user_id = ?\n" +
-            "WHERE table_id = ?", nativeQuery = true)
+    @Query(value = "UPDATE bill SET payment_status = 1, payment_time = ?1, user_id = ?2\n" +
+            "WHERE table_id = ?3", nativeQuery = true)
     void updateBillStatusByTableId(String paymentTime, int userId, int tableId);
 
 }
