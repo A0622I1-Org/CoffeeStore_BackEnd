@@ -10,4 +10,5 @@ public interface IUserDto {
     String getBirthday();
     String getSalary();
     String getPosition();
+    String getEnableFlag();
 }

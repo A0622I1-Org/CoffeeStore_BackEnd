@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User, Integer> {
-    String selectAllUser_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday,\n" +
+    String selectAllUser_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag,\n" +
             "u.salary, p.name position  from user u \n" +
             "join account a on u.account_id = a.id\n" +
             "join position p on p.id = u.position_id\n" +
@@ -19,7 +19,7 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     @Query(value = selectAllUser_sql, countQuery = selectAllUser_sql, nativeQuery = true)
     Page<IUserDto> findAllList(Pageable pageable);
 
-    String findNameOrBirthDay_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday,\n" +
+    String findNameOrBirthDay_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag,\n" +
             "u.salary, p.name position  from user u \n" +
             "join account a on u.account_id = a.id\n" +
             "join position p on p.id = u.position_id\n" +
@@ -28,7 +28,7 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     @Query(value = findNameOrBirthDay_sql, countQuery = findNameOrBirthDay_sql, nativeQuery = true)
     Page<IUserDto> findUserByNameOrDate(Pageable pageable, String date, String name);
 
-    String findByName_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday,\n" +
+    String findByName_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag,\n" +
             "u.salary, p.name position  from user u \n" +
             "join account a on u.account_id = a.id\n" +
             "join position p on p.id = u.position_id\n" +
@@ -38,6 +38,7 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     Page<IUserDto> findUserByName(Pageable pageable, String date);
 
     @Modifying
-    @Query(value = "call sp_deleteUser(?);", nativeQuery = true)
-    int deleteById(int id);
+    @Query(value = "update user set enable_flag = 0 where id = ?", nativeQuery = true)
+    void deleteById(int id);
+
 }

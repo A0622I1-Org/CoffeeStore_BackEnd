@@ -62,10 +62,10 @@ use a0622i1_coffee;
 select * from account;
 select * from user;
 select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday,
-u.salary, p.name position  from user u 
+u.salary, p.name position, u.enable_flag  from user u 
 join account a on u.account_id = a.id
 join position p on p.id = u.position_id
-where u.birthday = "1994-01-01" and u.name like "%%"
+-- and u.birthday = "1994-01-01" and u.name like "%%"
 order by u.id;
 
 
@@ -79,5 +79,6 @@ end//
 delimiter ;
 call sp_deleteUser(2);
 select * from user;
+update user set enable_flag = 1 
 
 

@@ -30,7 +30,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean deleteById(int id) {
-        return repository.deleteById(id) > 0;
+    public void deleteById(int id) {
+        repository.deleteById(id);
     }
 }
