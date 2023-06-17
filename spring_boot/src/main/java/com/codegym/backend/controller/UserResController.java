@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @CrossOrigin("*")
@@ -57,11 +58,10 @@ public class UserResController {
 
     @PutMapping("/userDelete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable int id) {
-        Pageable pageable = PageRequest.of(0, 10);
-        Page<IUserDto> userList = userService.findAll(pageable);
+        List<IUserDto> userList = userService.findAllUser();
         if (userList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy tài khoản cần xóa!");
-        } else if (Objects.equals(userList.getContent().get(id-1).getEnableFlag(), "false")) {
+        } else if (Objects.equals(userList.get(id-1).getEnableFlag(), "false")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy tài khoản cần xóa!");
         } else {
             userService.deleteById(id);

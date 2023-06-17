@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface IUserRepository extends JpaRepository<User, Integer> {
 
@@ -26,6 +28,9 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
             "order by u.id";
     @Query(value = selectAllUser_sql, countQuery = selectAllUser_sql, nativeQuery = true)
     Page<IUserDto> findAllList(Pageable pageable);
+
+    @Query(value = selectAllUser_sql, countQuery = selectAllUser_sql, nativeQuery = true)
+    List<IUserDto> findAllUser();
 
     String findNameOrBirthDay_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag,\n" +
             "u.salary, p.name position  from user u \n" +
@@ -48,5 +53,4 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query(value = "update user set enable_flag = 0 where id = ?", nativeQuery = true)
     void deleteById(int id);
-
 }

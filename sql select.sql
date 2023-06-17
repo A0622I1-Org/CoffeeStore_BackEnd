@@ -61,5 +61,6 @@ u.salary, p.name position, u.enable_flag  from user u
 join account a on u.account_id = a.id
 join position p on p.id = u.position_id
 order by u.id;
+update user set enable_flag = 1;
 
 
