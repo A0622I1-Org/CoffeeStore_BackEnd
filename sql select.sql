@@ -55,30 +55,11 @@ select sql_insert,sql_insert2;
 end//
 delimiter ;
 call sp_create_new_order(3, 5, 2);
-truncate table feedback;
--- get list user STT	Tài Khoản	Họ tên	Địa chỉ	SDT	Giới tính	Ngày sinh	Lương	Chức vụ	
-use a0622i1_coffee;
-
-select * from account;
-select * from user;
+-- get user list
 select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday,
 u.salary, p.name position, u.enable_flag  from user u 
 join account a on u.account_id = a.id
 join position p on p.id = u.position_id
--- and u.birthday = "1994-01-01" and u.name like "%%"
 order by u.id;
-
-
-drop procedure sp_deleteUser;
-delimiter //
-create procedure sp_deleteUser(IN deleteId int)
-begin
-	SET FOREIGN_KEY_CHECKS=0;
-	delete from user where id = deleteId;
-end//
-delimiter ;
-call sp_deleteUser(2);
-select * from user;
-update user set enable_flag = 1 
 
 
