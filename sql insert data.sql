@@ -1,9 +1,6 @@
 use a0622i1_coffee;
 SET FOREIGN_KEY_CHECKS=0;
-<<<<<<< HEAD
 truncate table feedback;
-=======
->>>>>>> main
 INSERT INTO feedback (fb_id, bill_id, name, email, date, content, type_id, rate)
 VALUES
 ('FB_00001', 234, 'Nguyễn Ngọc Đông', 'dongNG@gmail.com', '2022-06-01', 'Great drink, love it!', 2, 4),
@@ -203,11 +200,7 @@ VALUES
   (39, 1),
   (40, 3);
 SET FOREIGN_KEY_CHECKS=0;
-<<<<<<< HEAD
 truncate table user;
-select * from user;
-select * from role;
-select * from account;
 update user set enable_flag = 1 where id <=2;
 INSERT INTO user (name, address, phone_number, birthday, gender, salary, position_id, account_id, enable_flag, imgUrl)
 VALUES
@@ -251,23 +244,6 @@ VALUES
   ('Lê Thị Thu', 'Đà Nẵng', '0123456789', '1929-05-31', 0, 47000000, 2, 38, 1, 'url_img37'),
   ('Nguyễn Văn Quang', 'Quảng Nam', '0123456789', '1927-03-12', 1, 48000000, 1, 39, 0, 'url_img38'),
   ('Trần Thị Bình', 'Huế', '0123456789', '1925-10-23', 0, 49000000, 2, 40, 1, 'url_img39');
-delimiter //
-create procedure sp_deleteUser(IN deleteId int)
-begin
-	SET FOREIGN_KEY_CHECKS=0;
-	delete from user where id = deleteId;
-end//
-delimiter ;
-=======
-INSERT INTO user (name,address,phone_number,birthday,gender,salary,position_id,account_id,enable_flag,imgUrl) values
-('Lê Gia Tú','Quảng Trị','0123456789','10/05/1991',1,10000000,1,1,0,'url img1'),
-('Lê Thị Việt Hà','Quảng Trị','0123456789','34335',0,11000000,2,2,0,'url img1'),
-('Huỳnh Minh Cường','Đà Nẵng','0123456789','37673',1,11000000,1,3,0,'url img2'),
-('Lê Văn An','Quảng Nam','0123456789','35522',0,11000000,1,4,0,'url img3'),
-('Trần Sĩ Tiến','Huế','0123456789','36526',1,11000000,1,5,0,'url img4'),
-('nobody','','','',1,1,1,5,0,'url img4');
-
->>>>>>> main
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO `position` (name) values
 ('Chủ tiệm'),
@@ -300,7 +276,6 @@ INSERT INTO `table` (name,status,enable_flag) values
 ('bàn nâu','tốt',1);
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO bill (created_time,user_id,table_id,payment_status,payment_time) values
-<<<<<<< HEAD
 ('01-06-3033 09:50:30',1,3,1,'01-06-3033 11:10:30'),
 ('01-06-3033 10:50:30',1,1,1,'01-06-3033 11:10:30'),
 ('01-06-3033 11:00:30',1,3,1,'01-06-3033 11:10:30'),
@@ -335,42 +310,6 @@ INSERT INTO bill (created_time,user_id,table_id,payment_status,payment_time) val
 ('01-06-3033 10:40:30',3,8,1,'01-06-3033 15:10:30'),
 ('01-06-3033 10:40:30',5,5,0,'01-06-3033 15:10:30'),
 ('01-06-3033 10:40:30',3,3,1,'01-06-3033 15:10:30');
-=======
-('01/06/2023 09:50:30',1,2,1,'01/06/2023 11:10:30'),
-('01/06/2023 10:50:30',1,1,1,'01/06/2023 11:10:30'),
-('01/06/2023 11:00:30',1,2,1,'01/06/2023 11:10:30'),
-('01/06/2023 12:50:30',1,1,1,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',1,2,1,'01/06/2023 12:10:30'),
-('02/06/2023 10:40:30',2,10,1,'02/06/2023 11:40:30'),
-('03/06/2023 10:40:30',3,2,0,'03/06/2023 11:40:30'),
-('04/06/2023 10:40:30',5,4,0,'04/06/2023 11:40:30'),
-('05/06/2023 10:40:30',4,5,0,'05/06/2023 11:40:30'),
-('06/06/2023 10:40:30',1,3,0,'06/06/2023 15:10:30'),
-('07/06/2023 10:40:30',2,2,1,'07/06/2023 15:10:30'),
-('08/06/2023 10:40:30',3,5,1,'08/06/2023 15:10:30'),
-('09/06/2023 10:40:30',4,5,1,'09/06/2023 15:10:30'),
-('10/06/2023 10:40:30',5,2,0,'10/06/2023 15:10:30'),
-('11/06/2023 10:40:30',5,7,1,'01/06/2023 15:10:30'),
-('12/06/2023 10:40:30',1,8,0,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',2,4,1,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',4,9,0,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',3,3,1,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',2,6,0,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',4,7,0,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',2,1,1,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',5,4,0,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',5,2,0,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',3,7,0,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',5,8,1,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',1,9,1,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',4,10,0,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',2,5,1,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',5,3,0,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',2,6,1,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',3,8,1,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',5,5,0,'01/06/2023 15:10:30'),
-('01/06/2023 10:40:30',3,3,1,'01/06/2023 15:10:30');
->>>>>>> main
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO bill_detail (bill_id,service_id,quantity) values
 (1,1,5),
@@ -431,10 +370,7 @@ INSERT INTO bill_detail (bill_id,service_id,quantity) values
 (37,3,6),
 (38,1,4);
 SET FOREIGN_KEY_CHECKS=0;
-<<<<<<< HEAD
 truncate table feedback_img;
-=======
->>>>>>> main
 INSERT INTO feedback_img (feedback_id, imgUrl)
 VALUES
   (1, 'https://images.pexels.com/photos/16979638/pexels-photo-16979638/free-photo-of-dia-ca-phe-c-c-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
@@ -447,7 +383,7 @@ VALUES
   (3, 'https://images.pexels.com/photos/16043282/pexels-photo-16043282/free-photo-of-dia-c-c-tay-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
   (4, 'https://images.pexels.com/photos/16050230/pexels-photo-16050230/free-photo-of-mon-an-dia-b-a-an-ly.jpeg?auto=compress&cs=tinysrgb&w=1600'),
   (5, 'https://images.pexels.com/photos/16050227/pexels-photo-16050227/free-photo-of-mon-an-ca-phe-c-c-tao.jpeg?auto=compress&cs=tinysrgb&w=1600'),
-    (6, 'https://images.pexels.com/photos/16979638/pexels-photo-16979638/free-photo-of-dia-ca-phe-c-c-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (6, 'https://images.pexels.com/photos/16979638/pexels-photo-16979638/free-photo-of-dia-ca-phe-c-c-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
   (7, 'https://images.pexels.com/photos/16074688/pexels-photo-16074688/free-photo-of-dia-u-ng-ban-m-a.jpeg?auto=compress&cs=tinysrgb&w=1600'),
   (7, 'https://images.pexels.com/photos/42322/tea-tea-time-person-summer-42322.jpeg?auto=compress&cs=tinysrgb&h=566.525&fit=crop&w=633.175&dpr=1'),
   (7, 'https://images.pexels.com/photos/16053051/pexels-photo-16053051/free-photo-of-mon-an-ca-phe-may-nh-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
