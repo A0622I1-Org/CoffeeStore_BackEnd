@@ -4,10 +4,12 @@ select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f
 left join feedback_type ft on f.type_id = ft.id
 -- where f.date = '2022-06-01'
 order by f.id asc;
+select * from feedback;
+update feedback set rate = 4 where id <= 10;
 -- chi tiết phản hồi
 select f.rate, ft.type ,f.name, f.content from feedback f
 left join feedback_type ft on f.type_id = ft.id
-where f.id = 3;
+where f.id = 9;
 -- get img url
 select f.id , fi.imgUrl from feedback f
 left join feedback_img fi on f.id= fi.feedback_id
@@ -27,8 +29,6 @@ select b.id, b.user_id, b.table_id, sum(bd.quantity*s.price) sum from bill b
 join bill_detail bd on bd.bill_id = b.id
 join service s on s.id = bd.service_id
 group by b.id;
--- feedback
-select * from feedback;
 -- payment
 select b.id as bill_id, sum(bd.quantity*s.price) as sum from bill b
 join `table` t on b.table_id = t.id
