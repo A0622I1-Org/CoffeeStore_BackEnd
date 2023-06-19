@@ -2,14 +2,10 @@ package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.BillDTO;
 import com.codegym.backend.dto.BillDetailListDTO;
-import com.codegym.backend.model.Bill;
-import com.codegym.backend.model.BillDetail;
-import com.codegym.backend.model.CoffeeTable;
-import com.codegym.backend.model.Service;
-import com.codegym.backend.service.IBillDetailService;
-import com.codegym.backend.service.IBillService;
-import com.codegym.backend.service.IServiceService;
-import com.codegym.backend.service.ITableService;
+import com.codegym.backend.dto.BillInsertDTO;
+import com.codegym.backend.dto.InsertBillDetailDTO;
+import com.codegym.backend.model.*;
+import com.codegym.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -36,9 +35,12 @@ public class ServiceController {
 
     @Autowired
     IBillService iBillService;
+
+    @Autowired
+    IServiceTypeService iServiceTypeService;
 //    lấy danh sách service
     @GetMapping("/list/service")
-    public ResponseEntity<Page<Service>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "6") int size){
+    public ResponseEntity<Page<Service>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size){
         Pageable pageable = PageRequest.of(page, size);
         Page<Service> serviceList = serviceService.findAllService(pageable);
         if(serviceList.isEmpty()){
@@ -56,8 +58,8 @@ public class ServiceController {
         return new ResponseEntity<>(service,HttpStatus.OK);
     }
 // tìm kiếm danh sách service theo service_type_id
-    @GetMapping("/type_id/{id}")
-    public ResponseEntity<Page<Service>> getByTypeId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "6") int size,@PathVariable int id){
+    @GetMapping("/type_id")
+    public ResponseEntity<Page<Service>> getByTypeId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size,@RequestParam int id){
         Pageable pageable = PageRequest.of(page, size);
         Page<Service> serviceList = serviceService.findByServiceTypeId(id,pageable);
         if(serviceList.isEmpty()){
@@ -92,17 +94,28 @@ public class ServiceController {
         }
         return new ResponseEntity<>(bill,HttpStatus.OK);
     }
+//   Lấy dữ liệu bảng service_type
+    @GetMapping("/list/service_type")
+    public ResponseEntity<List<ServiceType>> getServiceType() {
+        List<ServiceType> serviceTypeList = iServiceTypeService.findAllServiceType();
+        if(serviceTypeList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(serviceTypeList,HttpStatus.OK);
+    }
 // thêm dữ liệu bill mới
-    @PostMapping("/insert_bill/{created_time}/{payment_status}/{payment_time}/{table_id}/{user_id}")
-    public ResponseEntity<?> insertBill(@PathVariable String created_time,@PathVariable int payment_status,
-                                        @PathVariable String payment_time,@PathVariable int table_id,@PathVariable int user_id) {
-        iBillService.insertBill(created_time,payment_status,payment_time,table_id,user_id);
+    @PostMapping("/insert_bill")
+    public ResponseEntity<?> insertBill(@Valid @RequestBody BillInsertDTO billInsertDTO){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime date = LocalDateTime.now();
+            iBillService.insertBill(dtf.format(date),billInsertDTO.getPayment_status(),billInsertDTO.getPayment_time(),
+                    billInsertDTO.getTable_id(),billInsertDTO.getUser_id());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 //thêm dữ liệu billdetail mới
-    @PostMapping("/insert_bill_detail/{quantity}/{bill_id}/{service_id}")
-    public ResponseEntity<?> insertBillDetail(@PathVariable int quantity,@PathVariable int bill_id,@PathVariable int service_id) {
-        iBillDetailService.insertBillDetail(quantity,bill_id,service_id);
+    @PostMapping("/insert_bill_detail")
+    public ResponseEntity<?> insertBillDetail(@Valid @RequestBody InsertBillDetailDTO billDetailDTO) {
+        iBillDetailService.insertBillDetail(billDetailDTO.getQuantity(),billDetailDTO.getBill_id(),billDetailDTO.getService_id());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
