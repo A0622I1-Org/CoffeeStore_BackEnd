@@ -44,6 +44,26 @@ public class FeedbackService implements IFeedbackService {
                 feedback.getEmail(), feedback.getDate(), feedback.getContent(), feedback.getFeedbackType().getId(), feedback.getRate());
     }
 
+    /**
+     * @author DongPL
+     * @version 2.0
+     * @since 19/06/2023
+     */
+    @Override
+    public Integer getLastInsert() {
+        return feedbackRepository.getLastInsert();
+    }
+
+    /**
+     * @author DongPL
+     * @version 2.0
+     * @since 19/06/2023
+     */
+    @Override
+    public Feedback findById(int id) {
+        return feedbackRepository.findObject(id);
+    }
+
     @Override
     public FeedbackDetailDto findFeedbackById(int id) {
         return feedbackRepository.findFeedbackById(id);
