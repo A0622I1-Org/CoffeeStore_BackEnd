@@ -4,10 +4,12 @@ select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f
 left join feedback_type ft on f.type_id = ft.id
 -- where f.date = '2022-06-01'
 order by f.id asc;
+select * from feedback;
+update feedback set rate = 4 where id <= 10;
 -- chi tiết phản hồi
 select f.rate, ft.type ,f.name, f.content from feedback f
 left join feedback_type ft on f.type_id = ft.id
-where f.id = 3;
+where f.id = 9;
 -- get img url
 select f.id , fi.imgUrl from feedback f
 left join feedback_img fi on f.id= fi.feedback_id
@@ -27,8 +29,6 @@ select b.id, b.user_id, b.table_id, sum(bd.quantity*s.price) sum from bill b
 join bill_detail bd on bd.bill_id = b.id
 join service s on s.id = bd.service_id
 group by b.id;
--- feedback
-select * from feedback;
 -- payment
 select b.id as bill_id, sum(bd.quantity*s.price) as sum from bill b
 join `table` t on b.table_id = t.id
@@ -55,30 +55,12 @@ select sql_insert,sql_insert2;
 end//
 delimiter ;
 call sp_create_new_order(3, 5, 2);
-truncate table feedback;
--- get list user STT	Tài Khoản	Họ tên	Địa chỉ	SDT	Giới tính	Ngày sinh	Lương	Chức vụ	
-use a0622i1_coffee;
-
-select * from account;
-select * from user;
+-- get user list
 select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday,
 u.salary, p.name position, u.enable_flag  from user u 
 join account a on u.account_id = a.id
 join position p on p.id = u.position_id
--- and u.birthday = "1994-01-01" and u.name like "%%"
 order by u.id;
-
-
-drop procedure sp_deleteUser;
-delimiter //
-create procedure sp_deleteUser(IN deleteId int)
-begin
-	SET FOREIGN_KEY_CHECKS=0;
-	delete from user where id = deleteId;
-end//
-delimiter ;
-call sp_deleteUser(2);
-select * from user;
-update user set enable_flag = 1 
+update user set enable_flag = 1;
 
 
