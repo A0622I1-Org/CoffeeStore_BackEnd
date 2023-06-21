@@ -14,10 +14,15 @@ import java.util.Optional;
 @Transactional
 public interface IAccountRepository extends JpaRepository<Account, Integer> {
 
+    /**
+     * ThangLV
+     * change password
+     */
     @Modifying
     @Query(value = "update account set password =?1 where user_name=?2 ", nativeQuery = true)
     void changePassword(String password, String userName);
-    
+
+
     @Query(value = "SELECT * FROM account where user_name = ?1", nativeQuery = true)
     Optional<Account> findAccountByUserName(String username);
 }

@@ -1,14 +1,24 @@
 package com.codegym.backend.dto;
 
-public interface IUserDto {
-    Integer getId();
-    String getAccount();
+public interface IUserDTO {
+    Integer getID();
+
+    String getName();
+
     String getUserName();
+
+    String getDateOfBirth();
+
     String getAddress();
-    String getPhoneNumber();
-    String getGender();
-    String getBirthday();
-    String getSalary();
+
+    String getPhone();
+
+    Integer getGender();
+
+    double getSalary();
+
     String getPosition();
-    String getEnableFlag();
+
+    String getImg();
+
 }

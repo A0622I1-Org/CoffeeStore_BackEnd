@@ -16,6 +16,10 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /**
+     * ThangLV
+     * authenticate Account
+     */
     @Override
     public Boolean authenticatePassword(String password, String username) {
         Authentication authentication = authenticationManager.authenticate(
@@ -26,6 +30,10 @@ public class AccountServiceImpl implements AccountService {
         return false;
     }
 
+    /**
+     * ThangLV
+     * change password
+     */
     @Override
     public void changePassword(String password, String username) {
         IAccountRepository.changePassword(password, username);

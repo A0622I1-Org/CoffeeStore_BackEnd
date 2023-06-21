@@ -19,6 +19,10 @@ public class SecurityController {
     @Autowired
     private PasswordEncoder encoder;
 
+    /**
+     * ThangLV
+     * change password
+     */
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody AccountDTO accountDTO){
 

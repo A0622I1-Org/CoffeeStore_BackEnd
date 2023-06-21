@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @CrossOrigin("*")
@@ -23,6 +22,10 @@ public class UserResController {
     @Autowired
     private IUserService userService;
 
+    /**
+     * ThangLV
+     * get information of User by idUser
+     */
     @GetMapping("/find-user-id/{id}")
     public ResponseEntity<IUserInforDTO> findUserById(@PathVariable Integer id) {
         IUserInforDTO user = userService.findUserById(id);
