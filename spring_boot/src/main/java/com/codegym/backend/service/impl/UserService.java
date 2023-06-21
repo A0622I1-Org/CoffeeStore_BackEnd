@@ -2,6 +2,7 @@ package com.codegym.backend.service.impl;
 
 import com.codegym.backend.dto.IUserDto;
 import com.codegym.backend.model.User;
+import com.codegym.backend.repository.IAccountRepository;
 import com.codegym.backend.repository.IUserRepository;
 import com.codegym.backend.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import java.util.List;
 
 @Service
 public class UserService implements IUserService {
-
     @Autowired
     private IUserRepository repository;
 
@@ -24,12 +24,12 @@ public class UserService implements IUserService {
 
     @Override
     public User findByAccountId(int accountId, Boolean enableFlag) {
-        return null;
+        return repository.findByAccountId(accountId,enableFlag);
     }
 
     @Override
     public String findNameByAccountId(int accountId, Boolean enableFlag) {
-        return null;
+        return repository.findNameByAccountId(accountId,enableFlag);
     }
 
     @Override

@@ -18,6 +18,9 @@ public class Account {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "change_password_date",columnDefinition = "Date")
+    private String changePassworDate;
+
     @Column(name = "verification_code")
     private String verificationCode;
 
@@ -33,6 +36,15 @@ public class Account {
     // Constructors, getters, and setters
 
     public Account() {
+    }
+
+    public Account(String userName, String password, String changePassworDate, String verificationCode, String email, boolean enableFlag) {
+        this.userName = userName;
+        this.password = password;
+        this.changePassworDate = changePassworDate;
+        this.verificationCode = verificationCode;
+        this.email = email;
+        this.enableFlag = enableFlag;
     }
 
     public Account(String userName, String password, String verificationCode, String email, boolean enableFlag) {
@@ -99,5 +111,13 @@ public class Account {
 
     public void setAccountRoles(List<AccountRole> accountRoles) {
         this.accountRoles = accountRoles;
+    }
+
+    public String getChangePassworDate() {
+        return changePassworDate;
+    }
+
+    public void setChangePassworDate(String changePassworDate) {
+        this.changePassworDate = changePassworDate;
     }
 }

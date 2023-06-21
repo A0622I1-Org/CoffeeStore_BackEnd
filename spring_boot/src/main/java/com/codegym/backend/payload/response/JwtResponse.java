@@ -10,19 +10,36 @@ public class JwtResponse {
     private Integer id;
     private String username;
     private List<String> roles;
-    private User user;
+    private String name;
+    private Boolean changePassword;
 
     public JwtResponse() {
     }
 
-    public JwtResponse(String token, Integer id, String username, List<String> roles, User user) {
+    public JwtResponse(String token, Integer id, String username, List<String> roles, String name, Boolean changePassword) {
         this.token = token;
         this.id = id;
         this.username = username;
         this.roles = roles;
-        this.user = user;
+        this.name = name;
+        this.changePassword = changePassword;
     }
 
+    public JwtResponse(String token, Integer id, String username, List<String> roles, String name) {
+        this.token = token;
+        this.id = id;
+        this.username = username;
+        this.roles = roles;
+        this.name = name;
+    }
+
+    public Boolean getChangePassword() {
+        return changePassword;
+    }
+
+    public void setChangePassword(Boolean changePassword) {
+        this.changePassword = changePassword;
+    }
 
     public String getToken() {
         return token;
@@ -30,14 +47,6 @@ public class JwtResponse {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Integer getId() {
@@ -64,11 +73,11 @@ public class JwtResponse {
         this.roles = roles;
     }
 
-    public User getUser() {
-        return user;
+    public String getName() {
+        return name;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setName(String name) {
+        this.name = name;
     }
 }

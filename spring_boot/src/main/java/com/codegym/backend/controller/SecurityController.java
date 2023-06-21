@@ -1,10 +1,10 @@
 package com.codegym.backend.controller;
 
 import com.codegym.backend.jwt.JwtUtility;
-import com.codegym.backend.model.Account;
 import com.codegym.backend.model.User;
 import com.codegym.backend.payload.request.LoginRequest;
 import com.codegym.backend.payload.request.NewPasswordRequest;
+import com.codegym.backend.payload.request.UserNameRequest;
 import com.codegym.backend.payload.request.VerificationCodeRequest;
 import com.codegym.backend.payload.response.JwtResponse;
 import com.codegym.backend.payload.response.MessageResponse;
@@ -20,17 +20,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/public")
+@RequestMapping("/api/public")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SecurityController {
     @Autowired
@@ -48,8 +52,17 @@ public class SecurityController {
     @Autowired
     IUserService userService;
 
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) throws ParseException {
+        if (bindingResult.hasErrors()) {
+            List<String> message = new ArrayList<>();
+            bindingResult.getAllErrors().forEach((element) -> {
+                message.add(element.getDefaultMessage());
+            });
+            return ResponseEntity.badRequest().body(message);
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
         );
@@ -57,20 +70,25 @@ public class SecurityController {
         String token = jwtUtility.generateJwtToken(loginRequest.getUsername());
         AccountDetail accountDetail = (AccountDetail) authentication.getPrincipal();
         List<String> roles = accountDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        Optional<Account> account = accountService.findAccountByUserName(loginRequest.getUsername());
-        User user = userService.findByAccountId(account.get().getId(), false);
-        if (user != null) {
-            user.setAccount(null);
-        }
+        Boolean changePassword = accountService.checkChangePasswordDateByUserName(accountDetail.getUsername());
+        User user = userService.findByAccountId(accountDetail.getId(), false);
         return ResponseEntity.ok(
-                new JwtResponse(token, accountDetail.getId(), accountDetail.getUsername(), roles, user)
+                new JwtResponse(token, accountDetail.getId(), accountDetail.getUsername(), roles, user.getName(), changePassword)
         );
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<?> reset(@Valid @RequestBody LoginRequest loginRequest) throws MessagingException, UnsupportedEncodingException {
-        if (accountService.existsByUserName(loginRequest.getUsername()) != null) {
-            accountService.addVerificationCode(loginRequest.getUsername());
+    public ResponseEntity<?> reset(@Valid @RequestBody UserNameRequest userNameRequest, BindingResult bindingResult) throws MessagingException, UnsupportedEncodingException {
+        if (bindingResult.hasErrors()) {
+            List<String> message = new ArrayList<>();
+            bindingResult.getAllErrors().forEach((element) -> {
+                message.add(element.getDefaultMessage());
+            });
+            return ResponseEntity.badRequest().body(message);
+        }
+
+        if (accountService.existsByUserName(userNameRequest.getUsername()) != null) {
+            accountService.addVerificationCode(userNameRequest.getUsername());
             return ResponseEntity.ok(new MessageResponse("Sent email "));
         }
         return ResponseEntity
@@ -88,7 +106,15 @@ public class SecurityController {
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<?> doChangePassword(@RequestBody NewPasswordRequest newPasswordRequest) {
+    public ResponseEntity<?> doChangePassword(@RequestBody NewPasswordRequest newPasswordRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<String> message = new ArrayList<>();
+            bindingResult.getAllErrors().forEach((element) -> {
+                message.add(element.getDefaultMessage());
+            });
+            return ResponseEntity.badRequest().body(message);
+        }
+
         if (accountService.findAccountByVerificationCode(newPasswordRequest.getCode()) != null) {
             accountService.saveNewPassword(passwordEncoder.encode(newPasswordRequest.getNewPassword()), newPasswordRequest.getCode());
             return ResponseEntity.ok(new MessageResponse("Thay đổi mật khẩu thành công"));
