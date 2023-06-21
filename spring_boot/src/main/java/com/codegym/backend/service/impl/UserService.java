@@ -18,11 +18,6 @@ public class UserService implements IUserService {
     private IUserRepository repository;
 
     @Override
-    public List<User> findAllUser() {
-        return repository.findAllUser();
-    }
-
-    @Override
     public User findByAccountId(int accountId, Boolean enableFlag) {
         return repository.findByAccountId(accountId,enableFlag);
     }
