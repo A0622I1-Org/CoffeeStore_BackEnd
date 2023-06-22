@@ -1,6 +1,6 @@
 package com.codegym.backend.dto;
 
-public class UserEditDTO {
+public class UserDTOID {
     Integer userId;
     String name;
     String address;
@@ -11,9 +11,8 @@ public class UserEditDTO {
     String account;
     String imgUrl;
     String position;
-    String email;
 
-    public UserEditDTO(Integer userId, String name, String address, String phoneNumber, String birthday, Integer gender, Double salary, String account, String imgUrl, String position, String email) {
+    public UserDTOID(Integer userId, String name, String address, String phoneNumber, String birthday, Integer gender, Double salary, String account, String imgUrl, String position) {
         this.userId = userId;
         this.name = name;
         this.address = address;
@@ -24,7 +23,6 @@ public class UserEditDTO {
         this.account = account;
         this.imgUrl = imgUrl;
         this.position = position;
-        this.email = email;
     }
 
     public Integer getUserId() {
@@ -105,13 +103,5 @@ public class UserEditDTO {
 
     public void setPosition(String position) {
         this.position = position;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

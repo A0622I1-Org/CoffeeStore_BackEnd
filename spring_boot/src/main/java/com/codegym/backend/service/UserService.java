@@ -5,12 +5,10 @@ import com.codegym.backend.dto.UserEditDTO;
 import com.codegym.backend.dto.UserFindIdDTO;
 
 import javax.mail.MessagingException;
-import java.util.List;
 
 
 public interface UserService {
-
-    UserFindIdDTO findById(int id);
+    UserFindIdDTO getById(int id);
 
     void editUser(UserEditDTO userEditDTO, int id);
 
