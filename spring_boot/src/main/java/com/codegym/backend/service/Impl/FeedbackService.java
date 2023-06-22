@@ -1,4 +1,3 @@
-
 /**
  * FeedbackService class to create shared methods
  *
@@ -7,8 +6,7 @@
  * @since 2023-06-13
  */
 
-package com.codegym.backend.service.Impl;
-
+package com.codegym.backend.service.impl;
 
 import com.codegym.backend.dto.FeedbackDetailDto;
 import com.codegym.backend.dto.FeedbackDto;

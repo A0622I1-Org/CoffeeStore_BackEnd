@@ -2,12 +2,15 @@ package com.codegym.backend.service.impl;
 
 import com.codegym.backend.dto.IUserDto;
 import com.codegym.backend.dto.IUserInforDTO;
+import com.codegym.backend.model.User;
 import com.codegym.backend.repository.IUserRepository;
 import com.codegym.backend.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -18,6 +21,20 @@ public class UserServiceImpl implements IUserService {
     @Override
     public IUserInforDTO findUserById(int index) {
         return repository.getUserById(index);
+
+    }
+    public List<User> findAllUser() {
+        return null;
+    }
+
+    @Override
+    public User findByAccountId(int accountId, Boolean enableFlag) {
+        return null;
+    }
+
+    @Override
+    public String findNameByAccountId(int accountId, Boolean enableFlag) {
+        return null;
     }
 
     @Override

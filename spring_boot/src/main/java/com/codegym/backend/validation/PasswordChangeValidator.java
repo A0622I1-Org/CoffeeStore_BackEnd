@@ -1,7 +1,7 @@
 package com.codegym.backend.validation;
 
 import com.codegym.backend.dto.AccountDTO;
-import com.codegym.backend.service.AccountService;
+import com.codegym.backend.service.impl.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

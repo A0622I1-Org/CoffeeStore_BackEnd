@@ -10,14 +10,26 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface IUserRepository extends JpaRepository<User, Integer> {
+public interface IUserRepository extends JpaRepository<User,Integer> {
 
     @Query(value = "select user.id as id, user.name,account.user_name as userName, user.birthday as dateOfBirth, user.address, user.phone_number as phone,\n" +
             "        user.gender, user.salary, position.name as position, user.img_url as img from user\n" +
             "                         join position on position.id = user.position_id\n" +
             "                         join account on account.id = user.account_id where user.enable_flag =1 and user.id = ?", nativeQuery = true)
     IUserInforDTO getUserById(int index);
+
+    @Query(value = "SELECT * FROM user", nativeQuery = true)
+    List<User> findAllUser();
+
+    @Query(value = "SELECT * FROM user where account_id = ?1 and enable_flag = ?2", nativeQuery = true)
+    User findByAccountId(int accountId, Boolean enableFlag);
+
+    @Query(value = "SELECT name FROM user where account_id = ?1 and enable_flag = ?2", nativeQuery = true)
+    String findNameByAccountId(int accountId, Boolean enableFlag);
+
 
     String selectAllUser_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag,\n" +
             "u.salary, p.name position  from user u \n" +
@@ -48,5 +60,4 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query(value = "update user set enable_flag = 0 where id = ?", nativeQuery = true)
     void deleteById(int id);
-
 }
