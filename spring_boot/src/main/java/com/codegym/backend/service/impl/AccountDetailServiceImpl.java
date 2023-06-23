@@ -2,7 +2,9 @@ package com.codegym.backend.service.impl;
 
 import com.codegym.backend.model.Account;
 import com.codegym.backend.repository.IAccountRepository;
+import com.codegym.backend.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,5 +21,13 @@ public class AccountDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findAccountByUserName(username).orElseThrow(() -> new UsernameNotFoundException("Not found account with username: " + username));
         return AccountDetail.build(account);
+    }
+
+    public String getCurrentUserName() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        }
+        return principal.toString();
     }
 }

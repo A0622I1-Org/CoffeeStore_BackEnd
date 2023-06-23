@@ -2,6 +2,7 @@ package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.IUserDto;
 import com.codegym.backend.service.IUserService;
+import com.codegym.backend.service.impl.AccountDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,9 +19,12 @@ import java.util.Objects;
 public class UserResController {
     @Autowired
     private IUserService userService;
+    @Autowired
+    private AccountDetailServiceImpl accountDetailService;
 
     @GetMapping("/listUser")
     public ResponseEntity<Page<IUserDto>> getUserlist(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        String username = accountDetailService.getCurrentUserName();
         Pageable pageable = PageRequest.of(page, size);
         Page<IUserDto> userList = userService.findAll(pageable);
         if (userList.isEmpty()) {
