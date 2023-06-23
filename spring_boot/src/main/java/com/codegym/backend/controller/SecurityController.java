@@ -5,6 +5,7 @@ import com.codegym.backend.payload.request.LoginRequest;
 import com.codegym.backend.payload.request.NewPasswordRequest;
 import com.codegym.backend.payload.request.VerificationCodeRequest;
 import com.codegym.backend.payload.response.MessageResponse;
+import com.codegym.backend.service.impl.AccountDetailServiceImpl;
 import com.codegym.backend.service.impl.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,7 @@ public class SecurityController {
 
     @Autowired
     AccountService accountService;
+
     @Autowired
     private JwtUtility jwtUtility;
 
@@ -50,24 +52,9 @@ public class SecurityController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     IUserService userService;
-    @Autowired
-    private PasswordEncoder encoder;
 
-    /**
-     * ThangLV
-     * change password
-     */
-    @PostMapping("/change-password-request")
-    public ResponseEntity<?> changePassword(@RequestBody AccountDTO accountDTO) {
 
-        if (accountService.authenticatePassword(accountDTO.getCurrentPassword(), accountDTO.getUserName())) {
-            accountService.changePassword(encoder.encode(accountDTO.getNewPassword()), accountDTO.getUserName());
-            return ResponseEntity.ok(new MessageResponse("Đổi mật khẩu thành công"));
-        }
-        return ResponseEntity
-                .badRequest()
-                .body(new MessageResponse("Mật khẩu không đúng"));
-    }
+
 
 
     @PostMapping("/login")
@@ -80,12 +67,9 @@ public class SecurityController {
         AccountDetail accountDetail = (AccountDetail) authentication.getPrincipal();
         List<String> roles = accountDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         Optional<Account> account = accountService.findAccountByUserName(loginRequest.getUsername());
-        User user = userService.findByAccountId(account.get().getId(), false);
-        if (user != null) {
-            user.setAccount(null);
-        }
+        User user = userService.findByAccountId(accountDetail.getId(), true);
         return ResponseEntity.ok(
-                new JwtResponse(token, accountDetail.getId(), accountDetail.getUsername(), roles, user)
+                new JwtResponse(token, accountDetail.getId(), accountDetail.getUsername(), roles, user.getName(), user.getId())
         );
     }
 

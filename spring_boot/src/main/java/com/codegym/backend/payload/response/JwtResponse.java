@@ -10,17 +10,19 @@ public class JwtResponse {
     private Integer id;
     private String username;
     private List<String> roles;
-    private User user;
+    private String name;
+    private Integer idUser;
 
     public JwtResponse() {
     }
 
-    public JwtResponse(String token, Integer id, String username, List<String> roles, User user) {
+    public JwtResponse(String token, Integer id, String username, List<String> roles, String name, Integer idUser) {
         this.token = token;
         this.id = id;
         this.username = username;
         this.roles = roles;
-        this.user = user;
+        this.name = name;
+        this.idUser = idUser;
     }
 
 
@@ -64,11 +66,19 @@ public class JwtResponse {
         this.roles = roles;
     }
 
-    public User getUser() {
-        return user;
+    public String getName() {
+        return name;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 }

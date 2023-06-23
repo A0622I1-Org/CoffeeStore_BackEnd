@@ -29,7 +29,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User findByAccountId(int accountId, Boolean enableFlag) {
-        return null;
+        return repository.findByAccountId(accountId,enableFlag);
     }
 
     @Override

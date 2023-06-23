@@ -1,15 +1,20 @@
 package com.codegym.backend.controller;
 
+import com.codegym.backend.dto.AccountDTO;
 import com.codegym.backend.dto.IUserDto;
 import com.codegym.backend.dto.IUserInforDTO;
+import com.codegym.backend.payload.response.MessageResponse;
 import com.codegym.backend.service.IFeedbackService;
 import com.codegym.backend.service.IUserService;
+import com.codegym.backend.service.impl.AccountDetailServiceImpl;
+import com.codegym.backend.service.impl.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -20,6 +25,12 @@ import java.util.Objects;
 public class UserResController {
     @Autowired
     private IUserService userService;
+    @Autowired
+    AccountService accountService;
+    @Autowired
+    private PasswordEncoder encoder;
+    @Autowired
+    private AccountDetailServiceImpl accountDetailService;
 
     /**
      * ThangLV
@@ -32,6 +43,24 @@ public class UserResController {
             return new ResponseEntity<IUserInforDTO>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<IUserInforDTO>(user, HttpStatus.OK);
+    }
+
+    /**
+     * ThangLV
+     * change password
+     */
+    @PostMapping("/change-password-request")
+    public ResponseEntity<?> changePassword(@RequestBody AccountDTO accountDTO) {
+        String username = accountDetailService.getCurrentUserName();
+        accountDTO.setUserName(username);
+        System.out.println(username);
+        if (accountService.authenticatePassword(accountDTO.getCurrentPassword(), accountDTO.getUserName())) {
+            accountService.changePassword(encoder.encode(accountDTO.getNewPassword()), accountDTO.getUserName());
+            return ResponseEntity.ok(new MessageResponse("Đổi mật khẩu thành công"));
+        }
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Mật khẩu không đúng"));
     }
 
     @GetMapping("/listUser")
