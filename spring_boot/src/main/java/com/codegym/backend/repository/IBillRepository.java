@@ -16,6 +16,7 @@ public interface IBillRepository extends JpaRepository<Bill,Integer> {
             "b.payment_time as paymentTime, b.table_id as tableId, b.user_id as userId from bill b where table_id = ?1 and payment_status = 0 order by id desc limit 1",nativeQuery = true)
     BillDTO findByIdBill(int table_id);
 
+    @Modifying
     @Query(value = "insert into bill (created_time,payment_status,payment_time,table_id,user_id) " +
             "values(?1,?2,?3,?4,?5)",nativeQuery = true)
     void insertBill(String created_time,int payment_status,String payment_time,int table_id,int user_id);

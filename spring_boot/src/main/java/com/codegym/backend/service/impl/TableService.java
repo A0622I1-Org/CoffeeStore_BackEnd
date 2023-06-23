@@ -16,4 +16,9 @@ public class TableService implements ITableService {
     public List<CoffeeTable> findAllTable() {
         return iTableRepository.findAllTable();
     }
+
+    @Override
+    public CoffeeTable updateTableStatus(int tableId) {
+        return iTableRepository.updateTableStatus(tableId);
+    }
 }

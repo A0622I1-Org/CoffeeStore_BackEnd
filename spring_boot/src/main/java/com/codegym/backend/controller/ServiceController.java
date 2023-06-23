@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
@@ -38,6 +40,9 @@ public class ServiceController {
 
     @Autowired
     IServiceTypeService iServiceTypeService;
+
+    @Autowired
+    IMessgaeServie iMessgaeServie;
 //    lấy danh sách service
     @GetMapping("/list/service")
     public ResponseEntity<Page<Service>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size){
@@ -67,7 +72,7 @@ public class ServiceController {
         }
         return new ResponseEntity<>(serviceList,HttpStatus.OK);
     }
-//lấy danh sách table chưa có người ngồi
+//lấy danh sách table
     @GetMapping("/list/table")
     public ResponseEntity<List<CoffeeTable>> getListTable() {
         List<CoffeeTable> tableList = iTableService.findAllTable();
@@ -117,5 +122,23 @@ public class ServiceController {
     public ResponseEntity<?> insertBillDetail(@Valid @RequestBody InsertBillDetailDTO billDetailDTO) {
         iBillDetailService.insertBillDetail(billDetailDTO.getQuantity(),billDetailDTO.getBill_id(),billDetailDTO.getService_id());
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+//    Lấy thông báo
+    @GetMapping("/message")
+    public ResponseEntity<List<Message>> getMessage() {
+        List<Message> message = iMessgaeServie.findMessage();
+        if(message == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(message,HttpStatus.OK);
+    }
+//    xóa thông báo
+    @DeleteMapping("/delete_message/{id}")
+    public Map<String, Boolean> deleteMessage(@PathVariable Integer id) {
+        Message message = iMessgaeServie.findById(id);
+        iMessgaeServie.deleteMessage(message);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
     }
 }
