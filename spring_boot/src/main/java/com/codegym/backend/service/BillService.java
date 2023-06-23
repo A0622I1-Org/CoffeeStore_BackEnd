@@ -15,8 +15,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface BillService {
-    List<BillListDto> findAll();
     Page<BillListDto> findAll(Pageable pageable);
-    List<BillListDto> findBillByUser(String name);
+    Page<BillListDto> findByUser(Pageable pageable,String name);
 
 }

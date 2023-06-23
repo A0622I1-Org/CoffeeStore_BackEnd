@@ -24,22 +24,14 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
     @Query(value = SelectAllBill_Sql, countQuery = SelectAllBill_Sql, nativeQuery = true)
     Page<BillListDto> findAllList(Pageable pageable);
 
-    @Query(value = "select b.id,b.created_time as createdTime, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b " +
-            "join `table` t on b.table_id = t.id " +
-            "join user u on b.user_id =u.id " +
-            "join bill_detail bd on bd.bill_id = b.id " +
-            "join service s on bd.service_id = s.id " +
-            "group by b.id " +
-            "order by b.id", nativeQuery = true)
-    List<BillListDto> getAllBill();
-
-    @Query(value ="select b.id,b.created_time as createdTime, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b " +
-            "join `table` t on b.table_id = t.id " +
-            "join user u on b.user_id =u.id " +
-            "join bill_detail bd on bd.bill_id = b.id " +
-            "join service s on bd.service_id = s.id " +
-            "where u.name like ? "+
-            "group by b.id " +
-            "order by b.id",nativeQuery = true )
-    List<BillListDto> getBillByUser(String name);
+    String SelectBillListByUser_Sql = "select b.id,b.created_time as createdTime, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b\n" +
+            "            join `table` t on b.table_id = t.id\n" +
+            "            join user u on b.user_id =u.id\n" +
+            "            join bill_detail bd on bd.bill_id = b.id\n" +
+            "            join service s on bd.service_id = s.id\n" +
+            "            where u.name like ?\n " +
+            "            group by b.id\n" +
+            "            order by b.id";
+    @Query(value = SelectBillListByUser_Sql, countQuery = SelectBillListByUser_Sql, nativeQuery = true)
+    Page<BillListDto> findBillByUser(Pageable pageable,String name);
 }
