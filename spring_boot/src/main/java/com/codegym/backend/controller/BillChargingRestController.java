@@ -23,6 +23,13 @@ public class BillChargingRestController {
     IBillChargingService billChargingService;
     @Autowired
     ICoffeeTableService tableService;
+
+    /**
+     * <h3>Description: Hiển thị thành tiền, trạng thái và số bàn của hóa đơn.</h3>
+     * @author CuongHM
+     * @param tableId
+     * @return Thành tiền, số bàn của hóa đơn
+     */
     @GetMapping("/sales/bill-charging/{tableId}")
     public ResponseEntity<List<BillChargingListDTO>> getBillChargingByTableId(@PathVariable Integer tableId) {
         List<BillChargingListDTO> billChargingList = billChargingService.getAllBillCharging(tableId);
@@ -31,6 +38,15 @@ public class BillChargingRestController {
         }
         return new ResponseEntity<>(billChargingList, HttpStatus.OK);
     }
+
+    /**
+     *
+     * <h3>Description: Tính tiền bàn đã chọn, và đưa bàn đó về trạng thái không có khách.</h3>
+     * @author CuongHM
+     * @param tableId
+     * @param userId
+     * @return Hóa đơn của bàn vừa được tính tiền
+     */
     @GetMapping("/sales/bill-charge/{tableId}/{userId}")
     public ResponseEntity<List<BillChargingListDTO>> updateBillStatus(@PathVariable int tableId, @PathVariable int userId) {
         List<BillChargingListDTO> billChargingList = billChargingService.getAllBillCharging(tableId);
