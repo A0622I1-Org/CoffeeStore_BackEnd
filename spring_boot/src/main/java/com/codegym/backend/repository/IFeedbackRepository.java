@@ -56,4 +56,18 @@ public interface IFeedbackRepository extends JpaRepository<Feedback, Integer> {
             "order by f.id asc";
     @Query(value = selectAllFeedbackByDate_sql, countQuery = selectAllFeedbackByDate_sql, nativeQuery = true)
     Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String date);
+
+    String selectAllFeedbackByRate_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date, f.rate from feedback f\n" +
+            "left join feedback_type ft on f.type_id = ft.id\n" +
+            "where f.rate = ?\n" +
+            "order by f.id asc";
+    @Query(value = selectAllFeedbackByRate_sql, countQuery = selectAllFeedbackByRate_sql, nativeQuery = true)
+    Page<IFeedbackDto> findListFeedbackByRate(Pageable pageable, String rate);
+
+    String selectAllFeedbackByRateAndDate_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date, f.rate from feedback f\n" +
+            "left join feedback_type ft on f.type_id = ft.id\n" +
+            "where f.rate = ? and f.date = ?\n" +
+            "order by f.id asc";
+    @Query(value = selectAllFeedbackByRateAndDate_sql, countQuery = selectAllFeedbackByRateAndDate_sql, nativeQuery = true)
+    Page<IFeedbackDto> findListFeedbackByRateAndDate(Pageable pageable, String rate, String date);
 }

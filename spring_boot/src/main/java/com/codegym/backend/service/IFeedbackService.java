@@ -23,5 +23,7 @@ public interface IFeedbackService {
     List<String> findImgUrlById(int id);
     List<Feedback> getAll();
     Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String date);
+    Page<IFeedbackDto> findListFeedbackByRate(Pageable pageable, String rate);
+    Page<IFeedbackDto> findListFeedbackByRateAndDate(Pageable pageable, String rate, String date);
     Page<IFeedbackDto> findAll(Pageable pageable);
 }
