@@ -17,6 +17,7 @@ public class FeedbackProcessingService {
     private IFeedbackService feedbackService;
     @Autowired
     private IFeedbackTypeService feedbackTypeService;
+
     /**
      * @author DongPL
      * @version 2.0
@@ -24,10 +25,15 @@ public class FeedbackProcessingService {
      */
     public void processFeedback(CreateFeedback feedbackCreate) {
         Feedback feedback = new Feedback();
-        int index = feedbackService.getLastInsert();
-        if (index < 10) {
-            feedback.setFeedbackId("FB_00" + (index + 1));
+        Integer index = feedbackService.getLastInsert();
+        if (index == null) {
+            index = 1;
+        }
+        if (index < 9) {
+            feedback.setFeedbackId("FB000" + (index + 1));
         } else if (index < 99) {
+            feedback.setFeedbackId("FB00" + (index + 1));
+        } else if (index < 999) {
             feedback.setFeedbackId("FB0" + (index + 1));
         } else {
             feedback.setFeedbackId("FB" + (index + 1));
