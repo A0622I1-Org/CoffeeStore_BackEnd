@@ -11,7 +11,11 @@ public class FeedbackImageService implements IFeedbackImageService {
     @Autowired
     private IFeedbackImageRepository repository;
 
-
+    /**
+     * @author DongPL
+     * @version 2.0
+     * @since 19/06/2023
+     */
     @Override
     public void createFeedbackImage(FeedbackImg feedbackImg) {
         repository.createFeedbackImg(feedbackImg.getFeedback().getId(), feedbackImg.getImgUrl());

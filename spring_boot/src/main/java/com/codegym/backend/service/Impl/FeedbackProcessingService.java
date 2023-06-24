@@ -17,7 +17,11 @@ public class FeedbackProcessingService {
     private IFeedbackService feedbackService;
     @Autowired
     private IFeedbackTypeService feedbackTypeService;
-
+    /**
+     * @author DongPL
+     * @version 2.0
+     * @since 19/06/2023
+     */
     public void processFeedback(CreateFeedback feedbackCreate) {
         Feedback feedback = new Feedback();
         int index = feedbackService.getLastInsert();
