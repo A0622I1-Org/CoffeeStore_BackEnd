@@ -1,6 +1,6 @@
 package com.codegym.backend.dto;
 
-public interface BillDTO {
+public interface BillDto {
     public Integer getId();
     public String getCreatedTime();
     public Boolean getPaymentStatus();

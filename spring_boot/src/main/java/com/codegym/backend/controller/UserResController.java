@@ -26,9 +26,9 @@ public class UserResController {
     public ResponseEntity<IUserInforDTO> findUserById(@PathVariable Integer id) {
         IUserInforDTO user = userService.findUserById(id);
         if (user == null) {
-            return new ResponseEntity<IUserInforDTO>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<IUserInforDTO>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/listUser")
