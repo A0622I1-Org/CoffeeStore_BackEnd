@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
@@ -38,6 +39,9 @@ public class ServiceController {
 
     @Autowired
     IServiceTypeService iServiceTypeService;
+
+    @Autowired
+    IMessageService iMessageService;
 
     //    lấy danh sách service
     @GetMapping("/list/service")
@@ -126,5 +130,23 @@ public class ServiceController {
     public ResponseEntity<?> insertBillDetail(@Valid @RequestBody InsertBillDetailDTO billDetailDTO) {
         iBillDetailService.insertBillDetail(billDetailDTO.getQuantity(),billDetailDTO.getBill_id(),billDetailDTO.getService_id());
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    //    Lấy thông báo
+    @GetMapping("/message")
+    public ResponseEntity<List<Message>> getMessage() {
+        List<Message> message = iMessageService.findMessage();
+        if(message == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(message,HttpStatus.OK);
+    }
+    //    xóa thông báo
+    @DeleteMapping("/delete_message/{id}")
+    public Map<String, Boolean> deleteMessage(@PathVariable Integer id) {
+        Message message = iMessageService.findById(id);
+        iMessageService.deleteMessage(message);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
     }
 }
