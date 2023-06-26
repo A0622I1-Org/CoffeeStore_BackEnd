@@ -9,12 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Repository
-@Transactional
+
 public interface ITableRepository extends JpaRepository<CoffeeTable,Integer> {
     @Query(value = "select * from `table` where status like 'tốt'",nativeQuery = true)
     List<CoffeeTable> findAllTable();
-
+    @Transactional
     @Modifying
-    @Query(value = "UPDATE `table` SET enable_flag = 0 WHERE id = ?", nativeQuery = true)
-    CoffeeTable updateTableStatus(int tableId);
+    @Query(value = "UPDATE `table` SET enable_flag = 1 WHERE id = ?", nativeQuery = true)
+    void updateTableStatus(int tableId);
 }

@@ -18,7 +18,7 @@ public class TableService implements ITableService {
     }
 
     @Override
-    public CoffeeTable updateTableStatus(int tableId) {
-        return iTableRepository.updateTableStatus(tableId);
+    public void updateTableStatus(int tableId) {
+         iTableRepository.updateTableStatus(tableId);
     }
 }

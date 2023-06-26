@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ITableService {
     List<CoffeeTable> findAllTable();
-    CoffeeTable updateTableStatus(int tableId);
+    void updateTableStatus(int tableId);
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -90,7 +89,11 @@ public class ServiceController {
         }
         return new ResponseEntity<>(billDetailList,HttpStatus.OK);
     }
-//Lấy bill theo table_id và payment_status = 0;
+
+    /**
+     *  Lấy bill theo table_id và payment_status = 0;
+      */
+
     @GetMapping("/bill/table_id/{id}")
     public ResponseEntity<BillDTO> getBill(@PathVariable int id) {
         BillDTO bill = iBillService.findByIdBill(id);
@@ -127,7 +130,7 @@ public class ServiceController {
     @GetMapping("/message")
     public ResponseEntity<List<Message>> getMessage() {
         List<Message> message = iMessgaeServie.findMessage();
-        if(message == null){
+        if(message.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(message,HttpStatus.OK);
