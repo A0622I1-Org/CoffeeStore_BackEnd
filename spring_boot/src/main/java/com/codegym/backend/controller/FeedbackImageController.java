@@ -1,7 +1,7 @@
 package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.CreateFeedbackImg;
-import com.codegym.backend.service.Impl.FeedbackImageProcessingService;
+import com.codegym.backend.service.impl.FeedbackImageProcessingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class FeedbackImageController {
     private FeedbackImageProcessingService feedbackImageProcessingService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createFeedbackImage(@RequestBody CreateFeedbackImg createFeedbackImg) {
+    public ResponseEntity<Void> createFeedbackImage(@RequestBody CreateFeedbackImg createFeedbackImg) {
         feedbackImageProcessingService.createFeedbackImage(createFeedbackImg);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

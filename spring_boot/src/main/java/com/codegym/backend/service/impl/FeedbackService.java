@@ -6,10 +6,7 @@
  * @version 1.0
  * @since 2023-06-13
  */
-
-package com.codegym.backend.service.Impl;
-
-
+package com.codegym.backend.service.impl;
 import com.codegym.backend.dto.FeedbackDetailDto;
 import com.codegym.backend.dto.IFeedbackDto;
 import com.codegym.backend.model.Feedback;

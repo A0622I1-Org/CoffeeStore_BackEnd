@@ -1,16 +1,16 @@
 package com.codegym.backend.dto;
 
 public class CreateFeedbackImg {
-    private int feedback_id;
+    private int feedbackId;
     private String imgUrl;
 
 
-    public int getFeedback_id() {
-        return feedback_id;
+    public int getFeedbackId() {
+        return feedbackId;
     }
 
-    public void setFeedback_id(int feedback_id) {
-        this.feedback_id = feedback_id;
+    public void setFeedbackId(int feedbackId) {
+        this.feedbackId = feedbackId;
     }
 
     public String getImgUrl() {

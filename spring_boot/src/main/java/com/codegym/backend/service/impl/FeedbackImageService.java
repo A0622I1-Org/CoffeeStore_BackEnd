@@ -1,4 +1,4 @@
-package com.codegym.backend.service.Impl;
+package com.codegym.backend.service.impl;
 
 import com.codegym.backend.model.FeedbackImg;
 import com.codegym.backend.repository.IFeedbackImageRepository;

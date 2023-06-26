@@ -9,7 +9,6 @@
 package com.codegym.backend.repository;
 
 import com.codegym.backend.dto.FeedbackDetailDto;
-import com.codegym.backend.dto.FeedbackDto;
 import com.codegym.backend.dto.IFeedbackDto;
 import com.codegym.backend.model.Feedback;
 import org.springframework.data.domain.Page;
@@ -28,9 +27,9 @@ public interface IFeedbackRepository extends JpaRepository<Feedback, Integer> {
 
     @Modifying
     @Query(value = "insert into feedback(fb_id,name,email,date,content,type_id,rate) values (?1,?2,?3,?4,?5,?6,?7);", nativeQuery = true)
-    void createFeedback(String fb_id, String name,
+    void createFeedback(String fbId, String name,
                         String email, String date, String content,
-                        int type_id, Integer rate);
+                        int typeId, Integer rate);
 
     String selectAllFeedback_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f\n" +
             "left join feedback_type ft on f.type_id = ft.id\n" +

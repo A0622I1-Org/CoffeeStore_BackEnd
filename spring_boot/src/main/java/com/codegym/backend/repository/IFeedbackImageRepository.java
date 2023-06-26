@@ -15,5 +15,5 @@ public interface IFeedbackImageRepository extends JpaRepository<FeedbackImg, Int
      */
     @Modifying
     @Query(value = "insert into feedback_img(feedback_id,imgUrl) values (?1,?2)", nativeQuery = true)
-    void createFeedbackImg(int feedback_id, String imgUrl);
+    void createFeedbackImg(int feedbackId, String imgUrl);
 }
