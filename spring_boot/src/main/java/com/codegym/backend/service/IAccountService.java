@@ -29,4 +29,6 @@ public interface IAccountService {
 
     Boolean checkChangePasswordDateByUserName(String username) throws ParseException;
 
+    Boolean authenticatePassword(String password, String username);
+    void changePassword(String password, String username);
 }

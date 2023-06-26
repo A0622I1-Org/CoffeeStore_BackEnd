@@ -20,7 +20,7 @@ create table account(
 id INT auto_increment primary key,
 user_name NVARCHAR(50),
 password NVARCHAR(255),
-verification_code NVARCHAR(50),
+verification_code NVARCHAR(255),
 email NVARCHAR(50),
 enable_flag BIT,
 change_password_date DATE
@@ -45,7 +45,11 @@ salary DOUBLE,
 position_id INT,
 account_id INT,
 enable_flag BIT,
+<<<<<<< HEAD
 img_url NVARCHAR(1000)
+=======
+img_Url NVARCHAR(1000)
+>>>>>>> develop
 );
 create table `position`(
 id INT auto_increment primary key,

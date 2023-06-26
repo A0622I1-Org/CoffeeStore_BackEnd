@@ -9,7 +9,6 @@
 package com.codegym.backend.service;
 
 import com.codegym.backend.dto.FeedbackDetailDto;
-import com.codegym.backend.dto.FeedbackDto;
 import com.codegym.backend.dto.IFeedbackDto;
 import com.codegym.backend.model.Feedback;
 import org.springframework.data.domain.Page;
@@ -22,6 +21,7 @@ public interface IFeedbackService {
     FeedbackDetailDto findFeedbackById(int id);
     List<String> findImgUrlById(int id);
     List<Feedback> getAll();
-    Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String date);
+    Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String dateF, String dateT);
+    Page<IFeedbackDto> findListFeedbackByRateAndDate(Pageable pageable, String rate, String dateF, String dateT);
     Page<IFeedbackDto> findAll(Pageable pageable);
 }

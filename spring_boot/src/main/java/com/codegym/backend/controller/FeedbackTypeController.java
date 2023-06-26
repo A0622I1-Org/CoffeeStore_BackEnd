@@ -14,7 +14,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/type")
 public class FeedbackTypeController {
     @Autowired
     private IFeedbackTypeService feedbackTypeService;
