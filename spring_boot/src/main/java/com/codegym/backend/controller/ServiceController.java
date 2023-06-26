@@ -1,6 +1,6 @@
 package com.codegym.backend.controller;
 
-import com.codegym.backend.dto.BillDTO;
+import com.codegym.backend.dto.BillDto;
 import com.codegym.backend.dto.BillDetailListDTO;
 import com.codegym.backend.dto.BillInsertDTO;
 import com.codegym.backend.dto.InsertBillDetailDTO;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -93,8 +92,8 @@ public class ServiceController {
 
     //Lấy bill theo table_id và payment_status = 0;
     @GetMapping("/bill/table_id/{id}")
-    public ResponseEntity<BillDTO> getBill(@PathVariable int id) {
-        BillDTO bill = iBillService.findByIdBill(id);
+    public ResponseEntity<BillDto> getBill(@PathVariable int id) {
+        BillDto bill = iBillService.findByIdBill(id);
         if (bill == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

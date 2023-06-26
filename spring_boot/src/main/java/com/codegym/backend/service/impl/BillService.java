@@ -1,7 +1,6 @@
 package com.codegym.backend.service.impl;
 
-import com.codegym.backend.dto.BillDTO;
-import com.codegym.backend.model.Bill;
+import com.codegym.backend.dto.BillDto;
 import com.codegym.backend.repository.IBillRepository;
 import com.codegym.backend.service.IBillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ public class BillService implements IBillService {
     IBillRepository iBillRepository;
 
     @Override
-    public BillDTO findByIdBill(int table_id) {
+    public BillDto findByIdBill(int table_id) {
         return iBillRepository.findByIdBill(table_id);
     }
 
