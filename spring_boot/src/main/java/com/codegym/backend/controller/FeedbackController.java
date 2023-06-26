@@ -14,14 +14,14 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/feedback")
+@RequestMapping("/api")
 public class FeedbackController {
     @Autowired
     private IFeedbackService feedbackService;
     @Autowired
     private IFeedbackTypeService feedbackTypeService;
 
-    @PostMapping("/create")
+    @PostMapping("/feedback/create")
     public ResponseEntity<?> createFeedback(@RequestBody CreateFeedback feedbackCreate) {
         Feedback feedback = new Feedback();
         feedback.setFeedbackId(feedbackCreate.getFeedbackId());

@@ -19,12 +19,12 @@ public class UserServiceImpl implements IUserService {
     private IUserRepository repository;
 
     @Override
-    public IUserInforDTO findUserById(int index) {
-        return repository.getUserById(index);
+    public IUserInforDTO findUserByUsername(String username) {
+        return repository.findUserByUsername(username);
 
     }
     public List<User> findAllUser() {
-        return null;
+        return repository.findAllUser();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public String findNameByAccountId(int accountId, Boolean enableFlag) {
-        return null;
+        return repository.findNameByAccountId(accountId, enableFlag);
     }
 
     @Override
@@ -56,6 +56,5 @@ public class UserServiceImpl implements IUserService {
     public void deleteById(int id) {
         repository.deleteById(id);
     }
-
 
 }

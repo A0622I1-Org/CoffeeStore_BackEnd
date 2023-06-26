@@ -2,6 +2,7 @@ package com.codegym.backend.service.impl;
 
 import com.codegym.backend.model.Account;
 import com.codegym.backend.repository.IAccountRepository;
+import com.codegym.backend.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,4 +30,5 @@ public class AccountDetailServiceImpl implements UserDetailsService {
         }
         return principal.toString();
     }
+
 }

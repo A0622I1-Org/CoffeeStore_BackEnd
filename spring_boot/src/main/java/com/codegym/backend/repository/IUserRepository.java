@@ -18,14 +18,17 @@ public interface IUserRepository extends JpaRepository<User,Integer> {
     @Query(value = "select user.id as id, user.name,account.user_name as userName, user.birthday as dateOfBirth, user.address, user.phone_number as phone,\n" +
             "        user.gender, user.salary, position.name as position, user.img_url as img from user\n" +
             "                         join position on position.id = user.position_id\n" +
-            "                         join account on account.id = user.account_id where user.enable_flag =1 and user.id = ?", nativeQuery = true)
-    IUserInforDTO getUserById(int index);
+            "                         join account on account.id = user.account_id where user.enable_flag =1 and account.user_name = ?", nativeQuery = true)
+    IUserInforDTO findUserByUsername(String username);
 
     @Query(value = "SELECT * FROM user", nativeQuery = true)
     List<User> findAllUser();
 
     @Query(value = "SELECT * FROM user where account_id = ?1 and enable_flag = ?2", nativeQuery = true)
     User findByAccountId(int accountId, Boolean enableFlag);
+
+    @Query(value = "SELECT * FROM user where account_id = ?1 and enable_flag = ?2", nativeQuery = true)
+    User findUserByUsername(int accountId, Boolean enableFlag);
 
     @Query(value = "SELECT name FROM user where account_id = ?1 and enable_flag = ?2", nativeQuery = true)
     String findNameByAccountId(int accountId, Boolean enableFlag);

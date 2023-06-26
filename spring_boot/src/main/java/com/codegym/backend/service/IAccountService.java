@@ -4,6 +4,7 @@ import com.codegym.backend.model.Account;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.Optional;
 
 public interface IAccountService {
@@ -18,7 +19,7 @@ public interface IAccountService {
      * ThangLV
      * change password
      */
-    void changePassword(String password, String username);
+    void changePassword(String password, String username) ;
 
     Optional<Account> findAccountByUserName(String username);
 
@@ -35,4 +36,9 @@ public interface IAccountService {
     Account findAccountByVerificationCode(String code);
 
     void saveNewPassword(String encryptPassword, String code);
+
+    String findChangPassworDateByUserName(String username);
+
+    Boolean checkChangePasswordDateByUserName(String username) throws ParseException;
+
 }

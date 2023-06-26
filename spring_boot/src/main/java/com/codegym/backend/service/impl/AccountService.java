@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
@@ -19,10 +18,9 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Transactional
@@ -40,8 +38,16 @@ public class AccountService implements IAccountService {
     @Autowired
     IUserService userService;
 
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
+
+    public AccountService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
 
     /**
      * ThangLV
@@ -49,12 +55,9 @@ public class AccountService implements IAccountService {
      */
     @Override
     public Boolean authenticatePassword(String password, String username) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password));
-        if (authentication.isAuthenticated()) {
-            return true;
-        }
-        return false;
+        String currentPassword = accountRepository.getCurrentPassword(username);
+        boolean result = passwordEncoder.matches(password, currentPassword);
+        return result;
     }
 
     /**
@@ -89,10 +92,10 @@ public class AccountService implements IAccountService {
     @Override
     public void addVerificationCode(String username) throws MessagingException, UnsupportedEncodingException {
         String verificationCode = RandomString.make(64);
-        accountRepository.addVerificationCode(verificationCode,username);
+        accountRepository.addVerificationCode(verificationCode, username);
         Account account = accountRepository.findAccountByVerificationCode(verificationCode);
-        String name = userService.findNameByAccountId(account.getId(),false);
-        this.sendVerificationEmailForResetPassWord(name,verificationCode,account.getEmail());
+        String name = userService.findNameByAccountId(account.getId(), false);
+        this.sendVerificationEmailForResetPassWord(name, verificationCode, account.getEmail());
     }
 
     @Override
@@ -109,10 +112,10 @@ public class AccountService implements IAccountService {
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
-        helper.setFrom("namhoai2312@gmail.com","A0622I1_CAFE☕");
+        helper.setFrom("namhoai2312@gmail.com", "A0622I1_CAFE☕");
         helper.setTo(email);
         helper.setSubject(subject);
-        helper.setText(mailContent,true);
+        helper.setText(mailContent, true);
         javaMailSender.send(message);
     }
 
@@ -123,7 +126,20 @@ public class AccountService implements IAccountService {
 
     @Override
     public void saveNewPassword(String encryptPassword, String code) {
-        accountRepository.saveNewPassword(encryptPassword,code);
+        accountRepository.saveNewPassword(encryptPassword, code);
+    }
+
+    @Override
+    public String findChangPassworDateByUserName(String username) {
+        return accountRepository.findChangPassworDateByUserName(username);
+    }
+
+    public Boolean checkChangePasswordDateByUserName(String username) throws ParseException {
+        String changePasswordDate = this.findChangPassworDateByUserName(username);
+        long date1 = simpleDateFormat.parse(changePasswordDate).getTime();
+        long date2 = new Date(System.currentTimeMillis()).getTime();
+        long dif = (date2 - date1) / (1000 * 60 * 60 * 24);
+        return dif >= 30;
     }
 
 
