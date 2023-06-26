@@ -52,7 +52,6 @@ public class SecurityController {
     @Autowired
     IUserService userService;
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @PostMapping("/login")
     public ResponseEntity authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) throws ParseException {
@@ -71,7 +70,7 @@ public class SecurityController {
         AccountDetail accountDetail = (AccountDetail) authentication.getPrincipal();
         List<String> roles = accountDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         Boolean changePassword = accountService.checkChangePasswordDateByUserName(accountDetail.getUsername());
-        User user = userService.findByAccountId(accountDetail.getId(), false);
+        User user = userService.findByAccountId(accountDetail.getId(), true);
         return ResponseEntity.ok(
                 new JwtResponse(token, accountDetail.getId(), accountDetail.getUsername(), roles, user.getName(), changePassword)
         );

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IUserRepository extends JpaRepository<User,Integer> {
+public interface IUserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "SELECT * FROM user", nativeQuery = true)
     List<User> findAllUser();
@@ -28,6 +28,7 @@ public interface IUserRepository extends JpaRepository<User,Integer> {
             "join account a on u.account_id = a.id\n" +
             "join position p on p.id = u.position_id\n" +
             "order by u.id";
+
     @Query(value = selectAllUser_sql, countQuery = selectAllUser_sql, nativeQuery = true)
     Page<IUserDto> findAllList(Pageable pageable);
 
@@ -37,6 +38,7 @@ public interface IUserRepository extends JpaRepository<User,Integer> {
             "join position p on p.id = u.position_id\n" +
             "where u.birthday = ? and u.name like ? \n" +
             "order by u.id";
+
     @Query(value = findNameOrBirthDay_sql, countQuery = findNameOrBirthDay_sql, nativeQuery = true)
     Page<IUserDto> findUserByNameOrDate(Pageable pageable, String date, String name);
 
@@ -46,6 +48,7 @@ public interface IUserRepository extends JpaRepository<User,Integer> {
             "join position p on p.id = u.position_id\n" +
             "where u.name like ? \n" +
             "order by u.id";
+
     @Query(value = findByName_sql, countQuery = findByName_sql, nativeQuery = true)
     Page<IUserDto> findUserByName(Pageable pageable, String date);
 
