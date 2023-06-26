@@ -40,10 +40,20 @@ public class FeedbackResController {
         return ResponseEntity.ok(feedbackList);
     }
 
-    @GetMapping("/getListByDate")
-    public ResponseEntity<Page<IFeedbackDto>> getListByDate(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam String date) {
+    @GetMapping("/getListByRateDate")
+    public ResponseEntity<Page<IFeedbackDto>> getListByRateDate(@RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "10") int size,
+                                                                @RequestParam(defaultValue = "") String rate,
+                                                                @RequestParam(defaultValue = "") String date) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<IFeedbackDto> feedbackList = feedbackService.findListFeedbackByDate(pageable, date);
+        Page<IFeedbackDto> feedbackList;
+        if(Objects.equals(rate,"") & !Objects.equals(date,"")) {
+            feedbackList = feedbackService.findListFeedbackByDate(pageable, date);
+        } else if (Objects.equals(date,"") & !Objects.equals(rate,"")) {
+            feedbackList = feedbackService.findListFeedbackByRate(pageable, rate);
+        } else {
+            feedbackList = feedbackService.findListFeedbackByRateAndDate(pageable, rate, date);
+        }
         if (feedbackList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

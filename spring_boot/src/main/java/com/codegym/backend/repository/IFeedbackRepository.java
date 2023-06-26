@@ -31,7 +31,7 @@ public interface IFeedbackRepository extends JpaRepository<Feedback, Integer> {
                         String email, String date, String content,
                         int type_id, Integer rate);
 
-    String selectAllFeedback_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f\n" +
+    String selectAllFeedback_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date, f.rate from feedback f\n" +
             "left join feedback_type ft on f.type_id = ft.id\n" +
             "order by f.id asc";
     @Query(value = selectAllFeedback_sql, countQuery = selectAllFeedback_sql, nativeQuery = true)
@@ -50,10 +50,24 @@ public interface IFeedbackRepository extends JpaRepository<Feedback, Integer> {
     @Query(value = selectFeedbackImg_sql, countQuery = selectFeedbackImg_sql, nativeQuery = true)
     List<String> findImgUrlById(int id);
 
-    String selectAllFeedbackByDate_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date from feedback f\n" +
+    String selectAllFeedbackByDate_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date, f.rate from feedback f\n" +
             "left join feedback_type ft on f.type_id = ft.id\n" +
             "where f.date = ?\n" +
             "order by f.id asc";
     @Query(value = selectAllFeedbackByDate_sql, countQuery = selectAllFeedbackByDate_sql, nativeQuery = true)
     Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String date);
+
+    String selectAllFeedbackByRate_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date, f.rate from feedback f\n" +
+            "left join feedback_type ft on f.type_id = ft.id\n" +
+            "where f.rate = ?\n" +
+            "order by f.id asc";
+    @Query(value = selectAllFeedbackByRate_sql, countQuery = selectAllFeedbackByRate_sql, nativeQuery = true)
+    Page<IFeedbackDto> findListFeedbackByRate(Pageable pageable, String rate);
+
+    String selectAllFeedbackByRateAndDate_sql = "select f.id, f.fb_id , f.name, f.email, ft.type, f.date, f.rate from feedback f\n" +
+            "left join feedback_type ft on f.type_id = ft.id\n" +
+            "where f.rate = ? and f.date = ?\n" +
+            "order by f.id asc";
+    @Query(value = selectAllFeedbackByRateAndDate_sql, countQuery = selectAllFeedbackByRateAndDate_sql, nativeQuery = true)
+    Page<IFeedbackDto> findListFeedbackByRateAndDate(Pageable pageable, String rate, String date);
 }

@@ -201,9 +201,6 @@ VALUES
   (40, 3);
 SET FOREIGN_KEY_CHECKS=0;
 truncate table user;
-select * from user;
-select * from role;
-select * from account;
 update user set enable_flag = 1 where id <=2;
 INSERT INTO user (name, address, phone_number, birthday, gender, salary, position_id, account_id, enable_flag, imgUrl)
 VALUES
@@ -247,31 +244,41 @@ VALUES
   ('Lê Thị Thu', 'Đà Nẵng', '0123456789', '1929-05-31', 0, 47000000, 2, 38, 1, 'url_img37'),
   ('Nguyễn Văn Quang', 'Quảng Nam', '0123456789', '1927-03-12', 1, 48000000, 1, 39, 0, 'url_img38'),
   ('Trần Thị Bình', 'Huế', '0123456789', '1925-10-23', 0, 49000000, 2, 40, 1, 'url_img39');
-delimiter //
-create procedure sp_deleteUser(IN deleteId int)
-begin
-	SET FOREIGN_KEY_CHECKS=0;
-	delete from user where id = deleteId;
-end//
-delimiter ;
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO `position` (name) values
 ('Chủ tiệm'),
 ('phó chủ tiệm'),
-('nhân viên')
-;
+('nhân viên');
 SET FOREIGN_KEY_CHECKS=0;
-INSERT INTO service (name,price,type_id,enable_flag,imgUrl) values
-('Caffee 1',50000,1,1,'img 1'),
-('Caffee 3',50000,1,1,'img 3'),
-('cake 1',60000,3,1,'img 3'),
-('cake 3',60000,3,1,'img 4'),
-('cake 3',60000,3,1,'img 5');
+truncate table service;
+INSERT INTO service (name, price, type_id, enable_flag, img_url)
+VALUES
+('FREEZE SÔ-CÔ-LA', 55000, 2, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__CARAMEL_FREEZE_PHINDI.jpg'),
+('FREEZE TRÀ XANH', 50000, 2, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__FREEZE_TRA_XANH.jpg'),
+('COOKIES & CREAM', 55000, 2, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__COOKIES_FREEZE.jpg'),
+('TRÀ TUYẾT PHÚC BỒN TỬ', 59000, 3, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/05_2023/Granita-Avatarpsd4.png'),
+('TRÀ THẠCH VẢI', 45000, 3, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_TACH_VAI.jpg'),
+('TRÀ THẠCH ĐÀO', 45000, 3, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_THANH_DAO-09.jpg'),
+('TRÀ XANH ĐẬU ĐỎ', 45000, 3, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_XANH_DAU_DO.jpg'),
+('TRÀ THANH ĐÀO', 45000, 3, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_THANH_DAO-08.jpg'),
+('TRÀ SEN VÀNG (SEN)', 45000, 3, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TSV.jpg'),
+('BÁNH MOUSSE CACAO', 35000, 4, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/MOUSSECACAO.png'),
+('BÁNH TIRAMISU', 35000, 4, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/TIRAMISU.jpg'),
+('BÁNH SÔ-CÔ-LA HIGHLANDS', 35000, 4, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/SOCOLAHL.png'),
+('BÁNH CARAMEL PHÔ MAI', 35000, 4, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/CARAMELPHOMAI.jpg'),
+('BÁNH PHÔ MAI CHANH DÂY', 35000, 4, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/PHOMAICHANHDAY.jpg'),
+('BÁNH PHÔ MAI TRÀ XANH', 35000, 4, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/PHOMAITRAXANH.jpg'),
+('BẠC XỈU ĐÁ', 29000, 1, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/04_2023/New_product/HLC_New_logo_5.1_Products__BAC_XIU.jpg'),
+('PHIN SỮA ĐÁ', 29000, 1, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/04_2023/New_product/HLC_New_logo_5.1_Products__PHIN_SUADA.jpg'),
+('PHIN SỮA NÓNG', 29000, 1, 1, 'https://www.highlandscoffee.com.vn/vnt_upload/product/11_2022/BR_Drink/HLC__PHIN_SUA_NONG.jpg');
+select * from service;
 SET FOREIGN_KEY_CHECKS=0;
+truncate table service_type;
 INSERT INTO service_type (name) values
-('đồ uống'),
-('đồ ăn'),
-('Trái cây');
+('Cà phê'),
+('FREEZE'),
+('Trà'),
+('Bánh ngọt');
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO `table` (name,status,enable_flag) values
 ('bàn vuông','tốt',1),
@@ -393,7 +400,7 @@ VALUES
   (3, 'https://images.pexels.com/photos/16043282/pexels-photo-16043282/free-photo-of-dia-c-c-tay-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
   (4, 'https://images.pexels.com/photos/16050230/pexels-photo-16050230/free-photo-of-mon-an-dia-b-a-an-ly.jpeg?auto=compress&cs=tinysrgb&w=1600'),
   (5, 'https://images.pexels.com/photos/16050227/pexels-photo-16050227/free-photo-of-mon-an-ca-phe-c-c-tao.jpeg?auto=compress&cs=tinysrgb&w=1600'),
-    (6, 'https://images.pexels.com/photos/16979638/pexels-photo-16979638/free-photo-of-dia-ca-phe-c-c-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+  (6, 'https://images.pexels.com/photos/16979638/pexels-photo-16979638/free-photo-of-dia-ca-phe-c-c-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),
   (7, 'https://images.pexels.com/photos/16074688/pexels-photo-16074688/free-photo-of-dia-u-ng-ban-m-a.jpeg?auto=compress&cs=tinysrgb&w=1600'),
   (7, 'https://images.pexels.com/photos/42322/tea-tea-time-person-summer-42322.jpeg?auto=compress&cs=tinysrgb&h=566.525&fit=crop&w=633.175&dpr=1'),
   (7, 'https://images.pexels.com/photos/16053051/pexels-photo-16053051/free-photo-of-mon-an-ca-phe-may-nh-u-ng.jpeg?auto=compress&cs=tinysrgb&w=1600'),

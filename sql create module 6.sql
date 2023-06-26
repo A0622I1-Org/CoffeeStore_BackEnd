@@ -44,7 +44,7 @@ salary DOUBLE,
 position_id INT,
 account_id INT,
 enable_flag BIT,
-imgUrl NVARCHAR(1000)
+img_Url NVARCHAR(1000)
 );
 create table `position`(
 id INT auto_increment primary key,

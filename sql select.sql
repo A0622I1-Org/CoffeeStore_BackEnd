@@ -62,5 +62,6 @@ join account a on u.account_id = a.id
 join position p on p.id = u.position_id
 order by u.id;
 update user set enable_flag = 1;
-
+update feedback set rate = 5 where id <= 2;
+select * from service_type;
 
