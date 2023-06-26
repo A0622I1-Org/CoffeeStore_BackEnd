@@ -26,7 +26,10 @@ public interface ICoffeeTableRepository extends JpaRepository<CoffeeTable, Integ
     void updateBillStatusById(int tableId, String paymentTime, int userId);
 
     /**
-     * @return A list of table
+     *
+     * @param tableId
+     * @return List of bill detail list of selected table
+     * @author CuongHM
      */
     @Modifying
     @Query(value = "SELECT * FROM `table` WHERE status = 'Tốt' OR 'tốt';", nativeQuery = true)

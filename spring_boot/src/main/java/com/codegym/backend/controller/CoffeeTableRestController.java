@@ -17,6 +17,12 @@ public class CoffeeTableRestController {
     @Autowired
     ICoffeeTableService tableService;
 
+    /**
+     * <h3>Description: Hiển thị danh sách bàn không bị hư hại.</h3>
+     *
+     * @return List of table
+     * @author CuongHM
+     */
     @GetMapping("/sales")
     public ResponseEntity<Iterable<CoffeeTable>> getAllTable() {
         List<CoffeeTable> tableList = tableService.getAllTable();
@@ -25,6 +31,15 @@ public class CoffeeTableRestController {
         }
         return new ResponseEntity<>(tableList, HttpStatus.OK);
     }
+
+    /**
+     * <h3>Description: Tính tiền bàn đã chọn, và đưa bàn đó về trạng thái không có khách.</h3>
+     *
+     * @param tableId
+     * @param userId
+     * @return Hóa đơn của bàn vừa được tính tiền
+     * @author CuongHM
+     */
     @GetMapping("/sales/bill/{tableId}")
     public ResponseEntity<List<BillDetailListDTO>> getBillDetailByTableId(@PathVariable Integer tableId) {
         List<BillDetailListDTO> billDetailListDTOList = tableService.getBillDetailByTableId(tableId);
