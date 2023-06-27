@@ -21,15 +21,16 @@ public class UserServiceImpl implements IUserService {
     @Override
     public IUserInforDTO findUserByUsername(String username) {
         return repository.findUserByUsername(username);
-
     }
-    public List<User> findAllUser() {
+
+    @Override
+    public List<IUserDto> findAllUser() {
         return repository.findAllUser();
     }
 
     @Override
     public User findByAccountId(int accountId, Boolean enableFlag) {
-        return repository.findByAccountId(accountId,enableFlag);
+        return repository.findByAccountId(accountId, enableFlag);
     }
 
     @Override
@@ -56,5 +57,4 @@ public class UserServiceImpl implements IUserService {
     public void deleteById(int id) {
         repository.deleteById(id);
     }
-
 }

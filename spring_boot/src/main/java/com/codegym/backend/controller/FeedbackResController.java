@@ -10,7 +10,6 @@
 package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.FeedbackDetailDto;
-import com.codegym.backend.dto.FeedbackDto;
 import com.codegym.backend.dto.IFeedbackDto;
 import com.codegym.backend.service.IFeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +39,19 @@ public class FeedbackResController {
         return ResponseEntity.ok(feedbackList);
     }
 
-    @GetMapping("/getListByDate")
-    public ResponseEntity<Page<IFeedbackDto>> getListByDate(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam String date) {
+    @GetMapping("/getListByRateDate")
+    public ResponseEntity<Page<IFeedbackDto>> getListByRateDate(@RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "10") int size,
+                                                                @RequestParam(defaultValue = "") String rate,
+                                                                @RequestParam(defaultValue = "1900-01-01") String dateF,
+                                                                @RequestParam(defaultValue = "2100-01-01") String dateT) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<IFeedbackDto> feedbackList = feedbackService.findListFeedbackByDate(pageable, date);
+        Page<IFeedbackDto> feedbackList;
+        if(Objects.equals(rate,"")) {
+            feedbackList = feedbackService.findListFeedbackByDate(pageable, dateF, dateT);
+        } else {
+            feedbackList = feedbackService.findListFeedbackByRateAndDate(pageable, rate, dateF, dateT);
+        }
         if (feedbackList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -51,7 +59,7 @@ public class FeedbackResController {
     }
 
     @GetMapping("/feedbackDetail/{id}")
-    public ResponseEntity<?> getFeedbackById(@PathVariable int id){
+    public ResponseEntity<FeedbackDetailDto> getFeedbackById(@PathVariable int id){
         FeedbackDetailDto feedbackDetail = feedbackService.findFeedbackById(id);
         if(Objects.equals(feedbackDetail.getName(), "")){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -60,7 +68,7 @@ public class FeedbackResController {
     }
 
     @GetMapping("/feedbackImg/{id}")
-    public ResponseEntity<?> getImgUrlById(@PathVariable int id){
+    public ResponseEntity<List<String>> getImgUrlById(@PathVariable int id){
         List<String> imgList = feedbackService.findImgUrlById(id);
         if(imgList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

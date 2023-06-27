@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
@@ -40,12 +41,19 @@ public class AccountService implements IAccountService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    IAccountRepository IAccountRepository;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 
     /**
      * ThangLV
-     * authenticate Account
+     * check input password matches current password
      */
     @Override
     public Boolean checkPassword(String password, String username) {
@@ -58,7 +66,7 @@ public class AccountService implements IAccountService {
      * change password
      */
     @Override
-    public void changePassword(String password, String username) {
+    public void changePassword(String password, String username) throws MessagingException{
         accountRepository.changePassword(password, username);
     }
 
@@ -134,6 +142,4 @@ public class AccountService implements IAccountService {
         long dif = (date2 - date1) / (1000 * 60 * 60 * 24);
         return dif >= 30;
     }
-
-
 }

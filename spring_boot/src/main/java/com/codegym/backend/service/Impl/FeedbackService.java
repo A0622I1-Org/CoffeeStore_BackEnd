@@ -7,9 +7,7 @@
  */
 
 package com.codegym.backend.service.impl;
-
 import com.codegym.backend.dto.FeedbackDetailDto;
-import com.codegym.backend.dto.FeedbackDto;
 import com.codegym.backend.dto.IFeedbackDto;
 import com.codegym.backend.model.Feedback;
 import com.codegym.backend.repository.IFeedbackRepository;
@@ -53,7 +51,12 @@ public class FeedbackService implements IFeedbackService {
     }
 
     @Override
-    public Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String date) {
-        return feedbackRepository.findListFeedbackByDate(pageable, date);
+    public Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String dateF, String dateT) {
+        return feedbackRepository.findListFeedbackByDate(pageable, dateF, dateT);
+    }
+
+    @Override
+    public Page<IFeedbackDto> findListFeedbackByRateAndDate(Pageable pageable, String rate, String dateF, String dateT) {
+        return feedbackRepository.findListFeedbackByRateAndDate(pageable, rate, dateF, dateT);
     }
 }

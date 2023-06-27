@@ -1,12 +1,10 @@
 package com.codegym.backend.payload.response;
 
-import com.codegym.backend.model.User;
 
 import java.util.List;
 
 public class JwtResponse {
     private String token;
-    private String type = "Bearer";
     private Integer id;
     private String username;
     private List<String> roles;

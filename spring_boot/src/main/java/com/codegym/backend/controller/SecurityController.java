@@ -1,5 +1,6 @@
 package com.codegym.backend.controller;
 
+
 import com.codegym.backend.payload.request.LoginRequest;
 import com.codegym.backend.payload.request.NewPasswordRequest;
 import com.codegym.backend.payload.request.VerificationCodeRequest;
@@ -16,7 +17,7 @@ import com.codegym.backend.payload.request.UserNameRequest;
 import com.codegym.backend.payload.response.JwtResponse;
 import com.codegym.backend.service.IUserService;
 import com.codegym.backend.service.impl.AccountDetail;
-import com.codegym.backend.service.impl.RoleService;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -49,14 +50,13 @@ public class SecurityController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private RoleService roleService;
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     IUserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) throws ParseException {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) throws ParseException {
         if (bindingResult.hasErrors()) {
             List<String> message = new ArrayList<>();
             bindingResult.getAllErrors().forEach((element) -> {
@@ -72,7 +72,6 @@ public class SecurityController {
         AccountDetail accountDetail = (AccountDetail) authentication.getPrincipal();
         List<String> roles = accountDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         User user = userService.findByAccountId(accountDetail.getId(), true);
-
         Boolean changePassword = accountService.checkChangePasswordDateByUserName(accountDetail.getUsername());
         return ResponseEntity.ok(
                 new JwtResponse(token, accountDetail.getId(), accountDetail.getUsername(), roles, user.getName(), changePassword));
@@ -106,7 +105,7 @@ public class SecurityController {
         return ResponseEntity.badRequest().body(new MessageResponse("Xác minh thất bại"));
     }
 
-    @PostMapping("/change-password")
+    @PostMapping("/do-change-password")
     public ResponseEntity<?> doChangePassword(@RequestBody NewPasswordRequest newPasswordRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> message = new ArrayList<>();
@@ -122,4 +121,5 @@ public class SecurityController {
         }
         return ResponseEntity.badRequest().body(new MessageResponse("Thay đổi mật khẩu thất bại"));
     }
+
 }

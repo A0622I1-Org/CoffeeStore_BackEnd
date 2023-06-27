@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.Optional;
 
 
@@ -33,7 +34,6 @@ public interface IAccountRepository extends JpaRepository<Account, Integer> {
 
     @Query(value = "SELECT * FROM account where user_name = ?1", nativeQuery = true)
     Optional<Account> findAccountByUserName(String username);
-
 
     @Query(value = "SELECT id FROM account where user_name = ?1", nativeQuery = true)
     Integer findIdByUserName(String username);

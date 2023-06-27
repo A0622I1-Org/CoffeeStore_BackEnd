@@ -19,7 +19,7 @@ public interface IAccountService {
      * ThangLV
      * change password
      */
-    void changePassword(String password, String username) ;
+    void changePassword(String password, String username) throws MessagingException ;
 
     Optional<Account> findAccountByUserName(String username);
 

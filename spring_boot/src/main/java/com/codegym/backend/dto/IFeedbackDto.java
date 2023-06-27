@@ -15,5 +15,6 @@ public interface IFeedbackDto {
     String getEmail();
     String getType();
     String getDate();
+    String getRate();
 }
 
