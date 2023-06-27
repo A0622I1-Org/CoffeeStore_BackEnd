@@ -31,7 +31,7 @@ public class PasswordChangeValidator implements Validator {
             errors.rejectValue("newPassword", "newPassword.null","Mật khẩu mới không được để trống");
         }else if (!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&-_])[A-Za-z@$!%*?&-_]{6,}$").matcher(accountDTO.getNewPassword()).find()){
             errors.rejectValue("newPassword", "newPassword.pattern", "Mật khẩu mới từ 6 -15 ký tự, gồm chữ thường, chữ hoa, ký tự đặc biệt");
-        } else if (accountDTO.getCurrentPassword() == accountDTO.getNewPassword()){
+        } else if (accountDTO.getCurrentPassword().equals(accountDTO.getNewPassword())){
             errors.rejectValue("newPassword", "newPassword.checkMatches", "Mật khẩu mới không được trùng mật khẩu hiện tại");
         }
     }

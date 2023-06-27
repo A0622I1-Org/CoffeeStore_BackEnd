@@ -13,7 +13,7 @@ public interface IAccountService {
      * ThangLV
      * authenticate Account
      */
-    Boolean authenticatePassword(String password, String username);
+    Boolean checkPassword(String password, String username);
 
     /**
      * ThangLV

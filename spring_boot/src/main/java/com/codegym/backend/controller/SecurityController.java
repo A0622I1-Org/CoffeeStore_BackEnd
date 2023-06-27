@@ -1,11 +1,9 @@
 package com.codegym.backend.controller;
 
-import com.codegym.backend.dto.AccountDTO;
 import com.codegym.backend.payload.request.LoginRequest;
 import com.codegym.backend.payload.request.NewPasswordRequest;
 import com.codegym.backend.payload.request.VerificationCodeRequest;
 import com.codegym.backend.payload.response.MessageResponse;
-import com.codegym.backend.service.impl.AccountDetailServiceImpl;
 import com.codegym.backend.service.impl.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +30,7 @@ import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

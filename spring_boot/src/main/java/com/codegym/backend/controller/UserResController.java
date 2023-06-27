@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
 import java.util.Objects;
 
 @CrossOrigin("*")
@@ -41,30 +40,28 @@ public class UserResController {
      * get information of User by idUser
      */
     @GetMapping("/find-user-infor")
-    public ResponseEntity<IUserInforDTO> findUserInfor() {
+    public ResponseEntity<IUserInforDTO> findUserInformation() {
         String username = accountDetailService.getCurrentUserName();
         IUserInforDTO user = userService.findUserByUsername(username);
         if (user == null) {
-            return new ResponseEntity<IUserInforDTO>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<IUserInforDTO>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     /**
      * ThangLV
-     * change password
+     * validation password, check password and change password
      */
     @PostMapping("/change-password-request")
-    public ResponseEntity<?> changePassword(@RequestBody AccountDTO accountDTO, BindingResult
-            bindingResult) {
+    public ResponseEntity<?> changePassword(@RequestBody AccountDTO accountDTO, BindingResult bindingResult) {
         passwordChangeValidator.validate(accountDTO, bindingResult);
         String username = accountDetailService.getCurrentUserName();
         accountDTO.setUserName(username);
-        System.out.println(username);
         if (bindingResult.hasErrors()){
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
         }
-        if (accountService.authenticatePassword(accountDTO.getCurrentPassword(), accountDTO.getUserName())) {
+        if (accountService.checkPassword(accountDTO.getCurrentPassword(), accountDTO.getUserName())) {
             accountService.changePassword(encoder.encode(accountDTO.getNewPassword()), accountDTO.getUserName());
             return ResponseEntity.ok(new MessageResponse("Đổi mật khẩu thành công"));
         }
@@ -75,7 +72,6 @@ public class UserResController {
 
     @GetMapping("/listUser")
     public ResponseEntity<Page<IUserDto>> getUserlist(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        String username = accountDetailService.getCurrentUserName();
         Pageable pageable = PageRequest.of(page, size);
         Page<IUserDto> userList = userService.findAll(pageable);
         if (userList.isEmpty()) {

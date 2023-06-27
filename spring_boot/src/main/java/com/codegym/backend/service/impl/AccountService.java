@@ -8,7 +8,6 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,15 +37,10 @@ public class AccountService implements IAccountService {
     @Autowired
     IUserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-    @Autowired
-    private final PasswordEncoder passwordEncoder;
-
-    public AccountService(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 
 
     /**
@@ -54,10 +48,9 @@ public class AccountService implements IAccountService {
      * authenticate Account
      */
     @Override
-    public Boolean authenticatePassword(String password, String username) {
+    public Boolean checkPassword(String password, String username) {
         String currentPassword = accountRepository.getCurrentPassword(username);
-        boolean result = passwordEncoder.matches(password, currentPassword);
-        return result;
+        return passwordEncoder.matches(password, currentPassword);
     }
 
     /**
