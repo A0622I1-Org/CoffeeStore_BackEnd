@@ -1,6 +1,9 @@
-package com.codegym.backend.model;import java.util.List;
+
+package com.codegym.backend.model;
+
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "account")

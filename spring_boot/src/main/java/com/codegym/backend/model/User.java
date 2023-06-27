@@ -1,4 +1,7 @@
-package com.codegym.backend.model;import javax.persistence.*;
+
+package com.codegym.backend.model;
+
+import javax.persistence.*;
 import javax.persistence.Table;
 
 @Entity

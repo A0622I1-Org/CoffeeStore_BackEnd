@@ -1,8 +1,6 @@
 package com.codegym.backend.dto;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
-public interface BillDTO {
+public interface BillDto {
     public Integer getId();
     public String getCreatedTime();
     public Boolean getPaymentStatus();
