@@ -19,20 +19,23 @@ public class PasswordChangeValidator implements Validator {
         return false;
     }
 
+    private String FIElD_NEW_PASSWORD = "newPassword";
+    private String PATTERN = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[#$@!%&*?-_])[A-Za-z#$@!%&*?-_]{6,15}$";
+
     @Override
     public void validate(Object target, Errors errors) {
         AccountDTO accountDTO = (AccountDTO) target;
-        if (accountDTO.getCurrentPassword() == null){
+        if (accountDTO.getCurrentPassword().equals("")){
             errors.rejectValue("currentPassword", "currentPassword.null","Mật khẩu hiện tại không được để trống");
         } else if (accountDTO.getCurrentPassword().length() < 6 || accountDTO.getCurrentPassword().length() > 15){
-            errors.rejectValue("currentPassword", "currentPassword.null","Mật khẩu hiện tại từ 6 đến 15 ký tự");
+            errors.rejectValue("currentPassword", "currentPassword.length","Mật khẩu hiện tại từ 6 đến 15 ký tự");
         }
-        if (accountDTO.getNewPassword() == null){
-            errors.rejectValue("newPassword", "newPassword.null","Mật khẩu mới không được để trống");
-        }else if (!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&-_])[A-Za-z@$!%*?&-_]{6,}$").matcher(accountDTO.getNewPassword()).find()){
-            errors.rejectValue("newPassword", "newPassword.pattern", "Mật khẩu mới từ 6 -15 ký tự, gồm chữ thường, chữ hoa, ký tự đặc biệt");
+        if (accountDTO.getNewPassword().equals("")){
+            errors.rejectValue(FIElD_NEW_PASSWORD, "newPassword.null","Mật khẩu mới không được để trống");
+        }else if (!Pattern.compile(PATTERN).matcher(accountDTO.getNewPassword()).find()){
+            errors.rejectValue(FIElD_NEW_PASSWORD, "newPassword.pattern", "Mật khẩu mới từ 6 -15 ký tự, gồm chữ thường, chữ hoa, ký tự đặc biệt");
         } else if (accountDTO.getCurrentPassword().equals(accountDTO.getNewPassword())){
-            errors.rejectValue("newPassword", "newPassword.checkMatches", "Mật khẩu mới không được trùng mật khẩu hiện tại");
+            errors.rejectValue(FIElD_NEW_PASSWORD, "newPassword.checkMatches", "Mật khẩu mới không được trùng mật khẩu hiện tại");
         }
     }
 }

@@ -21,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,13 +59,17 @@ public class UserResController {
      * validation password, check password and change password
      */
     @PostMapping("/change-password-request")
-    public ResponseEntity<?> changePassword(@RequestBody AccountDTO accountDTO, BindingResult
+    public ResponseEntity<Object> changePassword(@RequestBody AccountDTO accountDTO, BindingResult
             bindingResult) throws MessagingException{
         passwordChangeValidator.validate(accountDTO, bindingResult);
         String username = accountDetailService.getCurrentUserName();
         accountDTO.setUserName(username);
-        if (bindingResult.hasErrors()){
-            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
+        if (bindingResult.hasErrors()) {
+            List<String> message = new ArrayList<>();
+            bindingResult.getAllErrors().forEach((element) -> {
+                message.add(element.getDefaultMessage());
+            });
+            return ResponseEntity.badRequest().body(message);
         }
         if (accountService.checkPassword(accountDTO.getCurrentPassword(), accountDTO.getUserName())) {
             accountService.changePassword(encoder.encode(accountDTO.getNewPassword()), accountDTO.getUserName());
