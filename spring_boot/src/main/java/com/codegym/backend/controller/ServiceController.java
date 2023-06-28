@@ -23,7 +23,7 @@ import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/private")
 public class ServiceController {
     @Autowired
     IServiceService serviceService;

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/api")
+@RequestMapping("/api/private")
 public class CoffeeTableRestController {
     @Autowired
     ICoffeeTableService tableService;
