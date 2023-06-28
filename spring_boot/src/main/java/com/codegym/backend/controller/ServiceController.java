@@ -1,6 +1,6 @@
 package com.codegym.backend.controller;
 
-import com.codegym.backend.dto.BillDTO;
+import com.codegym.backend.dto.BillDto;
 import com.codegym.backend.dto.BillDetailListDTO;
 import com.codegym.backend.dto.BillInsertDTO;
 import com.codegym.backend.dto.InsertBillDetailDTO;
@@ -97,8 +97,8 @@ public class ServiceController {
 
     //Lấy bill theo table_id và payment_status = 0;
     @GetMapping("/bill/table_id/{id}")
-    public ResponseEntity<BillDTO> getBill(@PathVariable int id) {
-        BillDTO bill = iBillService.findByIdBill(id);
+    public ResponseEntity<BillDto> getBill(@PathVariable int id) {
+        BillDto bill = iBillService.findByIdBill(id);
         if (bill == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

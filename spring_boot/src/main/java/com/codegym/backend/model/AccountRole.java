@@ -1,6 +1,5 @@
 package com.codegym.backend.model;
 
-import java.util.List;
 import javax.persistence.*;
 import javax.persistence.Table;
 
@@ -19,8 +18,6 @@ public class AccountRole {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private AppRole role;
-
-   // Constructors, getters, and setters
 
     public AccountRole() {
     }
@@ -56,3 +53,4 @@ public class AccountRole {
         this.role = role;
     }
 }
+

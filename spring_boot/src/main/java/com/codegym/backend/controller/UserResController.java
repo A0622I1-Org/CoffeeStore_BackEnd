@@ -1,9 +1,11 @@
 package com.codegym.backend.controller;
 
+import com.codegym.backend.dto.IUserDto;
 
 import com.codegym.backend.dto.IUserDto;
 import com.codegym.backend.dto.IUserInforDTO;
 import com.codegym.backend.service.IUserService;
+import com.codegym.backend.service.impl.AccountDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,18 +23,21 @@ import java.util.Objects;
 public class UserResController {
     @Autowired
     private IUserService userService;
+    @Autowired
+    private AccountDetailServiceImpl accountDetailService;
 
     @GetMapping("/find-user-id/{id}")
     public ResponseEntity<IUserInforDTO> findUserById(@PathVariable Integer id) {
         IUserInforDTO user = userService.findUserById(id);
         if (user == null) {
-            return new ResponseEntity<IUserInforDTO>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<IUserInforDTO>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/listUser")
     public ResponseEntity<Page<IUserDto>> getUserlist(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        String username = accountDetailService.getCurrentUserName();
         Pageable pageable = PageRequest.of(page, size);
         Page<IUserDto> userList = userService.findAll(pageable);
         if (userList.isEmpty()) {

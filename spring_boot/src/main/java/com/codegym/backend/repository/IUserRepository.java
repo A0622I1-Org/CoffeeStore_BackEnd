@@ -21,33 +21,38 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
             "                         join account on account.id = user.account_id where user.enable_flag =1 and user.id = ?", nativeQuery = true)
     IUserInforDTO getUserById(int index);
 
-    String selectAllUser_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag,\n" +
-            "u.salary, p.name position  from user u \n" +
-            "join account a on u.account_id = a.id\n" +
-            "join position p on p.id = u.position_id\n" +
-            "order by u.id";
-    @Query(value = selectAllUser_sql, countQuery = selectAllUser_sql, nativeQuery = true)
+    @Query(value = "SELECT * FROM user where account_id = ?1 and enable_flag = ?2", nativeQuery = true)
+    User findByAccountId(int accountId, Boolean enableFlag);
+
+    @Query(value = "SELECT name FROM user where account_id = ?1 and enable_flag = ?2", nativeQuery = true)
+    String findNameByAccountId(int accountId, Boolean enableFlag);
+
+    String JOIN_ACCOUNT = "join account a on u.account_id = a.id\n";
+    String SELECT_USER_ITEM = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag, u.salary, p.name position  from user u\n";
+    String JOIN_POSITION = "join position p on p.id = u.position_id\n";
+    String ORDER_BY = "order by u.id";
+
+    String SELECT_ALL_USER_SQL = SELECT_USER_ITEM + JOIN_ACCOUNT + JOIN_POSITION + ORDER_BY;
+
+    @Query(value = SELECT_ALL_USER_SQL, countQuery = SELECT_ALL_USER_SQL, nativeQuery = true)
+
     Page<IUserDto> findAllList(Pageable pageable);
 
-    @Query(value = selectAllUser_sql, countQuery = selectAllUser_sql, nativeQuery = true)
+    @Query(value = SELECT_ALL_USER_SQL, countQuery = SELECT_ALL_USER_SQL, nativeQuery = true)
     List<IUserDto> findAllUser();
 
-    String findNameOrBirthDay_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag,\n" +
-            "u.salary, p.name position  from user u \n" +
-            "join account a on u.account_id = a.id\n" +
-            "join position p on p.id = u.position_id\n" +
+    String FIND_NAME_AND_BIRTHDAY_SQL = SELECT_USER_ITEM + JOIN_ACCOUNT + JOIN_POSITION +
             "where u.birthday = ? and u.name like ? \n" +
-            "order by u.id";
-    @Query(value = findNameOrBirthDay_sql, countQuery = findNameOrBirthDay_sql, nativeQuery = true)
+            ORDER_BY;
+    @Query(value = FIND_NAME_AND_BIRTHDAY_SQL, countQuery = FIND_NAME_AND_BIRTHDAY_SQL, nativeQuery = true)
     Page<IUserDto> findUserByNameOrDate(Pageable pageable, String date, String name);
 
-    String findByName_sql = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag,\n" +
-            "u.salary, p.name position  from user u \n" +
-            "join account a on u.account_id = a.id\n" +
+    String FIND_NAME_SQL = SELECT_USER_ITEM +
+            "u.salary, p.name position  from user u \n" + JOIN_ACCOUNT +
             "join position p on p.id = u.position_id\n" +
             "where u.name like ? \n" +
-            "order by u.id";
-    @Query(value = findByName_sql, countQuery = findByName_sql, nativeQuery = true)
+            ORDER_BY;
+    @Query(value = FIND_NAME_SQL, countQuery = FIND_NAME_SQL, nativeQuery = true)
     Page<IUserDto> findUserByName(Pageable pageable, String date);
 
     @Modifying

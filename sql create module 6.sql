@@ -22,7 +22,8 @@ user_name NVARCHAR(50),
 password NVARCHAR(255),
 verification_code NVARCHAR(255),
 email NVARCHAR(50),
-enable_flag BIT
+enable_flag BIT,
+change_password_date DATE
 );
 create table role(
 id INT auto_increment primary key,
@@ -44,7 +45,11 @@ salary DOUBLE,
 position_id INT,
 account_id INT,
 enable_flag BIT,
+<<<<<<< HEAD
+img_url NVARCHAR(1000)
+=======
 img_Url NVARCHAR(1000)
+>>>>>>> develop
 );
 create table `position`(
 id INT auto_increment primary key,
@@ -56,7 +61,7 @@ name NVARCHAR(50),
 price DOUBLE,
 type_id INT,
 enable_flag BIT,
-imgUrl NVARCHAR(1000),
+img_url NVARCHAR(1000),
 created_date NVARCHAR(12)
 );
 create table service_type(
@@ -86,7 +91,7 @@ quantity INT
 create table feedback_img(
 id INT auto_increment primary key,
 feedback_id INT,
-imgUrl NVARCHAR(1000)
+img_url NVARCHAR(1000)
 );
 alter table feedback add foreign key(bill_id) references bill(id);
 alter table feedback add foreign key(type_id) references feedback_type(id);
