@@ -10,6 +10,8 @@ import com.codegym.backend.model.Position;
 import com.codegym.backend.service.AccountService;
 import com.codegym.backend.service.PositionService;
 import com.codegym.backend.service.UserService;
+import com.codegym.backend.validation.UserCreateByRequestDtoValidator;
+import com.codegym.backend.validation.UserEditByRequestDtoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/public")
-public class UserController {
+public class UserResController {
 
     @Autowired
     private UserService userService;
@@ -32,9 +34,19 @@ public class UserController {
     private PositionService positionService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private UserCreateByRequestDtoValidator userCreateByRequestDtoValidator;
+    @Autowired
+    private UserEditByRequestDtoValidator userEditByRequestDtoValidator;
+
 
     @PutMapping("/edit-user/{id}")
-    public ResponseEntity<?> editUser(@RequestBody UserEditDTO userEditDTO, @PathVariable int id) {
+    public ResponseEntity<?> editUser(@Valid @RequestBody UserEditDTO userEditDTO, BindingResult
+            bindingResult, @PathVariable int id) throws MessagingException {
+        userEditByRequestDtoValidator.validate(userEditDTO, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
+        }
         userService.editUser(userEditDTO, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -49,6 +61,7 @@ public class UserController {
     @RequestMapping(value = "/create-user", method = RequestMethod.POST)
     public ResponseEntity<?> createNewUser(@Valid @RequestBody UserDTO userDTO, BindingResult
             bindingResult) throws MessagingException {
+        userCreateByRequestDtoValidator.validate(userDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
         }
