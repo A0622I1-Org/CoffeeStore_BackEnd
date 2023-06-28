@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private AccountDetailServiceImpl accountService;
     @Autowired

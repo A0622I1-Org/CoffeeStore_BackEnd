@@ -18,9 +18,13 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserRepository repository;
 
+    /**
+     * ThangLV
+     * get information of User by Username
+     */
     @Override
-    public IUserInforDTO findUserById(int index) {
-        return repository.getUserById(index);
+    public IUserInforDTO findUserByUsername(String username) {
+        return repository.findUserByUsername(username);
     }
 
     @Override
@@ -57,6 +61,4 @@ public class UserServiceImpl implements IUserService {
     public void deleteById(int id) {
         repository.deleteById(id);
     }
-
-
 }

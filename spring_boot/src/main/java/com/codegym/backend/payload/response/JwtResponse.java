@@ -23,14 +23,6 @@ public class JwtResponse {
         this.changePassword = changePassword;
     }
 
-    public JwtResponse(String token, Integer id, String username, List<String> roles, String name) {
-        this.token = token;
-        this.id = id;
-        this.username = username;
-        this.roles = roles;
-        this.name = name;
-    }
-
     public Boolean getChangePassword() {
         return changePassword;
     }
@@ -77,5 +69,7 @@ public class JwtResponse {
 
     public void setName(String name) {
         this.name = name;
+
     }
+
 }

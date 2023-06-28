@@ -9,6 +9,18 @@ import java.util.Optional;
 
 public interface IAccountService {
 
+    /**
+     * ThangLV
+     * authenticate Account
+     */
+    Boolean checkPassword(String password, String username);
+
+    /**
+     * ThangLV
+     * change password
+     */
+    void changePassword(String password, String username) ;
+
     Optional<Account> findAccountByUserName(String username);
 
     Integer findIdByUserName(String username);
@@ -29,6 +41,4 @@ public interface IAccountService {
 
     Boolean checkChangePasswordDateByUserName(String username) throws ParseException;
 
-    Boolean authenticatePassword(String password, String username);
-    void changePassword(String password, String username);
 }

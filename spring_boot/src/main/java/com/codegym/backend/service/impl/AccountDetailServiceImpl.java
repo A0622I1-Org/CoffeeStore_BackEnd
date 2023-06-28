@@ -22,6 +22,10 @@ public class AccountDetailServiceImpl implements UserDetailsService {
         return AccountDetail.build(account);
     }
 
+    /**
+     * ThangLV
+     * get username in Token
+     */
     public String getCurrentUserName() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -29,4 +33,5 @@ public class AccountDetailServiceImpl implements UserDetailsService {
         }
         return principal.toString();
     }
+
 }

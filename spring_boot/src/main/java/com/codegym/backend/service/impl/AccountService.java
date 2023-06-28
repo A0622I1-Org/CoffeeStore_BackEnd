@@ -8,9 +8,8 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
@@ -40,12 +39,33 @@ public class AccountService implements IAccountService {
     IUserService userService;
 
     @Autowired
-    IAccountRepository IAccountRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     AuthenticationManager authenticationManager;
 
+
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+
+    /**
+     * ThangLV
+     * check input password matches current password
+     */
+    @Override
+    public Boolean checkPassword(String password, String username) {
+        String currentPassword = accountRepository.getCurrentPassword(username);
+        return passwordEncoder.matches(password, currentPassword);
+    }
+
+    /**
+     * ThangLV
+     * change password
+     */
+    @Override
+    public void changePassword(String password, String username){
+        accountRepository.changePassword(password, username);
+    }
 
     @Override
     public Optional<Account> findAccountByUserName(String username) {
@@ -119,21 +139,4 @@ public class AccountService implements IAccountService {
         long dif = (date2 - date1) / (1000 * 60 * 60 * 24);
         return dif >= 30;
     }
-
-    @Override
-    public Boolean authenticatePassword(String password, String username) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password));
-        if (authentication.isAuthenticated()) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void changePassword(String password, String username) {
-        IAccountRepository.changePassword(password, username);
-    }
-
-
 }

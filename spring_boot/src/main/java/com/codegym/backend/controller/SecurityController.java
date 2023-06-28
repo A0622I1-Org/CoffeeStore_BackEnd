@@ -1,28 +1,31 @@
 package com.codegym.backend.controller;
 
-import com.codegym.backend.dto.AccountDTO;
-import com.codegym.backend.jwt.JwtUtility;
-import com.codegym.backend.model.User;
+
 import com.codegym.backend.payload.request.LoginRequest;
 import com.codegym.backend.payload.request.NewPasswordRequest;
-import com.codegym.backend.payload.request.UserNameRequest;
 import com.codegym.backend.payload.request.VerificationCodeRequest;
-import com.codegym.backend.payload.response.JwtResponse;
 import com.codegym.backend.payload.response.MessageResponse;
-import com.codegym.backend.service.IAccountService;
-import com.codegym.backend.service.IUserService;
-import com.codegym.backend.service.impl.AccountDetail;
-import com.codegym.backend.service.impl.RoleService;
+import com.codegym.backend.service.impl.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import com.codegym.backend.jwt.JwtUtility;
+import com.codegym.backend.model.User;
+import com.codegym.backend.payload.request.UserNameRequest;
+import com.codegym.backend.payload.response.JwtResponse;
+import com.codegym.backend.service.IUserService;
+import com.codegym.backend.service.impl.AccountDetail;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
@@ -36,6 +39,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/public")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SecurityController {
+
+    @Autowired
+    AccountService accountService;
+
     @Autowired
     private JwtUtility jwtUtility;
 
@@ -43,17 +50,10 @@ public class SecurityController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private IAccountService accountService;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     IUserService userService;
-
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) throws ParseException {
@@ -71,11 +71,10 @@ public class SecurityController {
         String token = jwtUtility.generateJwtToken(loginRequest.getUsername());
         AccountDetail accountDetail = (AccountDetail) authentication.getPrincipal();
         List<String> roles = accountDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        Boolean changePassword = accountService.checkChangePasswordDateByUserName(accountDetail.getUsername());
         User user = userService.findByAccountId(accountDetail.getId(), true);
+        Boolean changePassword = accountService.checkChangePasswordDateByUserName(accountDetail.getUsername());
         return ResponseEntity.ok(
-                new JwtResponse(token, accountDetail.getId(), accountDetail.getUsername(), roles, user.getName(), changePassword)
-        );
+                new JwtResponse(token, accountDetail.getId(), accountDetail.getUsername(), roles, user.getName(), changePassword));
     }
 
     @PostMapping("/forgot-password")
