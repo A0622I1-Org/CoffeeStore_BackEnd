@@ -1,7 +1,7 @@
 package com.codegym.backend.service.impl;
 
 import com.codegym.backend.model.Account;
-import com.codegym.backend.repository.AccountRepository;
+import com.codegym.backend.repository.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class AccountDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    AccountRepository accountRepository;
+    IAccountRepository IAccountRepository;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username)  {
-        Account account = accountRepository.findAccountByUserName(username);
+        Account account = IAccountRepository.findAccountByUserName(username);
         if(account==null){
             throw new UsernameNotFoundException("User " + username + " was not found in the database");
         }

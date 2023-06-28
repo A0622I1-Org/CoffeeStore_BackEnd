@@ -5,6 +5,7 @@ import com.codegym.backend.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -16,8 +17,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     
     @Modifying
     @Query(value = "update user as u set u.name = ?1, u.address = ?2, u.phone_number = ?3, u.birthday = ?4, u.gender = ?5," +
-            " u.salary = ?6, u.account_id = ?7, u.img_url = ?8, u.position_id = ?9 where u.id = ?10", nativeQuery = true)
-    void editUser(String name,String address,String phoneNumber,String birthday,int gender,Double salary,int account,String imgUrl,int position,int id);
+            " u.salary = ?6, u.img_url = ?7, u.position_id = ?8 where u.id = ?9", nativeQuery = true)
+    void editUser(String name,String address,String phoneNumber,String birthday,int gender,Double salary,String imgUrl,int position,int id);
 
 
     @Modifying
@@ -29,13 +30,19 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "select count(phone_number) from user where phone_number = ?", nativeQuery = true)
     Integer findByPhone(String phoneNumber);
 
+    @Query(value = "select count(user_name) from account where user_name = :userName ", nativeQuery = true)
+    Integer findByUserName(@Param("userName") String userName);
 
-    @Query(value = "select user.id , user.name, user.birthday,user.gender,user.salary,user.img_url, " +
-            "user.address, user.phone_number, user.position_id, user.account_id from user inner join position as p on p.id = user.position_id " +
-            "inner join account as a on a.id = user.account_id " +
-            "where user.id = ?1", nativeQuery = true)
+    @Query(value = "select count(email) from account where email = :email ", nativeQuery = true)
+    Integer findByEmail(@Param("email") String email);
+
+
+    @Query(value = "select user.id , a.user_name as username, user.name ,user.img_url as imgUrl, a.email, user.gender, user.birthday,user.address , user.phone_number as phoneNumber\n" +
+            "            , user.position_id as position, user.salary from user \n" +
+            "            inner join position as p on p.id = user.position_id \n" +
+            "            inner join account as a on a.id = user.account_id \n" +
+            "            where user.id = ?", nativeQuery = true)
     UserFindIdDTO getById(int id);
-
 
 
 

@@ -12,7 +12,7 @@ public interface AccountService {
 
     void addNew(Account account);
 
-    void updateEmailAccount(String email, Integer account);
+    void updateEmailAccount(String email, String username);
 
     List<AccountListDTO> findAllAccount();
 

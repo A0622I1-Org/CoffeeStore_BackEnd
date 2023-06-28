@@ -10,12 +10,14 @@ import javax.mail.MessagingException;
 public interface UserService {
     UserFindIdDTO getById(int id);
 
-    void editUser(UserEditDTO userEditDTO, int id);
+    void editUser(UserEditDTO userEditDTO, int id) throws MessagingException ;
 
     void createNewUser(UserDTO userDTO) throws MessagingException;
 
     Integer findByPhone(String phoneNumber);
 
     Integer findByUserName(String userName);
+
+    Integer findByEmail(String email);
 
 }

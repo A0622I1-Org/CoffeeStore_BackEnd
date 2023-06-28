@@ -1,38 +1,57 @@
 package com.codegym.backend.dto;
 
 public class UserEditDTO {
-    Integer userId;
+    Integer id;
+    String username;
+    String imgUrl;
     String name;
     String address;
     String phoneNumber;
     String birthday;
     Integer gender;
     Double salary;
-    String account;
-    String imgUrl;
-    String position;
+    Integer position;
     String email;
 
-    public UserEditDTO(Integer userId, String name, String address, String phoneNumber, String birthday, Integer gender, Double salary, String account, String imgUrl, String position, String email) {
-        this.userId = userId;
+    public UserEditDTO() {
+    }
+
+    public UserEditDTO(Integer id, String username, String imgUrl, String name, String address, String phoneNumber, String birthday, Integer gender, Double salary, Integer position, String email) {
+        this.id = id;
+        this.username = username;
+        this.imgUrl = imgUrl;
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
         this.gender = gender;
         this.salary = salary;
-        this.account = account;
-        this.imgUrl = imgUrl;
         this.position = position;
         this.email = email;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public String getName() {
@@ -83,27 +102,11 @@ public class UserEditDTO {
         this.salary = salary;
     }
 
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getPosition() {
+    public Integer getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Integer position) {
         this.position = position;
     }
 

@@ -2,15 +2,14 @@ package com.codegym.backend.dto;
 
 public interface UserFindIdDTO {
     Integer getId();
-//    String getUserName();
+    String getUsername();
     String getName();
-    String getImg_url();
+    String getImgUrl();
     String getEmail();
     String getGender();
-    String getBirthDay();
+    String getBirthday();
     String getAddress();
-    String getPhone_number();
-    Integer getPosition_id();
+    String getPhoneNumber();
+    Integer getPosition();
     Double getSalary();
-    Integer getAccount_id();
 }

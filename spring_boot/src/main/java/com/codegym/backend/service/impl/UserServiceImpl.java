@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,11 +34,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void editUser(UserEditDTO userEditDTO, int id) {
-        userRepository.editUser(userEditDTO.getName(), userEditDTO.getAddress(), userEditDTO.getPhoneNumber(), userEditDTO.getBirthday(),
-                userEditDTO.getGender(), userEditDTO.getSalary(), Integer.parseInt(userEditDTO.getAccount()), userEditDTO.getImgUrl(),
-                Integer.parseInt(userEditDTO.getPosition()), id);
-        accountService.updateEmailAccount(userEditDTO.getEmail(), Integer.parseInt(userEditDTO.getAccount()));
+    public void editUser(UserEditDTO userEditDTO, int id) throws MessagingException  {
+        userRepository.editUser(
+                userEditDTO.getName(),
+                userEditDTO.getAddress(),
+                userEditDTO.getPhoneNumber(),
+                userEditDTO.getBirthday(),
+                userEditDTO.getGender(),
+                userEditDTO.getSalary(),
+                userEditDTO.getImgUrl(),
+                userEditDTO.getPosition(),
+                id);
+        accountService.updateEmailAccount(userEditDTO.getEmail(),userEditDTO.getUsername());
     }
 
     @Override
@@ -49,6 +58,10 @@ public class UserServiceImpl implements UserService {
         accountService.addNew(account);
         Integer id = accountService.findIdUserByUserName(userDTO.getUserName());
         roleService.setDefaultRole(id, 1);
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedTime = currentTime.format(formatter);
+        userDTO.setBirthday(formattedTime);
         userRepository.createNewUser(userDTO.getName(), userDTO.getAddress(), userDTO.getPhoneNumber(),
                 userDTO.getBirthday(), userDTO.getGender(), userDTO.getSalary(), userDTO.getImgUrl(), userDTO.getPosition(),id,false);
     }
@@ -60,9 +73,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer findByUserName(String userName) {
-        return null;
+        return userRepository.findByUserName(userName);
     }
 
-
+    @Override
+    public Integer findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
 }
