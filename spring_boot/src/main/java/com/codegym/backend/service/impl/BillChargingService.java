@@ -18,6 +18,15 @@ public class BillChargingService implements IBillChargingService {
         return billChargingRepository.getAllBillCharging(tableId);
     }
 
+    /**
+     * @param userName
+     * @return
+     */
+    @Override
+    public int getUserId(String userName) {
+        return billChargingRepository.getUserId(userName);
+    }
+
     @Override
     public void updateBillStatusByTableId(String paymentTime, int userId, int tableId) {
         billChargingRepository.updateBillStatusByTableId(paymentTime, userId, tableId);
