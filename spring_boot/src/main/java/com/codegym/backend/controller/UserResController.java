@@ -1,17 +1,27 @@
 package com.codegym.backend.controller;
 
-
+import com.codegym.backend.dto.AccountDTO;
 import com.codegym.backend.dto.IUserDto;
+
 import com.codegym.backend.dto.IUserInforDTO;
+import com.codegym.backend.payload.response.MessageResponse;
+
 import com.codegym.backend.service.IUserService;
+import com.codegym.backend.service.impl.AccountDetailServiceImpl;
+import com.codegym.backend.service.impl.AccountService;
+import com.codegym.backend.validation.PasswordChangeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,14 +31,52 @@ import java.util.Objects;
 public class UserResController {
     @Autowired
     private IUserService userService;
+    @Autowired
+    AccountService accountService;
+    @Autowired
+    private PasswordEncoder encoder;
+    @Autowired
+    private AccountDetailServiceImpl accountDetailService;
+    @Autowired
+    private PasswordChangeValidator passwordChangeValidator;
 
-    @GetMapping("/find-user-id/{id}")
-    public ResponseEntity<IUserInforDTO> findUserById(@PathVariable Integer id) {
-        IUserInforDTO user = userService.findUserById(id);
+    /**
+     * ThangLV
+     * get information of User by Username
+     */
+    @GetMapping("/find-user-infor")
+    public ResponseEntity<IUserInforDTO> findUserInformation() {
+        String username = accountDetailService.getCurrentUserName();
+        IUserInforDTO user = userService.findUserByUsername(username);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    /**
+     * ThangLV
+     * validation password, check password and change password
+     */
+    @PostMapping("/change-password-request")
+    public ResponseEntity<Object> changePassword(@RequestBody AccountDTO accountDTO, BindingResult
+            bindingResult){
+        passwordChangeValidator.validate(accountDTO, bindingResult);
+        String username = accountDetailService.getCurrentUserName();
+        accountDTO.setUserName(username);
+        if (bindingResult.hasErrors()) {
+            List<String> message = new ArrayList<>();
+            bindingResult.getAllErrors().forEach(e -> message.add(e.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(message);
+        }
+        boolean checkPassword = accountService.checkPassword(accountDTO.getCurrentPassword(), accountDTO.getUserName());
+        if (checkPassword) {
+            accountService.changePassword(encoder.encode(accountDTO.getNewPassword()), accountDTO.getUserName());
+            return ResponseEntity.ok(new MessageResponse("Đổi mật khẩu thành công"));
+        }
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Mật khẩu hiện tại không đúng"));
     }
 
     @GetMapping("/listUser")

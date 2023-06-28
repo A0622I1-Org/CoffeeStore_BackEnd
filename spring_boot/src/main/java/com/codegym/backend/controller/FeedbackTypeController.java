@@ -19,7 +19,7 @@ public class FeedbackTypeController {
     @Autowired
     private IFeedbackTypeService feedbackTypeService;
 
-    @GetMapping("/list")
+    @GetMapping("/type/list")
     public ResponseEntity<List<FeedbackType>> getAllType() {
         List<FeedbackType> feedbackTypeList = feedbackTypeService.selectAll();
         if (feedbackTypeList.isEmpty()) {

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ITableRepository extends JpaRepository<CoffeeTable,Integer> {
-    @Query(value = "select * from `table` where enable_flag = 1",nativeQuery = true)
+    @Query(value = "select * from `table` where status like 'tốt'",nativeQuery = true)
     List<CoffeeTable> findAllTable();
 }
