@@ -202,7 +202,7 @@ VALUES
 SET FOREIGN_KEY_CHECKS=0;
 truncate table user;
 update user set enable_flag = 1 where id <=2;
-INSERT INTO user (name, address, phone_number, birthday, gender, salary, position_id, account_id, enable_flag, imgUrl)
+INSERT INTO user (name, address, phone_number, birthday, gender, salary, position_id, account_id, enable_flag, img_Url)
 VALUES
   ('Lê Gia Tú', 'Quảng Trị', '0123456789', '1991-05-10', 1, 10000000, 1, 1, 0, 'url_img1'),
   ('Lê Thị Việt Hà', 'Quảng Trị', '0123456789', '1994-01-01', 0, 11000000, 2, 2, 0, 'url_img1'),
