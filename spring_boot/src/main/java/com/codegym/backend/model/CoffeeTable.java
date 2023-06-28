@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tableCoffee")
 public class CoffeeTable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -64,4 +65,3 @@ public class CoffeeTable {
         this.enableFlag = enableFlag;
     }
 }
-

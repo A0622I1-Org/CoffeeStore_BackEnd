@@ -1,7 +1,6 @@
 package com.codegym.backend.model;
 
 import java.util.List;
-
 import javax.persistence.*;
 import javax.persistence.Table;
 
@@ -31,20 +30,25 @@ public class Account {
     @OneToMany(mappedBy = "account")
     private List<AccountRole> accountRoles;
 
+    @Column(name = "change_password_date",columnDefinition = "Date")
+    private String changePassworDate;
+
     // Constructors, getters, and setters
 
-    public Account() {
-    }
 
-    public Account(String userName, String password, String verificationCode, String email, boolean enableFlag) {
+    public Account(int id, String userName, String password, String verificationCode, String email, boolean enableFlag, List<AccountRole> accountRoles, String changePassworDate) {
+        this.id = id;
         this.userName = userName;
         this.password = password;
         this.verificationCode = verificationCode;
         this.email = email;
         this.enableFlag = enableFlag;
+        this.accountRoles = accountRoles;
+        this.changePassworDate = changePassworDate;
     }
 
-    // Getters and Setters
+    public Account() {
+    }
 
     public int getId() {
         return id;
@@ -100,5 +104,13 @@ public class Account {
 
     public void setAccountRoles(List<AccountRole> accountRoles) {
         this.accountRoles = accountRoles;
+    }
+
+    public String getChangePassworDate() {
+        return changePassworDate;
+    }
+
+    public void setChangePassworDate(String changePassworDate) {
+        this.changePassworDate = changePassworDate;
     }
 }

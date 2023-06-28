@@ -14,7 +14,6 @@ import javax.transaction.Transactional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    
     @Modifying
     @Query(value = "update user as u set u.name = ?1, u.address = ?2, u.phone_number = ?3, u.birthday = ?4, u.gender = ?5," +
             " u.salary = ?6, u.img_url = ?7, u.position_id = ?8 where u.id = ?9", nativeQuery = true)

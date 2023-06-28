@@ -5,7 +5,7 @@ import com.codegym.backend.dto.AccountListDTO;
 import com.codegym.backend.dto.UserDTO;
 import com.codegym.backend.dto.UserEditDTO;
 import com.codegym.backend.dto.UserFindIdDTO;
-import com.codegym.backend.model.Account;
+
 import com.codegym.backend.model.Position;
 import com.codegym.backend.service.AccountService;
 import com.codegym.backend.service.PositionService;
@@ -23,11 +23,19 @@ import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
+import com.codegym.backend.dto.IUserDto;
+import com.codegym.backend.service.IUserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import java.util.Objects;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/public")
 public class UserResController {
-
+    @Autowired
+    private IUserService iuserService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -95,4 +103,43 @@ public class UserResController {
         return new ResponseEntity<UserFindIdDTO>(user, HttpStatus.OK);
     }
 
+
+    @GetMapping("/listUser")
+    public ResponseEntity<Page<IUserDto>> getUserlist(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<IUserDto> userList = iuserService.findAll(pageable);
+        if (userList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(userList);
+    }
+
+    @GetMapping("/getUserByNameOrBirthday")
+    public ResponseEntity<Page<IUserDto>> getListByNameOrDate(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "") String date, @RequestParam(defaultValue = "") String name) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<IUserDto> userList;
+        if (Objects.equals(date, "")) {
+            userList = iuserService.findUserByName(pageable, "%" + name + "%");
+        } else {
+            userList = iuserService.findUserByNameOrDate(pageable, date, "%" + name + "%");
+        }
+        if (userList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(userList);
+    }
+
+    @PutMapping("/userDelete/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable int id) {
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<IUserDto> userList = iuserService.findAll(pageable);
+        if (userList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy tài khoản cần xóa!");
+        } else if (Objects.equals(userList.getContent().get(id-1).getEnableFlag(), "false")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy tài khoản cần xóa!");
+        } else {
+            iuserService.deleteById(id);
+            return ResponseEntity.ok("Đã xóa thành công!");
+        }
+    }
 }

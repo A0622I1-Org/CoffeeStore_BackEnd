@@ -13,8 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,6 +29,8 @@ public class UserServiceImpl implements UserService {
     private AccountService accountService;
     @Autowired
     private RoleService roleService;
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public UserFindIdDTO getById(int id) {
@@ -50,18 +54,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createNewUser(UserDTO userDTO) throws MessagingException {
+
         Account account = new Account();
         account.setUserName(userDTO.getUserName());
         account.setPassword(passwordEncoder.encode("123"));
         account.setEmail(userDTO.getEmail());
         account.setEnableFlag(true);
+        String now = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+        account.setChangePassworDate(now);
         accountService.addNew(account);
         Integer id = accountService.findIdUserByUserName(userDTO.getUserName());
         roleService.setDefaultRole(id, 1);
-        LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String formattedTime = currentTime.format(formatter);
-        userDTO.setBirthday(formattedTime);
         userRepository.createNewUser(userDTO.getName(), userDTO.getAddress(), userDTO.getPhoneNumber(),
                 userDTO.getBirthday(), userDTO.getGender(), userDTO.getSalary(), userDTO.getImgUrl(), userDTO.getPosition(),id,false);
     }
