@@ -76,4 +76,7 @@ public interface IFeedbackRepository extends JpaRepository<Feedback, Integer> {
      */
     @Query(value = "select * from feedback where id = :id", nativeQuery = true)
     Feedback findObject(@Param("id") int id);
+
+    @Query(value = "select count(email) from feedback where email = :email", nativeQuery = true)
+    Integer selectCountEmail(@Param("email") String email);
 }

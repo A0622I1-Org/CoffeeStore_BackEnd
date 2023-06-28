@@ -42,4 +42,6 @@ public interface IFeedbackService {
     List<Feedback> getAll();
 
     Page<IFeedbackDto> findAll(Pageable pageable);
+
+    Integer countEmail(String email);
 }

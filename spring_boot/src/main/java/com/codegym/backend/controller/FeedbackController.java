@@ -1,6 +1,7 @@
 package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.CreateFeedback;
+import com.codegym.backend.service.IFeedbackService;
 import com.codegym.backend.service.impl.FeedbackProcessingService;
 import com.codegym.backend.validation.FeedbackCreateDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,10 @@ public class FeedbackController {
         }
         feedbackProcessingService.processFeedback(feedbackCreate);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/count/{email}")
+    public Integer countByEmail(@PathVariable("email") String email) {
+        return feedbackProcessingService.countEmail(email);
     }
 }
