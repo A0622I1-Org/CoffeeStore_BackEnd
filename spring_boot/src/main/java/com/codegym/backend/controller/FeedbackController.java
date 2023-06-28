@@ -21,7 +21,7 @@ public class FeedbackController {
     @Autowired
     private IFeedbackTypeService feedbackTypeService;
 
-    @PostMapping("/create")
+    @PostMapping("/feedback/create")
     public ResponseEntity<?> createFeedback(@RequestBody CreateFeedback feedbackCreate) {
         Feedback feedback = new Feedback();
         feedback.setFeedbackId(feedbackCreate.getFeedbackId());

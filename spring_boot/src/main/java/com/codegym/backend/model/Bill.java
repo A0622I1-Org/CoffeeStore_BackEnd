@@ -102,4 +102,3 @@ public class Bill {
         this.paymentTime = paymentTime;
     }
 }
-
