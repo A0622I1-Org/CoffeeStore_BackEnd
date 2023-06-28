@@ -23,17 +23,17 @@ public class FeedbackCreateDto implements Validator {
         String name = createFeedback.getName();
         String email = createFeedback.getEmail();
         String content = createFeedback.getContent();
-        if (name == null) {
+        if (name == "") {
             errors.rejectValue("name", "name.null", "Tên không được phép trống");
         } else if (!Pattern.compile(regexName).matcher(name).find()) {
             errors.rejectValue("name", "name.pattern", "Tên không chứa số hoặc kí tự đặc biệt");
         }
-        if (email == null) {
+        if (email == "") {
             errors.rejectValue("email", "email.null", "Email không được phép trống");
         } else if (!Pattern.compile(regexEmail).matcher(email).find()) {
             errors.rejectValue("email", "email.pattern", "Email không đúng định dạng");
         }
-        if (content == null) {
+        if (content == "") {
             errors.rejectValue("content", "content.null", "Nội dung phản hồi không được phép trống");
         } else if (content.length() < 10) {
             errors.rejectValue("content", "content.length", "Nội dung phản hồi dài hơn 10 kí tự");
