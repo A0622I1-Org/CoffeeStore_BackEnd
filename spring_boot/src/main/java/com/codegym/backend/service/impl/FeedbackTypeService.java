@@ -1,4 +1,5 @@
-package com.codegym.backend.service.impl;
+package com.codegym.backend.service.Impl;
+
 import com.codegym.backend.model.FeedbackType;
 import com.codegym.backend.repository.IFeedbackTypeRepository;
 import com.codegym.backend.service.IFeedbackTypeService;
