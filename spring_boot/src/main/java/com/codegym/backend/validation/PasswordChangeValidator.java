@@ -19,8 +19,8 @@ public class PasswordChangeValidator implements Validator {
         return false;
     }
 
-    private String FIElD_NEW_PASSWORD = "newPassword";
-    private String PATTERN = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[#$@!%&*?-_])[A-Za-z#$@!%&*?-_]{6,15}$";
+    private String fieldNewPassword = "newPassword";
+    private String patternNewPassword = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[#$@!%&*?-_])[A-Za-z#$@!%&*?-_]{6,15}$";
 
     @Override
     public void validate(Object target, Errors errors) {
@@ -31,11 +31,11 @@ public class PasswordChangeValidator implements Validator {
             errors.rejectValue("currentPassword", "currentPassword.length","Mật khẩu hiện tại từ 6 đến 15 ký tự");
         }
         if (accountDTO.getNewPassword().equals("")){
-            errors.rejectValue(FIElD_NEW_PASSWORD, "newPassword.null","Mật khẩu mới không được để trống");
-        }else if (!Pattern.compile(PATTERN).matcher(accountDTO.getNewPassword()).find()){
-            errors.rejectValue(FIElD_NEW_PASSWORD, "newPassword.pattern", "Mật khẩu mới từ 6 -15 ký tự, gồm chữ thường, chữ hoa, ký tự đặc biệt");
+            errors.rejectValue(fieldNewPassword, "newPassword.null","Mật khẩu mới không được để trống");
+        }else if (!Pattern.compile(patternNewPassword).matcher(accountDTO.getNewPassword()).find()){
+            errors.rejectValue(fieldNewPassword, "newPassword.pattern", "Mật khẩu mới từ 6 -15 ký tự, gồm chữ thường, chữ hoa, ký tự đặc biệt");
         } else if (accountDTO.getCurrentPassword().equals(accountDTO.getNewPassword())){
-            errors.rejectValue(FIElD_NEW_PASSWORD, "newPassword.checkMatches", "Mật khẩu mới không được trùng mật khẩu hiện tại");
+            errors.rejectValue(fieldNewPassword, "newPassword.checkMatches", "Mật khẩu mới không được trùng mật khẩu hiện tại");
         }
     }
 }

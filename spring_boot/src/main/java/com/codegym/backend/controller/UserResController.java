@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -42,7 +42,7 @@ public class UserResController {
 
     /**
      * ThangLV
-     * get information of User by idUser
+     * get information of User by Username
      */
     @GetMapping("/find-user-infor")
     public ResponseEntity<IUserInforDTO> findUserInformation() {
@@ -60,18 +60,17 @@ public class UserResController {
      */
     @PostMapping("/change-password-request")
     public ResponseEntity<Object> changePassword(@RequestBody AccountDTO accountDTO, BindingResult
-            bindingResult) throws MessagingException{
+            bindingResult){
         passwordChangeValidator.validate(accountDTO, bindingResult);
         String username = accountDetailService.getCurrentUserName();
         accountDTO.setUserName(username);
         if (bindingResult.hasErrors()) {
             List<String> message = new ArrayList<>();
-            bindingResult.getAllErrors().forEach((element) -> {
-                message.add(element.getDefaultMessage());
-            });
+            bindingResult.getAllErrors().forEach(e -> message.add(e.getDefaultMessage()));
             return ResponseEntity.badRequest().body(message);
         }
-        if (accountService.checkPassword(accountDTO.getCurrentPassword(), accountDTO.getUserName())) {
+        boolean checkPassword = accountService.checkPassword(accountDTO.getCurrentPassword(), accountDTO.getUserName());
+        if (checkPassword) {
             accountService.changePassword(encoder.encode(accountDTO.getNewPassword()), accountDTO.getUserName());
             return ResponseEntity.ok(new MessageResponse("Đổi mật khẩu thành công"));
         }

@@ -18,6 +18,10 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserRepository repository;
 
+    /**
+     * ThangLV
+     * get information of User by Username
+     */
     @Override
     public IUserInforDTO findUserByUsername(String username) {
         return repository.findUserByUsername(username);

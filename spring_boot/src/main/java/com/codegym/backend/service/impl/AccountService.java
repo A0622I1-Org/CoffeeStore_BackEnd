@@ -42,9 +42,6 @@ public class AccountService implements IAccountService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    IAccountRepository IAccountRepository;
-
-    @Autowired
     AuthenticationManager authenticationManager;
 
 
@@ -66,7 +63,7 @@ public class AccountService implements IAccountService {
      * change password
      */
     @Override
-    public void changePassword(String password, String username) throws MessagingException{
+    public void changePassword(String password, String username){
         accountRepository.changePassword(password, username);
     }
 

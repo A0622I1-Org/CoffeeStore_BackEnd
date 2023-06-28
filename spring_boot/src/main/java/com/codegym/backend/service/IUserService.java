@@ -23,6 +23,10 @@ public interface IUserService {
 
     void deleteById(int id);
 
+    /**
+     * ThangLV
+     * get information of User by Username
+     */
     IUserInforDTO findUserByUsername(String username);
 
     List<IUserDto> findAllUser();
