@@ -32,15 +32,11 @@ public interface IFeedbackService {
      * @since 19/06/2023
      */
     Feedback findById(int id);
-
     FeedbackDetailDto findFeedbackById(int id);
-
     List<String> findImgUrlById(int id);
-
-    Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String date);
-
     List<Feedback> getAll();
-
+    Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String dateF, String dateT);
+    Page<IFeedbackDto> findListFeedbackByRateAndDate(Pageable pageable, String rate, String dateF, String dateT);
     Page<IFeedbackDto> findAll(Pageable pageable);
 
     Integer countEmail(String email);

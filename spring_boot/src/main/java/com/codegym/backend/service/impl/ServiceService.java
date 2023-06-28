@@ -1,5 +1,6 @@
-package com.codegym.backend.service.impl;
+package com.codegym.backend.service.Impl;
 
+import com.codegym.backend.dto.ServiceDto;
 import com.codegym.backend.model.Service;
 import com.codegym.backend.repository.IServiceRepository;
 import com.codegym.backend.service.IServiceService;
@@ -13,6 +14,16 @@ import java.util.List;
 public class ServiceService implements IServiceService {
     @Autowired
     IServiceRepository iServiceRepository;
+
+    @Override
+    public List<ServiceDto> findBestSeller() {
+        return iServiceRepository.findBestSeller();
+    }
+
+    @Override
+    public List<ServiceDto> findNewService() {
+        return iServiceRepository.findNewService();
+    }
 
     @Override
     public Page<Service> findAllService(Pageable pageable) {
@@ -33,6 +44,4 @@ public class ServiceService implements IServiceService {
     public List<Service> findAll() {
         return iServiceRepository.findAll();
     }
-
-
 }

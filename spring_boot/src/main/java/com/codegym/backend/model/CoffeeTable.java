@@ -3,8 +3,9 @@ package com.codegym.backend.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "table")
-public class CoffeTable {
+@Table(name = "`table`")
+public class CoffeeTable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -21,10 +22,10 @@ public class CoffeTable {
 
     // Constructors, getters, and setters
 
-    public CoffeTable() {
+    public CoffeeTable() {
     }
 
-    public CoffeTable(String name, String status, boolean enableFlag) {
+    public CoffeeTable(String name, String status, boolean enableFlag) {
         this.name = name;
         this.status = status;
         this.enableFlag = enableFlag;
@@ -64,4 +65,3 @@ public class CoffeTable {
         this.enableFlag = enableFlag;
     }
 }
-

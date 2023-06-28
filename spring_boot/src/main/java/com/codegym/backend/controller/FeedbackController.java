@@ -1,7 +1,6 @@
 package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.CreateFeedback;
-import com.codegym.backend.service.IFeedbackService;
 import com.codegym.backend.service.impl.FeedbackProcessingService;
 import com.codegym.backend.validation.FeedbackCreateDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/feedback")
+@RequestMapping("/api/feedback")
 public class FeedbackController {
     @Autowired
     private FeedbackProcessingService feedbackProcessingService;
