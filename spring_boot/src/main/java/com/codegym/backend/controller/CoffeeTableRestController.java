@@ -6,13 +6,19 @@ import com.codegym.backend.service.ICoffeeTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/private")
+@Validated
 public class CoffeeTableRestController {
     @Autowired
     ICoffeeTableService tableService;
@@ -40,7 +46,9 @@ public class CoffeeTableRestController {
      * @author CuongHM
      */
     @GetMapping("/sales/bill/{tableId}")
-    public ResponseEntity<List<BillDetailListDTO>> getBillDetailByTableId(@PathVariable Integer tableId) {
+    public ResponseEntity<List<BillDetailListDTO>> getBillDetailByTableId(
+            @PathVariable @Min(value = 0, message = "Table ID cannot lower than 0!")
+            @Max(value = 100, message = "Too high table ID value!") Integer tableId) {
         List<BillDetailListDTO> billDetailListDTOList = tableService.getBillDetailByTableId(tableId);
         if (billDetailListDTOList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
