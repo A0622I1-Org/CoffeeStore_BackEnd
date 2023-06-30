@@ -4,6 +4,7 @@ import com.codegym.backend.model.Account;
 import com.codegym.backend.repository.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,5 +34,5 @@ public class AccountDetailServiceImpl implements UserDetailsService {
         }
         return principal.toString();
     }
-
 }
+

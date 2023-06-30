@@ -1,10 +1,12 @@
 package com.codegym.backend.service;
 
+import com.codegym.backend.dto.AccountListDTO;
 import com.codegym.backend.model.Account;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Optional;
 
 public interface IAccountService {
@@ -40,5 +42,6 @@ public interface IAccountService {
     String findChangPassworDateByUserName(String username);
 
     Boolean checkChangePasswordDateByUserName(String username) throws ParseException;
+
 
 }

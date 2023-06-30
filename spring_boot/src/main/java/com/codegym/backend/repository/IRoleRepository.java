@@ -19,4 +19,5 @@ public interface IRoleRepository extends JpaRepository<AppRole, Integer> {
     @Modifying
     @Query(value = "insert into account_role(account_id,role_id) values (?1,?2)", nativeQuery = true)
     void setDefaultRole(int accountId, Integer roleId);
+
 }
