@@ -14,14 +14,14 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/feedback")
+@RequestMapping("/api")
 public class FeedbackController {
     @Autowired
     private FeedbackProcessingService feedbackProcessingService;
     @Autowired
     private FeedbackCreateDto feedbackCreateDto;
 
-    @PostMapping("/create")
+    @PostMapping("/feedback/create")
     public ResponseEntity<Object> createFeedback(@RequestBody CreateFeedback feedbackCreate, BindingResult bindingResult) {
         feedbackCreateDto.validate(feedbackCreate, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -31,5 +31,10 @@ public class FeedbackController {
         }
         feedbackProcessingService.processFeedback(feedbackCreate);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/feedback/count/{email}")
+    public Integer countByEmail(@PathVariable("email") String email) {
+        return feedbackProcessingService.countEmail(email);
     }
 }

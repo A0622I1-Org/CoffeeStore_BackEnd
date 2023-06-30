@@ -51,4 +51,8 @@ public class FeedbackProcessingService {
         feedback.setFeedbackType(feedbackType);
         feedbackService.createFeedback(feedback);
     }
+
+    public Integer countEmail(String email) {
+        return feedbackService.countEmail(email);
+    }
 }

@@ -38,4 +38,6 @@ public interface IFeedbackService {
     Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String dateF, String dateT);
     Page<IFeedbackDto> findListFeedbackByRateAndDate(Pageable pageable, String rate, String dateF, String dateT);
     Page<IFeedbackDto> findAll(Pageable pageable);
+
+    Integer countEmail(String email);
 }

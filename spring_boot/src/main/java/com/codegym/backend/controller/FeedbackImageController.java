@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/api")
 public class FeedbackImageController {
     @Autowired
     private FeedbackImageProcessingService feedbackImageProcessingService;
 
-    @PostMapping("/create")
+    @PostMapping("/image/create")
     public ResponseEntity<Void> createFeedbackImage(@RequestBody CreateFeedbackImg createFeedbackImg) {
         feedbackImageProcessingService.createFeedbackImage(createFeedbackImg);
         return new ResponseEntity<>(HttpStatus.CREATED);

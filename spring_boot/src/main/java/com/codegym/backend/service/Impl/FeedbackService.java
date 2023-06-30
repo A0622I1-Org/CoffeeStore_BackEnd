@@ -6,7 +6,7 @@
  * @since 2023-06-13
  */
 
-package com.codegym.backend.service.Impl;
+package com.codegym.backend.service.impl;
 
 import com.codegym.backend.dto.FeedbackDetailDto;
 import com.codegym.backend.dto.IFeedbackDto;
@@ -33,6 +33,11 @@ public class FeedbackService implements IFeedbackService {
     @Override
     public Page<IFeedbackDto> findAll(Pageable pageable) {
         return feedbackRepository.findAllList(pageable);
+    }
+
+    @Override
+    public Integer countEmail(String email) {
+        return feedbackRepository.selectCountEmail(email);
     }
 
     @Override
