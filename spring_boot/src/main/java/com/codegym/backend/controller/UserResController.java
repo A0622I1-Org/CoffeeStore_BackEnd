@@ -46,7 +46,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api")
+@RequestMapping("/api/private")
 
 public class UserResController {
 

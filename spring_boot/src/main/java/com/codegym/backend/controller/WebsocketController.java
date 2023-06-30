@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
-@RestController
+@RestController("/api/private")
 public class WebsocketController {
     @Autowired
     IMessageService iMessageService;
