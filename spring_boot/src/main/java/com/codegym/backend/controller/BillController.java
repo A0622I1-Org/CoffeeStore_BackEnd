@@ -24,7 +24,7 @@ public class BillController {
     @Autowired
     private BillDetailService billDetailService;
 
-    @GetMapping("list")
+    @GetMapping("/list")
     public ResponseEntity<Page<BillListDto>> getBill(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
         Pageable pageable = PageRequest.of(page,size);
         Page<BillListDto> billList = billService.findAll(pageable);
