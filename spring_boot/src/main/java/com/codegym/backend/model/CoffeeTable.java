@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "`table`")
+
 public class CoffeeTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
