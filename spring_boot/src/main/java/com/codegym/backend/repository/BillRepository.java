@@ -1,16 +1,13 @@
 package com.codegym.backend.repository;
 
-import com.codegym.backend.dto.BillDetailDto;
 import com.codegym.backend.dto.BillListDto;
 import com.codegym.backend.model.Bill;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
@@ -19,6 +16,7 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
             "            join user u on b.user_id =u.id\n" +
             "            join bill_detail bd on bd.bill_id = b.id\n" +
             "            join service s on bd.service_id = s.id\n" +
+            "            where b.payment_status =1\n " +
             "            group by b.id\n" +
             "            order by b.id";
     @Query(value = SelectAllBill_Sql, countQuery = SelectAllBill_Sql, nativeQuery = true)
@@ -29,7 +27,7 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
             "            join user u on b.user_id =u.id\n" +
             "            join bill_detail bd on bd.bill_id = b.id\n" +
             "            join service s on bd.service_id = s.id\n" +
-            "            where u.name like ?\n " +
+            "            where u.name like ? and b.payment_status =1\n " +
             "            group by b.id\n" +
             "            order by b.id";
     @Query(value = SelectBillListByUser_Sql, countQuery = SelectBillListByUser_Sql, nativeQuery = true)

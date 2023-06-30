@@ -6,9 +6,7 @@
  */
 package com.codegym.backend.service;
 
-import com.codegym.backend.dto.BillDetailDto;
 import com.codegym.backend.dto.BillListDto;
-import com.codegym.backend.model.Bill;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

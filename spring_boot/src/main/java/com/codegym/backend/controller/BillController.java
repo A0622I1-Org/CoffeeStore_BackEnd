@@ -2,7 +2,6 @@ package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.BillDetailDto;
 import com.codegym.backend.dto.BillListDto;
-import com.codegym.backend.model.Bill;
 import com.codegym.backend.service.BillDetailService;
 import com.codegym.backend.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,6 @@ public class BillController {
         }
         return ResponseEntity.ok(billList);
     }
-
 
 
     @GetMapping("/billDetail/{id}")
