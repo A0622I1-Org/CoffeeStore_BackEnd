@@ -42,7 +42,7 @@ public class FeedbackProcessingService {
         feedback.setEmail(feedbackCreate.getEmail());
         // xử lý lấy ra ngày giờ hiện tại
         LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String formattedTime = currentTime.format(formatter);
         feedback.setDate(formattedTime);
         feedback.setContent(feedbackCreate.getContent());
