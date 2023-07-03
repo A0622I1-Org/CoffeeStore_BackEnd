@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -60,4 +61,13 @@ public interface IFeedbackRepository extends JpaRepository<Feedback, Integer> {
             ORDER_BY;
     @Query(value = SELECT_ALL_FEEDBACK_BY_RATE_AND_DATE_SQL, countQuery = SELECT_ALL_FEEDBACK_BY_RATE_AND_DATE_SQL, nativeQuery = true)
     Page<IFeedbackDto> findListFeedbackByRateAndDate(Pageable pageable, String rate, String dateF, String dateT);
+
+    @Query(value = "select MAX(id) from feedback", nativeQuery = true)
+    Integer getLastInsert();
+
+    @Query(value = "select * from feedback where id = :id", nativeQuery = true)
+    Feedback findObject(@Param("id") int id);
+
+    @Query(value = "select count(email) from feedback where email = :email", nativeQuery = true)
+    Integer selectCountEmail(@Param("email") String email);
 }

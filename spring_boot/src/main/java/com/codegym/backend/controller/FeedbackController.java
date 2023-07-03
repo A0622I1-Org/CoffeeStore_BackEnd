@@ -5,11 +5,15 @@ import com.codegym.backend.model.Feedback;
 import com.codegym.backend.model.FeedbackType;
 import com.codegym.backend.service.IFeedbackService;
 import com.codegym.backend.service.IFeedbackTypeService;
+import com.codegym.backend.service.impl.FeedbackProcessingService;
+import com.codegym.backend.validation.FeedbackCreateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -17,22 +21,24 @@ import java.util.List;
 @RequestMapping("/api/feedback")
 public class FeedbackController {
     @Autowired
-    private IFeedbackService feedbackService;
+    private FeedbackProcessingService feedbackProcessingService;
     @Autowired
-    private IFeedbackTypeService feedbackTypeService;
+    private FeedbackCreateDto feedbackCreateDto;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createFeedback(@RequestBody CreateFeedback feedbackCreate) {
-        Feedback feedback = new Feedback();
-        feedback.setFeedbackId(feedbackCreate.getFeedbackId());
-        feedback.setName(feedbackCreate.getName());
-        feedback.setEmail(feedbackCreate.getEmail());
-        feedback.setDate(feedbackCreate.getDate());
-        feedback.setContent(feedbackCreate.getContent());
-        feedback.setRate(feedbackCreate.getRate());
-        FeedbackType feedbackType = feedbackTypeService.findById(Integer.parseInt(feedbackCreate.getFeedbackType()));
-        feedback.setFeedbackType(feedbackType);
-        feedbackService.createFeedback(feedback);
+    public ResponseEntity<Object> createFeedback(@RequestBody CreateFeedback feedbackCreate, BindingResult bindingResult) {
+        feedbackCreateDto.validate(feedbackCreate, bindingResult);
+        if (bindingResult.hasErrors()) {
+            List<String> message = new ArrayList<>();
+            bindingResult.getAllErrors().forEach(e -> message.add(e.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(message);
+        }
+        feedbackProcessingService.processFeedback(feedbackCreate);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/count/{email}")
+    public Integer countByEmail(@PathVariable("email") String email) {
+        return feedbackProcessingService.countEmail(email);
     }
 }

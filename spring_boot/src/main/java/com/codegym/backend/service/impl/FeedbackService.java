@@ -62,4 +62,19 @@ public class FeedbackService implements IFeedbackService {
     public Page<IFeedbackDto> findListFeedbackByRateAndDate(Pageable pageable, String rate, String dateF, String dateT) {
         return feedbackRepository.findListFeedbackByRateAndDate(pageable, rate, dateF, dateT);
     }
+
+    @Override
+    public Integer getLastInsert() {
+        return feedbackRepository.getLastInsert();
+    }
+
+    @Override
+    public Integer countEmail(String email) {
+        return feedbackRepository.selectCountEmail(email);
+    }
+
+    @Override
+    public Feedback findById(int id) {
+        return feedbackRepository.findObject(id);
+    }
 }
