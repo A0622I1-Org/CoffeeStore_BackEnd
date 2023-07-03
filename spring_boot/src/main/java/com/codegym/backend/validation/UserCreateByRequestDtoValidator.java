@@ -32,7 +32,7 @@ public class UserCreateByRequestDtoValidator implements Validator {
         String fieldPhoneNumber = "phoneNumber";
         String fieldAddress = "address";
         String regexAddress = "^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$";
-        String regexName = "^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$";
+        String regexName = "^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳýúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÝÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$";
         String[] dateSplit = userDTO.getBirthday().split("-");
         dateSplit[0] = String.valueOf(Integer.parseInt(dateSplit[0]) - 1900);
         Date birthday = new Date(Integer.parseInt(dateSplit[0]), Integer.parseInt(dateSplit[1]) - 1, Integer.parseInt(dateSplit[2]));
@@ -40,8 +40,8 @@ public class UserCreateByRequestDtoValidator implements Validator {
             errors.rejectValue(fiedldUserName, "userName.null", "Vui lòng nhập tên tài khoản.");
         }else if (userService.findByUserName(userDTO.getUserName()) > 0) {
             errors.rejectValue(fiedldUserName, "userName.duplicate", "Tên tài khoản đã tồn tại.");
-        }else if (!Pattern.compile("^[a-z0-9]+$").matcher(userDTO.getUserName()).find()) {
-            errors.rejectValue(fiedldUserName, "userName.format", "Không được nhập ký tự đặt biệt.");
+        }else if (!Pattern.compile("^[a-zA-Z0-9]+$").matcher(userDTO.getUserName()).find()) {
+            errors.rejectValue(fiedldUserName, "userName.format", "Tên tài khoản không được nhập ký tự đặt biệt.");
         }
         if (userDTO.getName() == null) {
             errors.rejectValue("name", "name.null", "Vui lòng nhập tên.");
@@ -50,7 +50,7 @@ public class UserCreateByRequestDtoValidator implements Validator {
         } else if (userDTO.getName().length() > 40) {
             errors.rejectValue("name", "name.length", "Tên phải bé hơn 40 ký tự");
         } else if (!Pattern.compile(regexName).matcher(userDTO.getName()).find()) {
-            errors.rejectValue("name", "name.pattern", "Không được nhập ký tự đặt biệt hoặc số.");
+            errors.rejectValue("name", "name.pattern", "Tên không được nhập ký tự đặt biệt hoặc số.");
         }
         if (userDTO.getGender() == null) {
             errors.rejectValue("gender", "gender.null", "Vui lòng nhập giới tính.");
@@ -72,7 +72,7 @@ public class UserCreateByRequestDtoValidator implements Validator {
         } else if (userDTO.getAddress() == null) {
             errors.rejectValue(fieldAddress, "address.null", "Vui lòng nhập địa chỉ.");
         } else if (!Pattern.compile(regexAddress).matcher(userDTO.getAddress()).find()) {
-            errors.rejectValue(fieldAddress, "address.format", "Không được nhập ký tự đặt biệt.");
+            errors.rejectValue(fieldAddress, "address.format", "Địa Chỉ không được nhập ký tự đặt biệt.");
         }
         if (userDTO.getPhoneNumber() == null) {
             errors.rejectValue(fieldPhoneNumber, "phoneNumber.null", "Số địa thoại không được để trống");

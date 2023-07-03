@@ -54,10 +54,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createNewUser(UserDTO userDTO) throws MessagingException {
-
         Account account = new Account();
         account.setUserName(userDTO.getUserName());
-        account.setPassword(passwordEncoder.encode("123"));
+        account.setPassword(passwordEncoder.encode("ABCabc@"));
         account.setEmail(userDTO.getEmail());
         account.setEnableFlag(true);
         String now = simpleDateFormat.format(new Date(System.currentTimeMillis()));

@@ -34,8 +34,8 @@ public class UserEditByRequestDtoValidator implements Validator {
             errors.rejectValue("name", "name.length", "Tên phải lớn hơn 6 ký tự");
         } else if (userEditDTO.getName().length() > 40) {
             errors.rejectValue("name", "name.length", "Tên phải bé hơn 40 ký tự");
-        } else if (!Pattern.compile("^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$").matcher(userEditDTO.getName()).find()) {
-            errors.rejectValue("name", "name.pattern", "Không được nhập ký tự đặt biệt hoặc số.");
+        } else if (!Pattern.compile("^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳýúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÝÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$").matcher(userEditDTO.getName()).find()) {
+            errors.rejectValue("name", "name.pattern", "Tên không được nhập ký tự đặt biệt hoặc số.");
         }
         if (userEditDTO.getGender() == null) {
             errors.rejectValue("gender", "gender.null", "Vui lòng nhập giới tính.");
