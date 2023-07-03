@@ -19,7 +19,7 @@ public class ServiceRestController {
     @Autowired
     IServiceService service;
 
-    @GetMapping("ServiceRestController/new")
+    @GetMapping("body/new")
     public ResponseEntity<List<ServiceDto>> getListNewService() {
         List<ServiceDto> listNewService = service.findNewService();
         if (listNewService.isEmpty()) {
@@ -27,7 +27,7 @@ public class ServiceRestController {
         }
         return new ResponseEntity<>(listNewService, HttpStatus.OK);
     }
-    @GetMapping("ServiceRestController/best")
+    @GetMapping("body/best")
     public ResponseEntity<List<ServiceDto>> getListBestSeller() {
         List<ServiceDto> listBestSeller = service.findBestSeller();
         if (listBestSeller.isEmpty()) {
