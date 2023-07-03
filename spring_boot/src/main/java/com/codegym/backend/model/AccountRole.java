@@ -20,7 +20,6 @@ public class AccountRole{
     @JoinColumn(name = "role_id")
     private AppRole role;
 
-    // Constructors, getters, and setters
 
     public AccountRole() {
     }
@@ -56,3 +55,4 @@ public class AccountRole{
         this.role = role;
     }
 }
+

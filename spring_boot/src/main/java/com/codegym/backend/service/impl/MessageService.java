@@ -1,35 +1,49 @@
 package com.codegym.backend.service.impl;
 
 import com.codegym.backend.model.Message;
-import com.codegym.backend.repository.IRepositoryMessage;
-import com.codegym.backend.service.IMessgaeServie;
+import com.codegym.backend.repository.IMessageRepository;
+import com.codegym.backend.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class MessageService implements IMessgaeServie {
+public class MessageService implements IMessageService {
     @Autowired
-    IRepositoryMessage iRepositoryMessage;
+    IMessageRepository messageRepository;
 
-    @Override
-    public Message save(Message message) {
-       return this.iRepositoryMessage.save(message);
-    }
-
+    /**
+     * @return
+     */
     @Override
     public List<Message> findMessage() {
-        return this.iRepositoryMessage.findMessage();
+        return messageRepository.findMessage();
     }
 
-    @Override
-    public void deleteMessage(Message message) {
-        this.iRepositoryMessage.delete(message);
-    }
-
+    /**
+     * @param id
+     * @return
+     */
     @Override
     public Message findById(int id) {
-        return iRepositoryMessage.findById(id);
+        return messageRepository.findMessageById(id);
+    }
+
+    /**
+     * @param message
+     * @return
+     */
+    @Override
+    public Message save(Message message) {
+        return messageRepository.save(message);
+    }
+
+    /**
+     * @param message
+     */
+    @Override
+    public void deleteMessage(Message message) {
+        messageRepository.delete(message);
     }
 }

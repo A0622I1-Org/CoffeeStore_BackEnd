@@ -80,4 +80,5 @@ public class AccountDetail implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

@@ -19,6 +19,9 @@ public class Account {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "change_password_date", columnDefinition = "Date")
+    private String changePassworDate;
+
     @Column(name = "verification_code")
     private String verificationCode;
 
@@ -31,9 +34,14 @@ public class Account {
     @OneToMany(mappedBy = "account")
     private List<AccountRole> accountRoles;
 
-    // Constructors, getters, and setters
 
-    public Account() {
+    public Account(String userName, String password, String changePassworDate, String verificationCode, String email, boolean enableFlag) {
+        this.userName = userName;
+        this.password = password;
+        this.changePassworDate = changePassworDate;
+        this.verificationCode = verificationCode;
+        this.email = email;
+        this.enableFlag = enableFlag;
     }
 
     public Account(String userName, String password, String verificationCode, String email, boolean enableFlag) {
@@ -44,7 +52,19 @@ public class Account {
         this.enableFlag = enableFlag;
     }
 
-    // Getters and Setters
+    public Account(int id, String userName, String password, String verificationCode, String email, boolean enableFlag, List<AccountRole> accountRoles, String changePassworDate) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.verificationCode = verificationCode;
+        this.email = email;
+        this.enableFlag = enableFlag;
+        this.accountRoles = accountRoles;
+        this.changePassworDate = changePassworDate;
+    }
+
+    public Account() {
+    }
 
     public int getId() {
         return id;
@@ -102,4 +122,11 @@ public class Account {
         this.accountRoles = accountRoles;
     }
 
+    public String getChangePassworDate() {
+        return changePassworDate;
+    }
+
+    public void setChangePassworDate(String changePassworDate) {
+        this.changePassworDate = changePassworDate;
+    }
 }

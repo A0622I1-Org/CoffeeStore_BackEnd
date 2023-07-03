@@ -1,4 +1,3 @@
-
 /**
  * FeedbackService class to create shared methods
  *
@@ -8,7 +7,6 @@
  */
 
 package com.codegym.backend.service.impl;
-
 
 import com.codegym.backend.dto.FeedbackDetailDto;
 import com.codegym.backend.dto.IFeedbackDto;
@@ -38,9 +36,34 @@ public class FeedbackService implements IFeedbackService {
     }
 
     @Override
+    public Integer countEmail(String email) {
+        return feedbackRepository.selectCountEmail(email);
+    }
+
+    @Override
     public void createFeedback(Feedback feedback) {
         feedbackRepository.createFeedback(feedback.getFeedbackId(), feedback.getName(),
                 feedback.getEmail(), feedback.getDate(), feedback.getContent(), feedback.getFeedbackType().getId(), feedback.getRate());
+    }
+
+    /**
+     * @author DongPL
+     * @version 2.0
+     * @since 19/06/2023
+     */
+    @Override
+    public Integer getLastInsert() {
+        return feedbackRepository.getLastInsert();
+    }
+
+    /**
+     * @author DongPL
+     * @version 2.0
+     * @since 19/06/2023
+     */
+    @Override
+    public Feedback findById(int id) {
+        return feedbackRepository.findObject(id);
     }
 
     @Override
@@ -63,18 +86,5 @@ public class FeedbackService implements IFeedbackService {
         return feedbackRepository.findListFeedbackByRateAndDate(pageable, rate, dateF, dateT);
     }
 
-    @Override
-    public Integer getLastInsert() {
-        return feedbackRepository.getLastInsert();
-    }
 
-    @Override
-    public Integer countEmail(String email) {
-        return feedbackRepository.selectCountEmail(email);
-    }
-
-    @Override
-    public Feedback findById(int id) {
-        return feedbackRepository.findObject(id);
-    }
 }

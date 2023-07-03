@@ -4,9 +4,12 @@ import com.codegym.backend.model.Message;
 
 import java.util.List;
 
-public interface IMessgaeServie {
-    Message save(Message message);
+public interface IMessageService {
     List<Message> findMessage();
-    void deleteMessage(Message message);
+
     Message findById(int id);
+
+    Message save(Message message);
+
+    void deleteMessage(Message message);
 }

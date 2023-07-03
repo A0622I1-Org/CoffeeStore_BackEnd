@@ -52,3 +52,4 @@ public class AppRole {
         this.accountRoles = accountRoles;
     }
 }
+

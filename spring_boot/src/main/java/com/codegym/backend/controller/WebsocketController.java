@@ -1,7 +1,7 @@
 package com.codegym.backend.controller;
 
 import com.codegym.backend.model.Message;
-import com.codegym.backend.service.IMessgaeServie;
+import com.codegym.backend.service.IMessageService;
 import com.codegym.backend.service.ITableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
-@RestController
+@RestController("/api/private")
 public class WebsocketController {
     @Autowired
-    IMessgaeServie iMessgaeServie;
+    IMessageService iMessageService;
 
     @Autowired
     ITableService iTableService;
@@ -22,7 +22,7 @@ public class WebsocketController {
     @MessageMapping("/messages")
     @SendTo("/topic/messages")
     public Message broadcastNews(Message mess) {
-        return this.iMessgaeServie.save(mess);
+        return this.iMessageService.save(mess);
     }
 
     @MessageMapping("/tables")

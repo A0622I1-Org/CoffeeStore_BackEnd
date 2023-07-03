@@ -18,13 +18,25 @@ import java.util.List;
 
 public interface IFeedbackService {
     void createFeedback(Feedback feedback);
+
+    /**
+     * @author DongPL
+     * @version 2.0
+     * @since 19/06/2023
+     */
+    Integer getLastInsert();
+
+    /**
+     * @author DongPL
+     * @version 2.0
+     * @since 19/06/2023
+     */
+    Feedback findById(int id);
     FeedbackDetailDto findFeedbackById(int id);
     List<String> findImgUrlById(int id);
     List<Feedback> getAll();
     Page<IFeedbackDto> findListFeedbackByDate(Pageable pageable, String dateF, String dateT);
     Page<IFeedbackDto> findListFeedbackByRateAndDate(Pageable pageable, String rate, String dateF, String dateT);
     Page<IFeedbackDto> findAll(Pageable pageable);
-    Integer getLastInsert();
     Integer countEmail(String email);
-    Feedback findById(int id);
 }

@@ -23,7 +23,6 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private AccountDetailServiceImpl accountDetailService;
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
@@ -31,7 +30,6 @@ public class JwtFilter extends OncePerRequestFilter {
             String jwt = getJwt(request);
             if (jwt != null && jwtUtility.validateJwtToken(jwt)) {
                 String username = jwtUtility.getUserNameFromJwtToken(jwt);
-
                 UserDetails userDetails = accountDetailService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
@@ -53,3 +51,4 @@ public class JwtFilter extends OncePerRequestFilter {
         return null;
     }
 }
+

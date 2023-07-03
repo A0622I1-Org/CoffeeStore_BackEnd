@@ -1,11 +1,13 @@
 package com.codegym.backend.controller;
 
-import com.codegym.backend.dto.BillDto;
 import com.codegym.backend.dto.BillDetailListDTO;
+import com.codegym.backend.dto.BillDto;
 import com.codegym.backend.dto.BillInsertDTO;
 import com.codegym.backend.dto.InsertBillDetailDTO;
-import com.codegym.backend.model.*;
-import com.codegym.backend.payload.responce.MessageResponse;
+import com.codegym.backend.model.CoffeeTable;
+import com.codegym.backend.model.Message;
+import com.codegym.backend.model.Service;
+import com.codegym.backend.model.ServiceType;
 import com.codegym.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,10 +26,13 @@ import java.util.Map;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/private")
 public class ServiceController {
     @Autowired
     IServiceService serviceService;
+
+    @Autowired
+    IServiceTypeService iServiceTypeService;
 
     @Autowired
     ITableService iTableService;
@@ -40,10 +44,11 @@ public class ServiceController {
     IBillService iBillService;
 
     @Autowired
-    IServiceTypeService iServiceTypeService;
+    IMessageService iMessageService;
+
 
     @Autowired
-    IMessgaeServie iMessgaeServie;
+    IMessageService iMessgaeServie;
 
     //    lấy danh sách service
     @GetMapping("/list/service")
@@ -99,8 +104,8 @@ public class ServiceController {
     }
 
     /**
-     *  Lấy bill theo table_id và payment_status = 0;
-      */
+     * Lấy bill theo table_id và payment_status = 0;
+     */
 
     //Lấy bill theo table_id và payment_status = 0;
     @GetMapping("/bill/table_id/{id}")
@@ -112,46 +117,48 @@ public class ServiceController {
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
-//   Lấy dữ liệu bảng service_type
+    //   Lấy dữ liệu bảng service_type
     @GetMapping("/list/service_type")
     public ResponseEntity<List<ServiceType>> getServiceType() {
         List<ServiceType> serviceTypeList = iServiceTypeService.findAllServiceType();
-        if(serviceTypeList.isEmpty()){
+        if (serviceTypeList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(serviceTypeList,HttpStatus.OK);
+        return new ResponseEntity<>(serviceTypeList, HttpStatus.OK);
     }
 
-// thêm dữ liệu bill mới
+    // thêm dữ liệu bill mới
     @PostMapping("/insert_bill")
-    public ResponseEntity<?> insertBill(@Valid @RequestBody BillInsertDTO billInsertDTO){
+    public ResponseEntity<?> insertBill(@Valid @RequestBody BillInsertDTO billInsertDTO) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime date = LocalDateTime.now();
-            iBillService.insertBill(dtf.format(date),billInsertDTO.getPayment_status(),billInsertDTO.getPayment_time(),
-                    billInsertDTO.getTable_id(),billInsertDTO.getUser_id());
+        iBillService.insertBill(dtf.format(date), billInsertDTO.getPayment_status(), billInsertDTO.getPayment_time(),
+                billInsertDTO.getTable_id(), billInsertDTO.getUser_id());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     //thêm dữ liệu billdetail mới
     @PostMapping("/insert_bill_detail")
     public ResponseEntity<?> insertBillDetail(@Valid @RequestBody InsertBillDetailDTO billDetailDTO) {
-        iBillDetailService.insertBillDetail(billDetailDTO.getQuantity(),billDetailDTO.getBill_id(),billDetailDTO.getService_id());
+        iBillDetailService.insertBillDetail(billDetailDTO.getQuantity(), billDetailDTO.getBill_id(), billDetailDTO.getService_id());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-//    Lấy thông báo
+
+    //    Lấy thông báo
     @GetMapping("/message")
     public ResponseEntity<List<Message>> getMessage() {
-        List<Message> message = iMessgaeServie.findMessage();
-        if(message.isEmpty()){
+        List<Message> message = iMessageService.findMessage();
+        if (message == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(message,HttpStatus.OK);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
-//    xóa thông báo
+
+    //    xóa thông báo
     @DeleteMapping("/delete_message/{id}")
     public Map<String, Boolean> deleteMessage(@PathVariable Integer id) {
-        Message message = iMessgaeServie.findById(id);
-        iMessgaeServie.deleteMessage(message);
+        Message message = iMessageService.findById(id);
+        iMessageService.deleteMessage(message);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
