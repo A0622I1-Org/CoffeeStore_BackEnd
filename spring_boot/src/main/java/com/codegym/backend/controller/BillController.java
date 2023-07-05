@@ -47,6 +47,9 @@ public class BillController {
     public ResponseEntity<Page<BillListDto>> getBillByUser(@RequestParam(defaultValue = "") String name,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
         Pageable pageable = PageRequest.of(page,size);
         Page<BillListDto> billList = billService.findByUser(pageable, '%'+name+'%');
+        if(billList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return ResponseEntity.ok(billList);
     }
 }
