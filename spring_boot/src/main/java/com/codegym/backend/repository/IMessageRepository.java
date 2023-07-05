@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface IMessageRepository extends JpaRepository<Message, Integer> {
-    @Query(value = "SELECT * FROM message", nativeQuery = true)
+    @Query(value = "SELECT * FROM message order by id desc", nativeQuery = true)
     List<Message> findMessage();
     @Query(value = "SELECT * FROM message WHERE id = ?", nativeQuery = true)
     Message findMessageById(int id);

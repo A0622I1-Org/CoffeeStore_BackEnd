@@ -15,6 +15,10 @@ public class Message {
     public Message() {
     }
 
+    public Message(String message) {
+        this.message = message;
+    }
+
     public Message(int id, String message) {
         this.id = id;
         this.message = message;

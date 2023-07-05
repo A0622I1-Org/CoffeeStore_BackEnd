@@ -1,3 +1,4 @@
+
 package com.codegym.backend.model;
 
 import javax.persistence.*;
