@@ -22,7 +22,7 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
 
     @Query(value = "select * from service where enable_flag = 1",nativeQuery = true)
     List<Service> findAll();
-    String sql_best = "SELECT s.name, s.imgurl, COUNT(bd.service_id) AS service_count  " +
+    String sql_best = "SELECT s.name, s.img_url imgUrl, COUNT(bd.service_id) AS service_count  " +
             "FROM service AS s   " +
             "JOIN bill_detail AS bd ON s.id = bd.service_id   " +
             "GROUP BY s.id, s.name   " +
@@ -31,7 +31,7 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
     @Query(value = sql_best, nativeQuery = true)
     List<ServiceDto> findBestSeller();
 
-    String sql_new = "SELECT id, name, imgurl, created_date FROM service ORDER BY created_date DESC LIMIT 5";
+    String sql_new = "SELECT id, name, img_url imgUrl, created_date FROM service ORDER BY created_date DESC LIMIT 5";
     @Query(value = sql_new, nativeQuery = true)
     List<ServiceDto> findNewService();
 }
