@@ -63,7 +63,9 @@ public interface IAccountRepository extends JpaRepository<Account, Integer> {
     @Query(value = "update account set password = ?1,verification_code= null where verification_code= ?2", nativeQuery = true)
     void saveNewPassword(String encryptPassword, String code);
 
-
+    @Modifying
+    @Query(value = "update account set change_password_date = ?1 where verification_code = ?2", nativeQuery = true)
+    void updateChangePassworkDate(String dateNow, String code);
 //    Account findAccountByUserName(String username);
 
     @Query(value = "select id from  a0622i1_coffee.account where user_name = ?1", nativeQuery = true)

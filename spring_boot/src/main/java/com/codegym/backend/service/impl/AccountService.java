@@ -92,7 +92,7 @@ public class AccountService implements IAccountService {
         String verificationCode = RandomString.make(64);
         accountRepository.addVerificationCode(verificationCode, username);
         Account account = accountRepository.findAccountByVerificationCode(verificationCode);
-        String name = userService.findNameByAccountId(account.getId(), false);
+        String name = userService.findNameByAccountId(account.getId(), true);
         this.sendVerificationEmailForResetPassWord(name, verificationCode, account.getEmail());
     }
 
@@ -124,6 +124,8 @@ public class AccountService implements IAccountService {
 
     @Override
     public void saveNewPassword(String encryptPassword, String code) {
+        String dateNow = simpleDateFormat.format(new Date(System.currentTimeMillis()).getTime());
+        accountRepository.updateChangePassworkDate(dateNow,code);
         accountRepository.saveNewPassword(encryptPassword, code);
     }
 
