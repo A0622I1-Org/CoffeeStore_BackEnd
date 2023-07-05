@@ -49,8 +49,10 @@ public class UserEditByRequestDtoValidator implements Validator {
             errors.rejectValue("email", "email.null", "Vui lòng nhập email.");
         } else if (!Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").matcher(userEditDTO.getEmail()).find()) {
             errors.rejectValue("email", "email.format", "Email tuân thủ theo format ex: abc@gmail.com");
-        } else if (userService.findByEmail(userEditDTO.getEmail()) > 0 && userEditDTO.getEmail() != userEditDTO.getEmail()) {
-            errors.rejectValue("email", "email.duplicate", "Email đã tồn tại");
+        } else if (!userEditDTO.getCurrentEmail().equals(userEditDTO.getEmail())) {
+            if (userService.findByEmail(userEditDTO.getEmail()) > 0 ) {
+                errors.rejectValue("email", "email.duplicate", "Email đã tồn tại");
+        }
         }
         if (userEditDTO.getAddress().length() > 100) {
             errors.rejectValue("address", "address.length", "Địa chỉ phải nhỏ hơn 100 ký tự");
@@ -63,8 +65,10 @@ public class UserEditByRequestDtoValidator implements Validator {
             errors.rejectValue("phoneNumber", "phoneNumber.null", "Số địa thoại không được để trống");
         } else if (!Pattern.compile("^(\\+?84|0)(3[2-9]|5[689]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$").matcher(userEditDTO.getPhoneNumber()).find()) {
             errors.rejectValue("phoneNumber", "phoneNumber.format", "Vui lòng nhập số điện thoại đúng định dạng 09xxxxxxx, 03xxxxxxx, 07xxxxxxx, (84) + 90xxxxxxx.");
-        } else if (userService.findByPhone(userEditDTO.getPhoneNumber()) > 0 && userEditDTO.getPhoneNumber() != userEditDTO.getPhoneNumber()) {
-            errors.rejectValue("phoneNumber", "phoneNumber.duplicate", "Số điện thoại đã tồn tại");
+        } else if(!userEditDTO.getCurrentPhoneNumber().equals(userEditDTO.getPhoneNumber())) {
+            if (userService.findByPhone(userEditDTO.getPhoneNumber()) > 0) {
+                errors.rejectValue("phoneNumber", "phoneNumber.duplicate", "Số điện thoại đã tồn tại");
+        }
         }
         if (userEditDTO.getPosition() == null) {
             errors.rejectValue("position", "position.null", "Vui lòng chọn chức vụ.");

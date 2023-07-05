@@ -35,7 +35,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "select count(email) from account where email = :email ", nativeQuery = true)
     Integer findByEmail(@Param("email") String email);
 
-
     @Query(value = "select user.id , a.user_name as username, user.name ,user.img_url as imgUrl, a.email, user.gender, user.birthday,user.address , user.phone_number as phoneNumber\n" +
             "            , user.position_id as position, user.salary from user \n" +
             "            inner join position as p on p.id = user.position_id \n" +

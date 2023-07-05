@@ -12,6 +12,8 @@ public class UserEditDTO {
     Double salary;
     Integer position;
     String email;
+    String currentEmail;
+    String currentPhoneNumber;
 
     public UserEditDTO() {
     }
@@ -28,6 +30,22 @@ public class UserEditDTO {
         this.salary = salary;
         this.position = position;
         this.email = email;
+    }
+
+    public String getCurrentPhoneNumber() {
+        return currentPhoneNumber;
+    }
+
+    public void setCurrentPhoneNumber(String currentPhoneNumber) {
+        this.currentPhoneNumber = currentPhoneNumber;
+    }
+
+    public String getCurrentEmail() {
+        return currentEmail;
+    }
+
+    public void setCurrentEmail(String currentEmail) {
+        this.currentEmail = currentEmail;
     }
 
     public Integer getId() {

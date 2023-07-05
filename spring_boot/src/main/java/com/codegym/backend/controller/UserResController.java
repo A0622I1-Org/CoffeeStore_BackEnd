@@ -47,10 +47,16 @@ public class UserResController {
     @Autowired
     private UserEditByRequestDtoValidator userEditByRequestDtoValidator;
 
+    String currentEmail = null;
+    String currentPhoneNumber = null;
+
 
     @PutMapping("/edit-user/{id}")
     public ResponseEntity<?> editUser(@Valid @RequestBody UserEditDTO userEditDTO, BindingResult
             bindingResult, @PathVariable int id) throws MessagingException {
+        userEditDTO.setCurrentEmail(this.currentEmail);
+        userEditDTO.setCurrentPhoneNumber(this.currentPhoneNumber);
+        System.out.println(userEditDTO.getCurrentEmail());
         userEditByRequestDtoValidator.validate(userEditDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
@@ -97,6 +103,8 @@ public class UserResController {
     public ResponseEntity<UserFindIdDTO> getById(@PathVariable Integer id) {
         System.out.println(id);
         UserFindIdDTO user = userService.getById(id);
+        this.currentEmail = user.getEmail();
+        this.currentPhoneNumber = user.getPhoneNumber();
         if (user == null) {
             return new ResponseEntity<UserFindIdDTO>(HttpStatus.NO_CONTENT);
         }
