@@ -15,7 +15,7 @@ public interface IBillDetailRepository extends JpaRepository<BillDetail,Integer>
     @Modifying
     @Query(value = "insert into bill_detail(quantity,bill_id,service_id)" +
             "values(?1,?2,?3)",nativeQuery = true)
-    void insertBillDetail(int quantity,int bill_id,int service_id);
+    void insertBillDetail(int quantity,int billIdd,int serviceId);
 
     @Transactional
     @Modifying
@@ -28,5 +28,5 @@ public interface IBillDetailRepository extends JpaRepository<BillDetail,Integer>
             "where payment_status = 0 and table_id = ?\n" +
             "group by s.id\n" +
             "order by table_id asc",nativeQuery = true)
-    List<BillDetailListDTO> findByBillId(int table_id);
+    List<BillDetailListDTO> findByBillId(int tableId);
 }

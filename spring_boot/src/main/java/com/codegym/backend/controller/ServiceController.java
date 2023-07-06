@@ -1,14 +1,13 @@
 package com.codegym.backend.controller;
 
-import com.codegym.backend.model.Service;
-import com.codegym.backend.model.ServiceType;
-import com.codegym.backend.service.IServiceService;
-import com.codegym.backend.service.IServiceTypeService;
-import com.codegym.backend.dto.BillDto;
 import com.codegym.backend.dto.BillDetailListDTO;
+import com.codegym.backend.dto.BillDto;
 import com.codegym.backend.dto.BillInsertDTO;
 import com.codegym.backend.dto.InsertBillDetailDTO;
-import com.codegym.backend.model.*;
+import com.codegym.backend.model.CoffeeTable;
+import com.codegym.backend.model.Message;
+import com.codegym.backend.model.Service;
+import com.codegym.backend.model.ServiceType;
 import com.codegym.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,6 +47,9 @@ public class ServiceController {
     IMessageService iMessageService;
 
 
+    @Autowired
+    IMessageService iMessgaeServie;
+
     //    lấy danh sách service
     @GetMapping("/list/service")
     public ResponseEntity<Page<Service>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
@@ -67,6 +70,7 @@ public class ServiceController {
         }
         return new ResponseEntity<>(service, HttpStatus.OK);
     }
+
 
     // tìm kiếm danh sách service theo service_type_id
     @GetMapping("/type_id")
@@ -98,6 +102,10 @@ public class ServiceController {
         }
         return new ResponseEntity<>(billDetailList, HttpStatus.OK);
     }
+
+    /**
+     * Lấy bill theo table_id và payment_status = 0;
+     */
 
     //Lấy bill theo table_id và payment_status = 0;
     @GetMapping("/bill/table_id/{id}")
@@ -132,18 +140,20 @@ public class ServiceController {
     //thêm dữ liệu billdetail mới
     @PostMapping("/insert_bill_detail")
     public ResponseEntity<?> insertBillDetail(@Valid @RequestBody InsertBillDetailDTO billDetailDTO) {
-        iBillDetailService.insertBillDetail(billDetailDTO.getQuantity(),billDetailDTO.getBill_id(),billDetailDTO.getService_id());
+        iBillDetailService.insertBillDetail(billDetailDTO.getQuantity(), billDetailDTO.getBill_id(), billDetailDTO.getService_id());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     //    Lấy thông báo
     @GetMapping("/message")
     public ResponseEntity<List<Message>> getMessage() {
         List<Message> message = iMessageService.findMessage();
-        if(message == null){
+        if (message == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(message,HttpStatus.OK);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
     //    xóa thông báo
     @DeleteMapping("/delete_message/{id}")
     public Map<String, Boolean> deleteMessage(@PathVariable Integer id) {
