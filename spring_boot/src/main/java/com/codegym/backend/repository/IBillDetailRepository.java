@@ -23,9 +23,9 @@ public interface IBillDetailRepository extends JpaRepository<BillDetail,Integer>
             " sum(bd.quantity) quantity, s.price, t.name as tableName, sum(quantity*s.price) as sum,\n" +
             "b.payment_status as paymentStatus from bill b\n" +
             "join `table` t on b.table_id = t.id\n" +
-            "join bill_detail bd on b.id = bd.bill_id \n" +
-            "join service s on bd.service_id = s.id \n" +
-            "where payment_status = 0 and table_id = 2 \n" +
+            "join bill_detail bd on b.id = bd.bill_id\n" +
+            "join service s on bd.service_id = s.id\n" +
+            "where payment_status = 0 and table_id = ?\n" +
             "group by s.id\n" +
             "order by table_id asc",nativeQuery = true)
     List<BillDetailListDTO> findByBillId(int tableId);
