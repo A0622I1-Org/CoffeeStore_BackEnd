@@ -19,5 +19,5 @@ public interface IBillRepository extends JpaRepository<Bill,Integer> {
     @Modifying
     @Query(value = "insert into bill (created_time,payment_status,payment_time,table_id,user_id) " +
             "values(?1,?2,?3,?4,?5)",nativeQuery = true)
-    void insertBill(String created_time,int payment_status,String payment_time,int table_id,int user_id);
+    void insertBill(String createdTime,int paymentStatus,String paymentTime,int tableId,int userId);
 }

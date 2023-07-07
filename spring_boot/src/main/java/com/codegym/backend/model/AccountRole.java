@@ -1,3 +1,4 @@
+
 package com.codegym.backend.model;
 
 import javax.persistence.*;
@@ -5,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "account_role")
-public class AccountRole {
+public class AccountRole{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -18,6 +19,7 @@ public class AccountRole {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private AppRole role;
+
 
     public AccountRole() {
     }

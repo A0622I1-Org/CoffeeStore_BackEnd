@@ -38,11 +38,10 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
 
 
     String JOIN_ACCOUNT = "join account a on u.account_id = a.id\n";
-    String SELECT_USER_ITEM = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag, u.salary, p.name position  from user u\n";
+    String SELECT_USER_ITEM = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag, u.salary, p.name position from user u\n";
     String JOIN_POSITION = "join position p on p.id = u.position_id\n";
     String ORDER_BY = "order by u.id";
-
-    String SELECT_ALL_USER_SQL = SELECT_USER_ITEM + JOIN_ACCOUNT + JOIN_POSITION + ORDER_BY;
+        String SELECT_ALL_USER_SQL = SELECT_USER_ITEM + JOIN_ACCOUNT + JOIN_POSITION + ORDER_BY;
 
     @Query(value = SELECT_ALL_USER_SQL, countQuery = SELECT_ALL_USER_SQL, nativeQuery = true)
     Page<IUserDto> findAllList(Pageable pageable);
@@ -56,9 +55,7 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     @Query(value = FIND_NAME_AND_BIRTHDAY_SQL, countQuery = FIND_NAME_AND_BIRTHDAY_SQL, nativeQuery = true)
     Page<IUserDto> findUserByNameOrDate(Pageable pageable, String date, String name);
 
-    String FIND_NAME_SQL = SELECT_USER_ITEM +
-            "u.salary, p.name position  from user u \n" + JOIN_ACCOUNT +
-            "join position p on p.id = u.position_id\n" +
+    String FIND_NAME_SQL = SELECT_USER_ITEM + JOIN_ACCOUNT + JOIN_POSITION +
             "where u.name like ? \n" +
             ORDER_BY;
     @Query(value = FIND_NAME_SQL, countQuery = FIND_NAME_SQL, nativeQuery = true)

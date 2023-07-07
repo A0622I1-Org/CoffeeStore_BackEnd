@@ -4,7 +4,6 @@ public class CreateFeedbackImg {
     private int feedbackId;
     private String imgUrl;
 
-
     public int getFeedbackId() {
         return feedbackId;
     }
