@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IRoleService {
     List<AppRole> findAllRole();
-    void setDefaultRole(int accountId, Integer roleId);
+    void setDefaultRole(Integer accountId, Integer roleId);
 }

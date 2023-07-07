@@ -20,7 +20,7 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public void setDefaultRole(int accountId, Integer roleId) {
+    public void setDefaultRole(Integer accountId, Integer roleId) {
         roleRepository.setDefaultRole(accountId,roleId);
     }
 }

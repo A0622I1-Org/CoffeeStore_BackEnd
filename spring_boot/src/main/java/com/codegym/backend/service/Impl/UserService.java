@@ -110,7 +110,7 @@ public class UserService implements IUserService {
         account.setChangePassworDate(now);
         accountServiceBao.addNew(account);
         Integer id = accountServiceBao.findIdUserByUserName(userDTO.getUserName());
-        roleService.setDefaultRole(id, 1);
+        roleService.setDefaultRole(id, 2);
         userRepository.createNewUser(userDTO.getName(), userDTO.getAddress(), userDTO.getPhoneNumber(),
                 userDTO.getBirthday(), userDTO.getGender(), userDTO.getSalary(), userDTO.getImgUrl(), userDTO.getPosition(),id,false);
     }
