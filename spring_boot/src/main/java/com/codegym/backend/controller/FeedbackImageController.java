@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/image/private")
+@RequestMapping("api/private/image")
 public class FeedbackImageController {
     @Autowired
     private FeedbackImageProcessingService feedbackImageProcessingService;
