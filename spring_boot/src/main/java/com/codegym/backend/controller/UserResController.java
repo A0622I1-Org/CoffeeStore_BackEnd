@@ -69,6 +69,10 @@ public class UserResController {
     @Autowired
     private UserEditByRequestDtoValidator userEditByRequestDtoValidator;
 
+    String currentEmail = null;
+    String currentPhoneNumber = null;
+
+
     /**
      * ThangLV
      * get information of User by Username
@@ -112,6 +116,8 @@ public class UserResController {
     @PutMapping("/edit-user/{id}")
     public ResponseEntity<?> editUser(@Valid @RequestBody UserEditDTO userEditDTO, BindingResult
             bindingResult, @PathVariable int id) throws MessagingException {
+        userEditDTO.setCurrentEmail(this.currentEmail);
+        userEditDTO.setCurrentPhoneNumber(this.currentPhoneNumber);
         userEditByRequestDtoValidator.validate(userEditDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
@@ -161,7 +167,10 @@ public class UserResController {
         if (user == null) {
             return new ResponseEntity<UserFindIdDTO>(HttpStatus.NO_CONTENT);
         }
+        this.currentEmail = user.getEmail();
+        this.currentPhoneNumber = user.getPhoneNumber();
         return new ResponseEntity<UserFindIdDTO>(user, HttpStatus.OK);
+
     }
 
 
