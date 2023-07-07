@@ -19,7 +19,7 @@ public interface IBillChargingRepository extends JpaRepository<Bill, Integer> {
             "JOIN bill_detail bd ON bd.bill_id = b.id " +
             "JOIN service s ON s.id = bd.service_id " +
             "WHERE b.payment_status = 0 AND b.table_id = ?1 " +
-            "GROUP BY b.table_id ", nativeQuery = true)
+            "GROUP BY b.id ", nativeQuery = true)
     List<BillChargingListDTO> getAllBillCharging(Integer tableId);
 
     @Query(value = "SELECT u.id FROM user u " +
