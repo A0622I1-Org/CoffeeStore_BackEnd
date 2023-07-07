@@ -15,7 +15,7 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
     Page<Service> findAllService(Pageable pageable);
 
     @Query(value = "select * from service where enable_flag = 1 and type_id = ?1",nativeQuery = true)
-    Page<Service> findByServiceTypeId(int type_id, Pageable pageable);
+    Page<Service> findByServiceTypeId(int typeId,Pageable pageable);
 
     @Query(value = "select * from service where id = ?1 and enable_flag = 1",nativeQuery = true)
     Service findById(int id);

@@ -64,7 +64,8 @@ public class AccountService implements IAccountService {
      */
     @Override
     public void changePassword(String password, String username){
-        accountRepository.changePassword(password, username);
+        String now = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+        accountRepository.changePassword(password,now,username);
     }
 
     @Override
