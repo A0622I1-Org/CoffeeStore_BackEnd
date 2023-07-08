@@ -170,7 +170,6 @@ public class UserResController {
         this.currentEmail = user.getEmail();
         this.currentPhoneNumber = user.getPhoneNumber();
         return new ResponseEntity<UserFindIdDTO>(user, HttpStatus.OK);
-
     }
 
 

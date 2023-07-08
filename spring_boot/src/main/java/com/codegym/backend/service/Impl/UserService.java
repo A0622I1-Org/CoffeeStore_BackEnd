@@ -103,7 +103,7 @@ public class UserService implements IUserService {
 
         Account account = new Account();
         account.setUserName(userDTO.getUserName());
-        account.setPassword(passwordEncoder.encode("123ABC"));
+        account.setPassword(passwordEncoder.encode("Thang!"));
         account.setEmail(userDTO.getEmail());
         account.setEnableFlag(true);
         String now = simpleDateFormat.format(new Date(System.currentTimeMillis()));
@@ -112,7 +112,7 @@ public class UserService implements IUserService {
         Integer id = accountServiceBao.findIdUserByUserName(userDTO.getUserName());
         roleService.setDefaultRole(id, 2);
         userRepository.createNewUser(userDTO.getName(), userDTO.getAddress(), userDTO.getPhoneNumber(),
-                userDTO.getBirthday(), userDTO.getGender(), userDTO.getSalary(), userDTO.getImgUrl(), userDTO.getPosition(),id,false);
+                userDTO.getBirthday(), userDTO.getGender(), userDTO.getSalary(), userDTO.getImgUrl(), userDTO.getPosition(),id,true);
     }
 
     @Override
