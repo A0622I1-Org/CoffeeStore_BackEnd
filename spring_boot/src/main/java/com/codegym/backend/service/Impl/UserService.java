@@ -103,7 +103,7 @@ public class UserService implements IUserService {
 
         Account account = new Account();
         account.setUserName(userDTO.getUserName());
-        account.setPassword(passwordEncoder.encode("Thang!"));
+        account.setPassword(passwordEncoder.encode("Admin*****"));
         account.setEmail(userDTO.getEmail());
         account.setEnableFlag(true);
         String now = simpleDateFormat.format(new Date(System.currentTimeMillis()));
