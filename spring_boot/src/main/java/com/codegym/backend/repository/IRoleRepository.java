@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Repository
 public interface IRoleRepository extends JpaRepository<AppRole, Integer> {
     @Query(value = "SELECT * FROM role", nativeQuery = true)
