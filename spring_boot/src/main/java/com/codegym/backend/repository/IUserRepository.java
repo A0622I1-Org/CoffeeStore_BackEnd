@@ -73,8 +73,8 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
 
     @Modifying
     @Query(value = "INSERT INTO user (name, address, phone_number, birthday, gender, salary, img_url, position_id,account_id, enable_flag)" +
-            " values (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10)", nativeQuery = true)
-    void createNewUser(String name,String address,String phoneNumber,String birthday,Integer gender,Double salary,String imgUrl,Integer position,Integer account,Boolean enableFlag);
+            " values (?1,?2,?3,?4,?5,?6,?7,?8,?9,1)", nativeQuery = true)
+    void createNewUser(String name,String address,String phoneNumber,String birthday,Integer gender,Double salary,String imgUrl,Integer position,Integer account);
 
 
     @Query(value = "select count(phone_number) from user where phone_number = ?", nativeQuery = true)

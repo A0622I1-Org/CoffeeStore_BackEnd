@@ -112,7 +112,7 @@ public class UserService implements IUserService {
         Integer id = accountServiceBao.findIdUserByUserName(userDTO.getUserName());
         roleService.setDefaultRole(id, 2);
         userRepository.createNewUser(userDTO.getName(), userDTO.getAddress(), userDTO.getPhoneNumber(),
-                userDTO.getBirthday(), userDTO.getGender(), userDTO.getSalary(), userDTO.getImgUrl(), userDTO.getPosition(),id,true);
+                userDTO.getBirthday(), userDTO.getGender(), userDTO.getSalary(), userDTO.getImgUrl(), userDTO.getPosition(),id);
     }
 
     @Override
