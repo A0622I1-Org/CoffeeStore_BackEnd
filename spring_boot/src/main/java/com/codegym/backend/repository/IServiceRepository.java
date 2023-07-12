@@ -22,11 +22,11 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
 
     @Query(value = "select * from service where enable_flag = 1",nativeQuery = true)
     List<Service> findAll();
-    String sql_best = "SELECT s.name, s.img_url imgUrl, COUNT(bd.service_id) AS service_count  " +
-            "FROM service AS s   " +
-            "JOIN bill_detail AS bd ON s.id = bd.service_id   " +
-            "GROUP BY s.id, s.name   " +
-            "ORDER BY service_count DESC   " +
+    String sql_best = "SELECT s.id, s.img_url imgUrl, sum(bd.quantity) quantity\n" +
+            "FROM service s\n" +
+            "JOIN bill_detail bd ON s.id = bd.service_id \n" +
+            "GROUP BY s.id\n" +
+            "ORDER BY quantity DESC\n" +
             "LIMIT 5;";
     @Query(value = sql_best, nativeQuery = true)
     List<ServiceDto> findBestSeller();
