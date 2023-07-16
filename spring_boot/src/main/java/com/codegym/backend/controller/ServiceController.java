@@ -1,9 +1,6 @@
 package com.codegym.backend.controller;
 
-import com.codegym.backend.dto.BillDetailListDTO;
-import com.codegym.backend.dto.BillDto;
-import com.codegym.backend.dto.BillInsertDTO;
-import com.codegym.backend.dto.InsertBillDetailDTO;
+import com.codegym.backend.dto.*;
 import com.codegym.backend.model.CoffeeTable;
 import com.codegym.backend.model.Message;
 import com.codegym.backend.model.Service;
@@ -16,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -59,6 +55,42 @@ public class ServiceController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(serviceList, HttpStatus.OK);
+    }
+
+    @GetMapping("/list/listService")
+    public ResponseEntity<Page<ServiceDto1>> getListWithCondition(@RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "8") int size,
+                                                                  @RequestParam(defaultValue = "") String serviceName,
+                                                                  @RequestParam(defaultValue = "") String serviceType,
+                                                                  @RequestParam(defaultValue = "1900-01-01") String createdDateF,
+                                                                  @RequestParam(defaultValue = "2100-01-01") String createdDateT,
+                                                                  @RequestParam(defaultValue = "0.0") String priceF,
+                                                                  @RequestParam(defaultValue = "10000000000.0") String priceT,
+                                                                  @RequestParam(defaultValue = "0.0") String quantityF,
+                                                                  @RequestParam(defaultValue = "10000000000.0") String quantityT,
+                                                                  @RequestParam(defaultValue = "") String enableFlag) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ServiceDto1> serviceList = serviceService.findService(
+                                                                    pageable,
+                                                                    serviceName,
+                                                                    serviceType,
+                                                                    createdDateF,
+                                                                    createdDateT,
+                                                                    priceF,
+                                                                    priceT,
+                                                                    quantityF,
+                                                                    quantityT,
+                                                                    enableFlag);
+        if (serviceList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(serviceList, HttpStatus.OK);
+    }
+
+    @PutMapping("/list/serviceList/changeServiceEnableFlag")
+    public ResponseEntity<?> changeFlag(@RequestParam int id,@RequestParam boolean flag) {
+       serviceService.updateEnableFlag(flag ? 1 : 0, id);
+       return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // lấy dữ liệu 1 service

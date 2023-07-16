@@ -1,5 +1,6 @@
 package com.codegym.backend.service.impl;
 
+import com.codegym.backend.common.MyConstants;
 import com.codegym.backend.dto.AccountListDTO;
 import com.codegym.backend.model.Account;
 import com.codegym.backend.repository.IAccountRepository;
@@ -111,7 +112,7 @@ public class AccountService implements IAccountService {
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
-        helper.setFrom("namhoai2312@gmail.com", "A0622I1_CAFE☕");
+        helper.setFrom(MyConstants.MY_EMAIL, "A0622I1_CAFE☕");
         helper.setTo(email);
         helper.setSubject(subject);
         helper.setText(mailContent, true);

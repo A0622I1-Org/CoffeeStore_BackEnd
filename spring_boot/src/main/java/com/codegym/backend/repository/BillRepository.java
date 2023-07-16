@@ -1,16 +1,12 @@
 package com.codegym.backend.repository;
 
-import com.codegym.backend.dto.BillDetailDto;
 import com.codegym.backend.dto.BillListDto;
 import com.codegym.backend.model.Bill;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {

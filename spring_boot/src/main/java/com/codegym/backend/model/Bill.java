@@ -15,8 +15,12 @@ public class Bill {
     private String createdTime;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "take_order_user_id")
+    private User userOrder;
+
+    @ManyToOne
+    @JoinColumn(name = "take_payment_user_id")
+    private User userPayment;
 
     @ManyToOne
     @JoinColumn(name = "table_id")
@@ -36,9 +40,10 @@ public class Bill {
     public Bill() {
     }
 
-    public Bill(String createdTime, User user, CoffeeTable table, boolean paymentStatus, String paymentTime) {
+    public Bill(String createdTime, User userOrder, User userPayment, CoffeeTable table, boolean paymentStatus, String paymentTime) {
         this.createdTime = createdTime;
-        this.user = user;
+        this.userOrder = userOrder;
+        this.userPayment = userPayment;
         this.table = table;
         this.paymentStatus = paymentStatus;
         this.paymentTime = paymentTime;
@@ -70,14 +75,6 @@ public class Bill {
         this.createdTime = createdTime;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public CoffeeTable getTable() {
         return table;
     }
@@ -100,5 +97,21 @@ public class Bill {
 
     public void setPaymentTime(String paymentTime) {
         this.paymentTime = paymentTime;
+    }
+
+    public User getUserOrder() {
+        return userOrder;
+    }
+
+    public void setUserOrder(User userOrder) {
+        this.userOrder = userOrder;
+    }
+
+    public User getUserPayment() {
+        return userPayment;
+    }
+
+    public void setUserPayment(User userPayment) {
+        this.userPayment = userPayment;
     }
 }

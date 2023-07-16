@@ -20,7 +20,8 @@ public class JwtUtility implements Serializable {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + (100 * jwtExpiration)))
+//                .setExpiration(new Date((new Date()).getTime() + (100 * jwtExpiration)))
+                .setExpiration(null)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }

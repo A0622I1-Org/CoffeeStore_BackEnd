@@ -21,15 +21,19 @@ public class BillDetail {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "price")
+    private double price;
+
     // Constructors, getters, and setters
 
     public BillDetail() {
     }
 
-    public BillDetail(Bill bill, Service service, int quantity) {
+    public BillDetail(Bill bill, Service service, int quantity, double price) {
         this.bill = bill;
         this.service = service;
         this.quantity = quantity;
+        this.price = price;
     }
 
     // Getters and Setters
