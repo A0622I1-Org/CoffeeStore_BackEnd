@@ -42,8 +42,21 @@ public class ServiceService implements IServiceService {
                                          String priceT,
                                          String quantityF,
                                          String quantityT,
-                                         String enableFlag) {
-        return iServiceRepository.getServiceList(pageable, serviceName, serviceType, createdDateF, createdDateT, priceF, priceT, quantityF, quantityT, enableFlag);
+                                         String enableFlag,
+                                         String paymentF,
+                                         String paymentT) {
+        return iServiceRepository.getServiceList(pageable,
+                serviceName,
+                serviceType,
+                createdDateF,
+                createdDateT,
+                priceF,
+                priceT,
+                quantityF,
+                quantityT,
+                enableFlag,
+                paymentF,
+                paymentT);
     }
 
     @Override

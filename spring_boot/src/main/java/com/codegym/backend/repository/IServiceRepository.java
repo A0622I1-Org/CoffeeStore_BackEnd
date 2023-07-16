@@ -43,10 +43,10 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
     List<ServiceDto> findNewService();
 
     @Modifying
-    @Query(value = "UPDATE service SET enable_flag = ? WHERE id = ?;", nativeQuery = true)
+    @Query(value = MyQuerySQL.UPDATE_SERVICE_ENABLE_FLAG, nativeQuery = true)
     void updateServiceEnableFlag(int flag, int id);
 
-    @Query(value = MyQuerySQL.SELECT_SERVICE, countQuery = MyQuerySQL.SELECT_SERVICE, nativeQuery = true)
+    @Query(value = MyQuerySQL.SELECT_SERVICE, countQuery = MyQuerySQL.SELECT_SERVICE,  nativeQuery = true)
     Page<ServiceDto1> getServiceList(Pageable pageable,
                                      String serviceName,
                                      String serviceType,
@@ -56,5 +56,8 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
                                      String priceT,
                                      String quantityF,
                                      String quantityT,
-                                     String enableFlag);
+                                     String enableFlag,
+                                     String paymentF,
+                                     String paymentT
+                                     );
 }

@@ -4,9 +4,11 @@ public interface ServiceDto1 {
     Integer getId();
     String getImgUrl();
     String getServiceName();
-    Integer getPrice();
+    Double getPrice();
     String getServiceType();
     String getCreatedDate();
-    Number getQuantity();
+    Double getSalePrice();
+    Double getQuantity();
+    Double getPayment();
     String getStatusFlag();
 }

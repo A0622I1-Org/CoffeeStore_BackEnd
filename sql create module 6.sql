@@ -73,6 +73,8 @@ enable_flag BIT
 create table bill(
 id INT auto_increment primary key,
 created_time NVARCHAR(50),
+take_order_user_id INT,
+take_payment_user_id INT,
 user_id INT,
 table_id INT,
 payment_status BIT,

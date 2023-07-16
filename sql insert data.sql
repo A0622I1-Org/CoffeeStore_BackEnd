@@ -21,7 +21,6 @@ INSERT INTO account_role (account_id,role_id) values
 (1,1),
 (2,2);
 SET FOREIGN_KEY_CHECKS=0;
-<<<<<<< HEAD
 truncate table user;
 update user set enable_flag = 1 where id <=2;
 INSERT INTO user (name, address, phone_number, birthday, gender, salary, position_id, account_id, enable_flag, img_Url)
@@ -66,7 +65,6 @@ VALUES
   ('Lê Thị Thu', 'Đà Nẵng', '0123456789', '1929-05-31', 0, 47000000, 2, 38, 1, 'url_img37'),
   ('Nguyễn Văn Quang', 'Quảng Nam', '0123456789', '1927-03-12', 1, 48000000, 1, 39, 0, 'url_img38'),
   ('Trần Thị Bình', 'Huế', '0123456789', '1925-10-23', 0, 49000000, 2, 40, 1, 'url_img39');
-=======
 INSERT INTO user (name,address,phone_number,birthday,gender,salary,position_id,account_id,enable_flag,imgUrl) values
 ('Lê Gia Tú','Quảng Trị','0123456789','1991-05-10',1,10000000,1,1,0,'url img1'),
 ('Lê Thị Việt Hà','Quảng Trị','0123456789','1994-01-01',0,11000000,2,2,0,'url img1'),
@@ -81,7 +79,6 @@ begin
 	delete from user where id = deleteId;
 end//
 delimiter ;
->>>>>>> merge/dev_pre2
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO `position` (name) values
 ('Chủ tiệm'),
@@ -212,3 +209,12 @@ INSERT INTO feedback_img (feedback_id, imgUrl) values
 (1,'qksjdhkqhsdjqsd'),
 (1,'kqjhdqsjkhdkjhqsd'),
 (1,'qkjdshqjshdkqsd');
+
+SELECT b.id, b.created_time AS createdTime, t.id AS tableNumber, u.name takeOrderUserId , u1.name takePaymentUserId, sum(bd.quantity*s.price) AS totalPrice FROM  bill b
+	JOIN `table` t ON b.table_id = t.id
+	JOIN user u ON b.take_order_user_id =u.id
+	JOIN user u1 ON b.take_payment_user_id =u1.id
+	JOIN bill_detail bd ON bd.bill_id = b.id
+	JOIN service s ON bd.service_id = s.id
+	GROUP BY b.id
+	ORDER BY b.id;
