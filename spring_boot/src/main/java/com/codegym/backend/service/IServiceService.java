@@ -23,7 +23,9 @@ public interface IServiceService {
                                   String quantityT,
                                   String enableFlag,
                                   String paymentF,
-                                  String paymentT);
+                                  String paymentT,
+                                  String paymentTimeF,
+                                  String paymentTimeT);
     Service findById(int id);
     Page<Service> findByServiceTypeId(int type_id,Pageable pageable);
     List<Service> findAll();

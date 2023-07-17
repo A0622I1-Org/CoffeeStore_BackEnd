@@ -58,6 +58,8 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
                                      String quantityT,
                                      String enableFlag,
                                      String paymentF,
-                                     String paymentT
+                                     String paymentT,
+                                     String paymentTimeF,
+                                     String paymentTimeT
                                      );
 }

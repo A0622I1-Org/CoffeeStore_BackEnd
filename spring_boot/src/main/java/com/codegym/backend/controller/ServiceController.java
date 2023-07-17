@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -70,21 +71,25 @@ public class ServiceController {
                                                                   @RequestParam(defaultValue = "10000000000.0") String quantityT,
                                                                   @RequestParam(defaultValue = "") String enableFlag,
                                                                   @RequestParam(defaultValue = "0.0") String paymentF,
-                                                                  @RequestParam(defaultValue = "10000000000.0") String paymentT) {
+                                                                  @RequestParam(defaultValue = "10000000000.0") String paymentT,
+                                                                  @RequestParam(defaultValue = "1900-01-01") String paymentTimeF,
+                                                                  @RequestParam(defaultValue = "2100-01-01") String paymentTimeT) {
         Pageable pageable = PageRequest.of(page, size);
         Page<ServiceDto1> serviceList = serviceService.findService(
-                                                                    pageable,
-                                                                    serviceName,
-                                                                    serviceType,
-                                                                    createdDateF,
-                                                                    createdDateT,
-                                                                    priceF,
-                                                                    priceT,
-                                                                    quantityF,
-                                                                    quantityT,
-                                                                    enableFlag,
-                                                                    paymentF,
-                                                                    paymentT);
+                pageable,
+                serviceName,
+                serviceType,
+                createdDateF,
+                createdDateT,
+                priceF,
+                priceT,
+                quantityF,
+                quantityT,
+                enableFlag,
+                paymentF,
+                paymentT,
+                paymentTimeF,
+                paymentTimeT);
         if (serviceList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -92,9 +97,9 @@ public class ServiceController {
     }
 
     @PutMapping("/list/serviceList/changeServiceEnableFlag")
-    public ResponseEntity<?> changeFlag(@RequestParam int id,@RequestParam boolean flag) {
-       serviceService.updateEnableFlag(flag ? 1 : 0, id);
-       return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> changeFlag(@RequestParam int id, @RequestParam boolean flag) {
+        serviceService.updateEnableFlag(flag ? 1 : 0, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // lấy dữ liệu 1 service

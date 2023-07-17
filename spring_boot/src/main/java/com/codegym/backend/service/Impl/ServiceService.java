@@ -44,8 +44,11 @@ public class ServiceService implements IServiceService {
                                          String quantityT,
                                          String enableFlag,
                                          String paymentF,
-                                         String paymentT) {
-        return iServiceRepository.getServiceList(pageable,
+                                         String paymentT,
+                                         String paymentTimeF,
+                                         String paymentTimeT) {
+        return iServiceRepository.getServiceList(
+                pageable,
                 serviceName,
                 serviceType,
                 createdDateF,
@@ -56,7 +59,9 @@ public class ServiceService implements IServiceService {
                 quantityT,
                 enableFlag,
                 paymentF,
-                paymentT);
+                paymentT,
+                paymentTimeF,
+                paymentTimeT);
     }
 
     @Override
