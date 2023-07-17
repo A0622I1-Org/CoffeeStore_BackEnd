@@ -1,6 +1,6 @@
 package com.codegym.backend.dto;
 
-public interface ServiceDto1 {
+public interface IServiceDto {
     Integer getId();
     String getImgUrl();
     String getServiceName();

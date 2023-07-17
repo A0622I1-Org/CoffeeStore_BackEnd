@@ -1,8 +1,9 @@
 package com.codegym.backend.repository;
 
 import com.codegym.backend.common.MyQuerySQL;
+import com.codegym.backend.dto.CServiceDto;
 import com.codegym.backend.dto.ServiceDto;
-import com.codegym.backend.dto.ServiceDto1;
+import com.codegym.backend.dto.IServiceDto;
 import com.codegym.backend.model.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,7 +48,7 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
     void updateServiceEnableFlag(int flag, int id);
 
     @Query(value = MyQuerySQL.SELECT_SERVICE, countQuery = MyQuerySQL.SELECT_SERVICE,  nativeQuery = true)
-    Page<ServiceDto1> getServiceList(Pageable pageable,
+    Page<IServiceDto> getServiceList(Pageable pageable,
                                      String serviceName,
                                      String serviceType,
                                      String createdDateF,
@@ -62,4 +63,6 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
                                      String paymentTimeF,
                                      String paymentTimeT
                                      );
+    @Query(value = MyQuerySQL.SELECT_SERVICE_NO_JOIN,  nativeQuery = true)
+    List<CServiceDto> getServiceListForRegister();
 }

@@ -210,7 +210,7 @@ INSERT INTO feedback_img (feedback_id, imgUrl) values
 (1,'kqjhdqsjkhdkjhqsd'),
 (1,'qkjdshqjshdkqsd');
 
-SELECT b.id, b.created_time AS createdTime, t.id AS tableNumber, u.name takeOrderUserId , u1.name takePaymentUserId, sum(bd.quantity*s.price) AS totalPrice FROM  bill b
+SELECT b.id, t.id AS tableNumber, u.name takeOrderUserId , u1.name takePaymentUserId, sum(bd.quantity*bd.price) AS totalPrice , b.created_time AS createdTime FROM  bill b
 	JOIN `table` t ON b.table_id = t.id
 	JOIN user u ON b.take_order_user_id =u.id
 	JOIN user u1 ON b.take_payment_user_id =u1.id

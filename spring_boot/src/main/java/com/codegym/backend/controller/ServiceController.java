@@ -1,19 +1,19 @@
 package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.*;
-import com.codegym.backend.model.CoffeeTable;
-import com.codegym.backend.model.Message;
-import com.codegym.backend.model.Service;
-import com.codegym.backend.model.ServiceType;
+import com.codegym.backend.model.*;
 import com.codegym.backend.service.*;
+import com.codegym.backend.validation.ServiceCreateValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,8 +21,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin("*")
+
+
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/private")
 public class ServiceController {
     @Autowired
@@ -43,9 +45,11 @@ public class ServiceController {
     @Autowired
     IMessageService iMessageService;
 
-
     @Autowired
     IMessageService iMessgaeServie;
+
+    @Autowired
+    ServiceCreateValidator serviceCreateValidator;
 
     //    lấy danh sách service
     @GetMapping("/list/service")
@@ -59,7 +63,7 @@ public class ServiceController {
     }
 
     @GetMapping("/list/listService")
-    public ResponseEntity<Page<ServiceDto1>> getListWithCondition(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Page<IServiceDto>> getListWithCondition(@RequestParam(defaultValue = "0") int page,
                                                                   @RequestParam(defaultValue = "8") int size,
                                                                   @RequestParam(defaultValue = "") String serviceName,
                                                                   @RequestParam(defaultValue = "") String serviceType,
@@ -75,7 +79,7 @@ public class ServiceController {
                                                                   @RequestParam(defaultValue = "1900-01-01") String paymentTimeF,
                                                                   @RequestParam(defaultValue = "2100-01-01") String paymentTimeT) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<ServiceDto1> serviceList = serviceService.findService(
+        Page<IServiceDto> serviceList = serviceService.findService(
                 pageable,
                 serviceName,
                 serviceType,
@@ -96,8 +100,20 @@ public class ServiceController {
         return new ResponseEntity<>(serviceList, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/list/createService")
+    public ResponseEntity<?> createService(@Valid @RequestBody CServiceDto serviceDto, BindingResult
+            bindingResult) throws MessagingException {
+        serviceCreateValidator.validate(serviceDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
+        }
+//        System.out.println(userDTO.toString());
+        serviceService.createService(serviceDto);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
     @PutMapping("/list/serviceList/changeServiceEnableFlag")
-    public ResponseEntity<?> changeFlag(@RequestParam int id, @RequestParam boolean flag) {
+    public ResponseEntity<?> changeFlag(@RequestParam(defaultValue = "9999") int id, @RequestParam(defaultValue = "true") boolean flag) {
         serviceService.updateEnableFlag(flag ? 1 : 0, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

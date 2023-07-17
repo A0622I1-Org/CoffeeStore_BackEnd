@@ -24,4 +24,6 @@ public class MyQuerySQL {
                     "AND paymentTime BETWEEN ? AND ?\n" +
                     "ORDER BY quantity DESC";
     public static final String UPDATE_SERVICE_ENABLE_FLAG = "UPDATE service SET enable_flag = ? WHERE id = ?";
+    public static final String SELECT_SERVICE_NO_JOIN = "select id, name, price, type_id type_id, enable_flag enableFlag, created_date createdDate, img_url imgUrl from service";
+
 }
