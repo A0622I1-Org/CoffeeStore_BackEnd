@@ -44,5 +44,4 @@ public class ServiceService implements IServiceService {
     public List<Service> findAll() {
         return iServiceRepository.findAll();
     }
-
 }

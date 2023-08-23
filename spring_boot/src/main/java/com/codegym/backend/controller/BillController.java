@@ -11,13 +11,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bill")
+@RequestMapping("/api/private/bill")
 @CrossOrigin(origins = "*")
 public class BillController {
     @Autowired
@@ -36,11 +35,7 @@ public class BillController {
         return ResponseEntity.ok(billList);
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<BillListDto>> getBillList(){
-        List<BillListDto> billList = billService.findAll();
-        return ResponseEntity.ok(billList);
-    }
+
 
     @GetMapping("/billDetail/{id}")
     public ResponseEntity<List<BillDetailDto>> getBillDetail(@PathVariable int id){
@@ -49,8 +44,9 @@ public class BillController {
     }
 
     @GetMapping("/getListByUser")
-    public ResponseEntity<List<BillListDto>> getBillByUser(@RequestParam String name){
-        List<BillListDto> billList = billService.findBillByUser(name);
+    public ResponseEntity<Page<BillListDto>> getBillByUser(@RequestParam(defaultValue = "") String name,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page,size);
+        Page<BillListDto> billList = billService.findByUser(pageable, '%'+name+'%');
         return ResponseEntity.ok(billList);
     }
 }

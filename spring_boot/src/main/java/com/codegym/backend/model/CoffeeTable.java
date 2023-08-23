@@ -3,9 +3,9 @@ package com.codegym.backend.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "table")
-public class CoffeeTable {
+@Table(name = "`table`")
 
+public class CoffeeTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

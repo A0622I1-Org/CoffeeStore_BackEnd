@@ -44,14 +44,15 @@ public class Feedback {
     @Column(name = "rate")
     private Integer rate;
 
+
     // Constructors, getters, and setters
 
     public Feedback() {
     }
 
-// test merge done
 
     public Feedback(String feedbackId, Bill bill, String name, String email, String date, String content, FeedbackType feedbackType, Integer rate) {
+
         this.feedbackId = feedbackId;
         this.bill = bill;
         this.name = name;

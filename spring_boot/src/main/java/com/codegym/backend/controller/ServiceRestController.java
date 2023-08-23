@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @CrossOrigin
-@RequestMapping("/api/service/body")
+@RequestMapping("/api/public")
 @RestController
 public class ServiceRestController {
     @Autowired
     IServiceService service;
 
-    @GetMapping("/new")
+    @GetMapping("body/new")
     public ResponseEntity<List<ServiceDto>> getListNewService() {
         List<ServiceDto> listNewService = service.findNewService();
         if (listNewService.isEmpty()) {
@@ -27,7 +27,7 @@ public class ServiceRestController {
         }
         return new ResponseEntity<>(listNewService, HttpStatus.OK);
     }
-    @GetMapping("/best")
+    @GetMapping("body/best")
     public ResponseEntity<List<ServiceDto>> getListBestSeller() {
         List<ServiceDto> listBestSeller = service.findBestSeller();
         if (listBestSeller.isEmpty()) {

@@ -35,6 +35,12 @@ public interface ICoffeeTableRepository extends JpaRepository<CoffeeTable, Integ
     @Query(value = "SELECT * FROM `table` WHERE status = 'Tốt' OR 'tốt';", nativeQuery = true)
     List<CoffeeTable> getAllTable();
 
+    /**
+     *
+     * @param tableId
+     * @return List of bill detail list of selected table
+     * @author CuongHM
+     */
     @Modifying
     @Query(value = "SELECT t.id AS tableId, s.img_url AS imgUrl, s.name AS serviceName, \n" +
             "               sum(bd.quantity) quantity, s.price, t.name AS tableName, sum(bd.quantity * s.price) AS sum, \n" +

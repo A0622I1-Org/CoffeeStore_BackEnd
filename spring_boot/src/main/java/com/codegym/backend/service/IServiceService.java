@@ -8,12 +8,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IServiceService {
-
     List<ServiceDto> findBestSeller();
     List<ServiceDto> findNewService();
     Page<Service> findAllService(Pageable pageable);
     Service findById(int id);
     Page<Service> findByServiceTypeId(int type_id,Pageable pageable);
     List<Service> findAll();
-
 }
