@@ -109,7 +109,7 @@ public class ServiceController {
         }
 //        System.out.println(userDTO.toString());
         serviceService.createService(serviceDto);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/list/serviceList/changeServiceEnableFlag")
