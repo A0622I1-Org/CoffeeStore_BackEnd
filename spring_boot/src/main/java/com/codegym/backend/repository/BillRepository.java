@@ -1,6 +1,8 @@
 package com.codegym.backend.repository;
 
+import com.codegym.backend.common.MyQuerySQL;
 import com.codegym.backend.dto.BillListDto;
+import com.codegym.backend.dto.IBillListDto;
 import com.codegym.backend.model.Bill;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,4 +32,14 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
             "            order by b.id";
     @Query(value = SelectBillListByUser_Sql, countQuery = SelectBillListByUser_Sql, nativeQuery = true)
     Page<BillListDto> findBillByUser(Pageable pageable,String name);
+
+    @Query(value = MyQuerySQL.SELECT_BILL, countQuery = MyQuerySQL.SELECT_BILL,  nativeQuery = true)
+    Page<IBillListDto> getBillList(Pageable pageable,
+                                   String billNo,
+                                   String createdDateF,
+                                   String createdDateT,
+                                   String createdBy,
+                                   String tableNo,
+                                   String paymentF,
+                                   String paymentT);
 }

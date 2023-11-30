@@ -2,6 +2,8 @@ package com.codegym.backend.controller;
 
 import com.codegym.backend.dto.BillDetailDto;
 import com.codegym.backend.dto.BillListDto;
+import com.codegym.backend.dto.IBillListDto;
+import com.codegym.backend.dto.IServiceDto;
 import com.codegym.backend.model.Bill;
 import com.codegym.backend.service.BillDetailService;
 import com.codegym.backend.service.BillService;
@@ -34,7 +36,31 @@ public class BillController {
         }
         return ResponseEntity.ok(billList);
     }
-
+    @GetMapping("/list/listBill")
+    public ResponseEntity<Page<IBillListDto>> getListWithCondition(@RequestParam(defaultValue = "0") int page,
+                                                                  @RequestParam(defaultValue = "8") int size,
+                                                                  @RequestParam(defaultValue = "0.0") String billNo,
+                                                                  @RequestParam(defaultValue = "1900-01-01") String createdDateF,
+                                                                  @RequestParam(defaultValue = "2100-01-01") String createdDateT,
+                                                                  @RequestParam(defaultValue = "") String createdBy,
+                                                                  @RequestParam(defaultValue = "0.0") String tableNo,
+                                                                  @RequestParam(defaultValue = "0.0") String paymentF,
+                                                                  @RequestParam(defaultValue = "10000000000.0") String paymentT) {
+        Pageable pageable = PageRequest.of(page,size);
+        Page<IBillListDto> billList = billService.findBill(pageable,
+                billNo,
+                createdDateF,
+                createdDateT,
+                createdBy,
+                tableNo,
+                paymentF,
+                paymentT
+                );
+        if(billList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(billList);
+    }
 
 
     @GetMapping("/billDetail/{id}")

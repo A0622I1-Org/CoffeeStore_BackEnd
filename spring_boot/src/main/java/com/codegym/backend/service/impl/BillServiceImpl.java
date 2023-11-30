@@ -1,6 +1,7 @@
 package com.codegym.backend.service.impl;
 
 import com.codegym.backend.dto.BillListDto;
+import com.codegym.backend.dto.IBillListDto;
 import com.codegym.backend.repository.BillRepository;
 import com.codegym.backend.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,27 @@ public class BillServiceImpl implements BillService {
     @Override
     public Page<BillListDto> findByUser(Pageable pageable, String name) {
         return billRepository.findBillByUser(pageable,name);
+    }
+
+    @Override
+    public Page<IBillListDto> findBill(Pageable pageable,
+                                       String billNo,
+                                       String createdDateF,
+                                       String createdDateT,
+                                       String createdBy,
+                                       String tableNo,
+                                       String paymentF,
+                                       String paymentT) {
+        return billRepository.getBillList(
+                pageable,
+                billNo,
+                createdDateF,
+                createdDateT,
+                createdBy,
+                tableNo,
+                paymentF,
+                paymentT
+        );
     }
 
 
