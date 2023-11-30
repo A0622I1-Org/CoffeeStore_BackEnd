@@ -36,14 +36,14 @@ public class BillController {
         }
         return ResponseEntity.ok(billList);
     }
-    @GetMapping("/list/listBill")
+    @GetMapping("list/listBill")
     public ResponseEntity<Page<IBillListDto>> getListWithCondition(@RequestParam(defaultValue = "0") int page,
                                                                   @RequestParam(defaultValue = "8") int size,
-                                                                  @RequestParam(defaultValue = "0.0") String billNo,
+                                                                  @RequestParam(defaultValue = "") String billNo,
                                                                   @RequestParam(defaultValue = "1900-01-01") String createdDateF,
                                                                   @RequestParam(defaultValue = "2100-01-01") String createdDateT,
                                                                   @RequestParam(defaultValue = "") String createdBy,
-                                                                  @RequestParam(defaultValue = "0.0") String tableNo,
+                                                                  @RequestParam(defaultValue = "") String tableNo,
                                                                   @RequestParam(defaultValue = "0.0") String paymentF,
                                                                   @RequestParam(defaultValue = "10000000000.0") String paymentT) {
         Pageable pageable = PageRequest.of(page,size);
