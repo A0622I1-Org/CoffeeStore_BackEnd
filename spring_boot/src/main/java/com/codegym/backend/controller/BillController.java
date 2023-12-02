@@ -36,7 +36,7 @@ public class BillController {
         }
         return ResponseEntity.ok(billList);
     }
-    @GetMapping("list/listBill")
+    @GetMapping("listBill")
     public ResponseEntity<Page<IBillListDto>> getListWithCondition(@RequestParam(defaultValue = "0") int page,
                                                                   @RequestParam(defaultValue = "8") int size,
                                                                   @RequestParam(defaultValue = "") String billNo,
@@ -69,10 +69,10 @@ public class BillController {
         return ResponseEntity.ok(billDetail);
     }
 
-    @GetMapping("/getListByUser")
-    public ResponseEntity<Page<BillListDto>> getBillByUser(@RequestParam(defaultValue = "") String name,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
-        Pageable pageable = PageRequest.of(page,size);
-        Page<BillListDto> billList = billService.findByUser(pageable, '%'+name+'%');
-        return ResponseEntity.ok(billList);
-    }
+//    @GetMapping("/getListByUser")
+//    public ResponseEntity<Page<BillListDto>> getBillByUser(@RequestParam(defaultValue = "") String name,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+//        Pageable pageable = PageRequest.of(page,size);
+//        Page<BillListDto> billList = billService.findByUser(pageable, '%'+name+'%');
+//        return ResponseEntity.ok(billList);
+//    }
 }
