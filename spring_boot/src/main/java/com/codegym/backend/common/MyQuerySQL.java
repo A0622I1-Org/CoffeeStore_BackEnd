@@ -37,5 +37,7 @@ public class MyQuerySQL {
             "GROUP BY b.id\n" +
             "HAVING\n" +
             "totalPayment BETWEEN ? AND ?\n" +
-            "ORDER BY b.id";
+            "ORDER BY b.created_time DESC";
+    public static final String INSERT_SERVICE = "INSERT INTO service (name,price,type_id,enable_flag,img_url) values\n" +
+            "(?,?,?,?,?)";
 }

@@ -103,13 +103,14 @@ public class ServiceController {
     @PostMapping(value = "/list/createService")
     public ResponseEntity<?> createService(@Valid @RequestBody CServiceDto serviceDto, BindingResult
             bindingResult) throws MessagingException {
+
         serviceCreateValidator.validate(serviceDto, bindingResult);
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
         }
-//        System.out.println(userDTO.toString());
+        System.out.println(serviceDto.getImgUrl());
         serviceService.createService(serviceDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     @PutMapping("/list/serviceList/changeServiceEnableFlag")

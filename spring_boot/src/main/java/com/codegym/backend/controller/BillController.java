@@ -36,7 +36,7 @@ public class BillController {
         }
         return ResponseEntity.ok(billList);
     }
-    @GetMapping("list/listBill")
+    @GetMapping("listBill")
     public ResponseEntity<Page<IBillListDto>> getListWithCondition(@RequestParam(defaultValue = "0") int page,
                                                                   @RequestParam(defaultValue = "8") int size,
                                                                   @RequestParam(defaultValue = "") String billNo,

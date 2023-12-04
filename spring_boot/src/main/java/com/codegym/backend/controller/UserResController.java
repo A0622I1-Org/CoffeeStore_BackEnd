@@ -140,7 +140,7 @@ public class UserResController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
         }
-//        System.out.println(userDTO.toString());
+        System.out.println(userDTO.getImgUrl());
         userService.createNewUser(userDTO);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }

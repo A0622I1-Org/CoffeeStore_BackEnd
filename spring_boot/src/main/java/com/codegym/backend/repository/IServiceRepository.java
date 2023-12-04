@@ -17,18 +17,19 @@ import java.util.List;
 
 @Transactional
 @Repository
-public interface IServiceRepository extends JpaRepository<Service,Integer> {
-    @Query(value = "select * from service where enable_flag = 1",nativeQuery = true)
+public interface IServiceRepository extends JpaRepository<Service, Integer> {
+    @Query(value = "select * from service where enable_flag = 1", nativeQuery = true)
     Page<Service> findAllService(Pageable pageable);
 
-    @Query(value = "select * from service where enable_flag = 1 and type_id = ?1",nativeQuery = true)
-    Page<Service> findByServiceTypeId(int typeId,Pageable pageable);
+    @Query(value = "select * from service where enable_flag = 1 and type_id = ?1", nativeQuery = true)
+    Page<Service> findByServiceTypeId(int typeId, Pageable pageable);
 
-    @Query(value = "select * from service where id = ?1 and enable_flag = 1",nativeQuery = true)
+    @Query(value = "select * from service where id = ?1 and enable_flag = 1", nativeQuery = true)
     Service findById(int id);
 
-    @Query(value = "select * from service where enable_flag = 1",nativeQuery = true)
+    @Query(value = "select * from service where enable_flag = 1", nativeQuery = true)
     List<Service> findAll();
+
     String sql_best = "SELECT s.id, s.name, s.img_url imgUrl, sum(bd.quantity) quantity\n" +
             "FROM service s\n" +
             "JOIN bill_detail bd ON s.id = bd.service_id \n" +
@@ -36,10 +37,12 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
             "GROUP BY s.id\n" +
             "ORDER BY quantity DESC\n" +
             "LIMIT 5;";
+
     @Query(value = sql_best, nativeQuery = true)
     List<ServiceDto> findBestSeller();
 
     String sql_new = "SELECT id, name, img_url imgUrl, created_date FROM service where enable_flag = 1 ORDER BY created_date DESC LIMIT 5";
+
     @Query(value = sql_new, nativeQuery = true)
     List<ServiceDto> findNewService();
 
@@ -47,7 +50,7 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
     @Query(value = MyQuerySQL.UPDATE_SERVICE_ENABLE_FLAG, nativeQuery = true)
     void updateServiceEnableFlag(int flag, int id);
 
-    @Query(value = MyQuerySQL.SELECT_SERVICE, countQuery = MyQuerySQL.SELECT_SERVICE,  nativeQuery = true)
+    @Query(value = MyQuerySQL.SELECT_SERVICE, countQuery = MyQuerySQL.SELECT_SERVICE, nativeQuery = true)
     Page<IServiceDto> getServiceList(Pageable pageable,
                                      String serviceName,
                                      String serviceType,
@@ -62,7 +65,13 @@ public interface IServiceRepository extends JpaRepository<Service,Integer> {
                                      String paymentT,
                                      String paymentTimeF,
                                      String paymentTimeT
-                                     );
-    @Query(value = MyQuerySQL.SELECT_SERVICE_NO_JOIN,  nativeQuery = true)
+    );
+
+    @Query(value = MyQuerySQL.SELECT_SERVICE_NO_JOIN, nativeQuery = true)
     List<CServiceDto> getServiceListForRegister();
+
+    @Modifying
+    @Query(value = MyQuerySQL.INSERT_SERVICE, nativeQuery = true)
+    void createNewService(String name, Double price, Integer typeId, String enableFlag, String imgUrl);
+
 }
