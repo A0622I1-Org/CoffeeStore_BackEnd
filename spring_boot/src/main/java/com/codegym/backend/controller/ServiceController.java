@@ -100,17 +100,15 @@ public class ServiceController {
         return new ResponseEntity<>(serviceList, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/list/createService")
+    @PostMapping(value = "list/createService")
     public ResponseEntity<?> createService(@Valid @RequestBody CServiceDto serviceDto, BindingResult
             bindingResult) throws MessagingException {
-
-        serviceCreateValidator.validate(serviceDto, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
-        }
-        System.out.println(serviceDto.getImgUrl());
+//        serviceCreateValidator.validate(serviceDto, bindingResult);
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
+//        }
         serviceService.createService(serviceDto);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/list/serviceList/changeServiceEnableFlag")

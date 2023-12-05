@@ -3,6 +3,7 @@ package com.codegym.backend.service.impl;
 import com.codegym.backend.dto.CServiceDto;
 import com.codegym.backend.dto.ServiceDto;
 import com.codegym.backend.dto.IServiceDto;
+import com.codegym.backend.model.Account;
 import com.codegym.backend.model.Service;
 import com.codegym.backend.repository.IServiceRepository;
 import com.codegym.backend.service.IServiceService;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
+import java.util.Date;
 import java.util.List;
 
 @org.springframework.stereotype.Service
@@ -93,6 +95,7 @@ public class ServiceService implements IServiceService {
 
     @Override
     public void createService(CServiceDto serviceDto) {
-
+        iServiceRepository.createNewService(serviceDto.getName(), serviceDto.getPrice(), serviceDto.getTypeId(),
+                Integer.parseInt(serviceDto.getEnableFlag()), serviceDto.getImgUrl());
     }
 }

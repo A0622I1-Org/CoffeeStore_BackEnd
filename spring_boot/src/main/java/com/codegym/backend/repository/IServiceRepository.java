@@ -72,6 +72,6 @@ public interface IServiceRepository extends JpaRepository<Service, Integer> {
 
     @Modifying
     @Query(value = MyQuerySQL.INSERT_SERVICE, nativeQuery = true)
-    void createNewService(String name, Double price, Integer typeId, String enableFlag, String imgUrl);
+    void createNewService(String name, Double price, Integer typeId, Integer enableFlag, String imgUrl);
 
 }
