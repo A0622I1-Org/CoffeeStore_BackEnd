@@ -73,7 +73,7 @@ public class ServiceController {
                                                                   @RequestParam(defaultValue = "10000000000.0") String priceT,
                                                                   @RequestParam(defaultValue = "0.0") String quantityF,
                                                                   @RequestParam(defaultValue = "10000000000.0") String quantityT,
-                                                                  @RequestParam(defaultValue = "Hoạt Động") String enableFlag,
+                                                                  @RequestParam(defaultValue = "") String enableFlag,
                                                                   @RequestParam(defaultValue = "0.0") String paymentF,
                                                                   @RequestParam(defaultValue = "10000000000.0") String paymentT,
                                                                   @RequestParam(defaultValue = "1900-01-01 00:00") String paymentTimeF,
