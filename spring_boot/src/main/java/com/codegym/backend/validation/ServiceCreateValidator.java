@@ -26,6 +26,7 @@ public class ServiceCreateValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CServiceDto serviceDto = (CServiceDto) target;
+        System.out.println(target);
         List<CServiceDto> listService = service.findAllForRegister();
         String price = "price";
         String name = "name";

@@ -51,7 +51,6 @@ public class ServiceController {
     @Autowired
     ServiceCreateValidator serviceCreateValidator;
 
-    //    lấy danh sách service
     @GetMapping("/list/service")
     public ResponseEntity<Page<Service>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -104,10 +103,10 @@ public class ServiceController {
     @PostMapping(value = "list/createService")
     public ResponseEntity<?> createService(@Valid @RequestBody CServiceDto serviceDto, BindingResult
             bindingResult) throws MessagingException {
-//        serviceCreateValidator.validate(serviceDto, bindingResult);
-//        if (bindingResult.hasErrors()) {
-//            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
-//        }
+        serviceCreateValidator.validate(serviceDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
+        }
         serviceService.createService(serviceDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
