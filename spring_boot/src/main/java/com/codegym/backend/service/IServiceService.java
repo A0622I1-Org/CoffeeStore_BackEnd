@@ -20,13 +20,13 @@ public interface IServiceService {
                                   String createdDateT,
                                   String priceF,
                                   String priceT,
+                                  String paymentTimeF,
+                                  String paymentTimeT,
                                   String quantityF,
                                   String quantityT,
                                   String enableFlag,
                                   String paymentF,
-                                  String paymentT,
-                                  String paymentTimeF,
-                                  String paymentTimeT);
+                                  String paymentT);
     Service findById(int id);
     Page<Service> findByServiceTypeId(int type_id,Pageable pageable);
     List<Service> findAll();

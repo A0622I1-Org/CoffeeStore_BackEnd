@@ -68,6 +68,7 @@ public class BillChargingRestController {
         LocalDateTime date = LocalDateTime.now();
         billChargingService.updateBillStatusByTableId(dtf.format(date), userId, tableId);
         tableService.updateTableStatus(tableId);
+        billChargingService.updatePriceForBillDetail();
         return new ResponseEntity<>(billChargingList, HttpStatus.OK);
     }
 }

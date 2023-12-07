@@ -58,13 +58,13 @@ public interface IServiceRepository extends JpaRepository<Service, Integer> {
                                      String createdDateT,
                                      String priceF,
                                      String priceT,
+                                     String paymentTimeF,
+                                     String paymentTimeT,
                                      String quantityF,
                                      String quantityT,
                                      String enableFlag,
                                      String paymentF,
-                                     String paymentT,
-                                     String paymentTimeF,
-                                     String paymentTimeT
+                                     String paymentT
     );
 
     @Query(value = MyQuerySQL.SELECT_SERVICE_NO_JOIN, nativeQuery = true)

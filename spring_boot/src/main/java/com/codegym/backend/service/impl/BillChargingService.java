@@ -31,4 +31,9 @@ public class BillChargingService implements IBillChargingService {
     public void updateBillStatusByTableId(String paymentTime, int userId, int tableId) {
         billChargingRepository.updateBillStatusByTableId(paymentTime, userId, tableId);
     }
+
+    @Override
+    public void updatePriceForBillDetail() {
+        billChargingRepository.updatePriceForBillDetail();
+    }
 }

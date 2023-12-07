@@ -1,5 +1,6 @@
 package com.codegym.backend.repository;
 
+import com.codegym.backend.common.MyQuerySQL;
 import com.codegym.backend.dto.BillChargingListDTO;
 import com.codegym.backend.model.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,4 +33,7 @@ public interface IBillChargingRepository extends JpaRepository<Bill, Integer> {
             "WHERE table_id = ?3", nativeQuery = true)
     void updateBillStatusByTableId(String paymentTime, int userId, int tableId);
 
+    @Modifying
+    @Query(value = MyQuerySQL.UPDATE_PRICE_BILL_DETAIL, nativeQuery = true)
+    void updatePriceForBillDetail();
 }

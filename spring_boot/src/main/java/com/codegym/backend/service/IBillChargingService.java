@@ -8,4 +8,5 @@ public interface IBillChargingService {
     List<BillChargingListDTO> getAllBillCharging(Integer tableId);
     int getUserId(String userName);
     void updateBillStatusByTableId(String paymentTime, int userId, int tableId);
+    void updatePriceForBillDetail();
 }

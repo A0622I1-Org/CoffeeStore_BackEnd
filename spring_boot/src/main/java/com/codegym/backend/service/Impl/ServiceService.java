@@ -43,13 +43,13 @@ public class ServiceService implements IServiceService {
                                          String createdDateT,
                                          String priceF,
                                          String priceT,
+                                         String paymentTimeF,
+                                         String paymentTimeT,
                                          String quantityF,
                                          String quantityT,
                                          String enableFlag,
                                          String paymentF,
-                                         String paymentT,
-                                         String paymentTimeF,
-                                         String paymentTimeT) {
+                                         String paymentT) {
         return iServiceRepository.getServiceList(
                 pageable,
                 serviceName,
@@ -58,13 +58,13 @@ public class ServiceService implements IServiceService {
                 createdDateT,
                 priceF,
                 priceT,
+                paymentTimeF,
+                paymentTimeT,
                 quantityF,
                 quantityT,
                 enableFlag,
                 paymentF,
-                paymentT,
-                paymentTimeF,
-                paymentTimeT);
+                paymentT);
     }
 
     @Override
