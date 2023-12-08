@@ -117,7 +117,16 @@ public class ServiceController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // lấy dữ liệu 1 service
+
+    @GetMapping("/recipe/{id}")
+    public ResponseEntity<List<IRecipeDto>> findRecipe(@PathVariable int id) {
+        List<IRecipeDto> iRecipeDto = serviceService.findRecipeByServiceId(id);
+        if (iRecipeDto == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(iRecipeDto, HttpStatus.OK);
+    }
+
     @GetMapping("/service/{id}")
     public ResponseEntity<Service> findService(@PathVariable int id) {
         Service service = serviceService.findById(id);
@@ -127,8 +136,6 @@ public class ServiceController {
         return new ResponseEntity<>(service, HttpStatus.OK);
     }
 
-
-    // tìm kiếm danh sách service theo service_type_id
     @GetMapping("/type_id")
     public ResponseEntity<Page<Service>> getByTypeId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size, @RequestParam int id) {
         Pageable pageable = PageRequest.of(page, size);
@@ -139,7 +146,6 @@ public class ServiceController {
         return new ResponseEntity<>(serviceList, HttpStatus.OK);
     }
 
-    //lấy danh sách table chưa có người ngồi
     @GetMapping("/list/table")
     public ResponseEntity<List<CoffeeTable>> getListTable() {
         List<CoffeeTable> tableList = iTableService.findAllTable();

@@ -1,5 +1,6 @@
 package com.codegym.backend.service;
 
+import com.codegym.backend.dto.IRecipeDto;
 import com.codegym.backend.dto.CServiceDto;
 import com.codegym.backend.dto.ServiceDto;
 import com.codegym.backend.dto.IServiceDto;
@@ -33,4 +34,5 @@ public interface IServiceService {
     List<CServiceDto> findAllForRegister();
     void updateEnableFlag(int flag, int id);
     void createService(CServiceDto serviceDto);
+    List<IRecipeDto> findRecipeByServiceId(int service_id);
 }

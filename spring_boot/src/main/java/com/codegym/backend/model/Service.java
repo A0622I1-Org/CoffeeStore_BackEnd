@@ -30,21 +30,21 @@ public class Service {
     @Column(name = "created_date")
     private String createdDate;
 
-    // Constructors, getters, and setters
+    @Column(name = "describe")
+    private String describe;
 
     public Service() {
     }
 
-    public Service(String name, double price, ServiceType serviceType, boolean enableFlag, String imgUrl, String createdDate) {
+    public Service(String name, double price, ServiceType serviceType, boolean enableFlag, String imgUrl, String createdDate, String describe) {
         this.name = name;
         this.price = price;
         this.serviceType = serviceType;
         this.enableFlag = enableFlag;
         this.imgUrl = imgUrl;
         this.createdDate = createdDate;
+        this.describe = describe;
     }
-
-    // Getters and Setters
 
     public int getId() {
         return id;
@@ -100,5 +100,13 @@ public class Service {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 }

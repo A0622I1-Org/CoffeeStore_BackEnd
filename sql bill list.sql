@@ -1,28 +1,43 @@
-SELECT 
-s.id, 
-s.img_url AS imgUrl, 
-s.name AS serviceName, 
-s.price, 
-st.name AS serviceType, 
-s.created_date AS createdDate,
-IF((AVG(bd.price)) IS NULL, 0, (AVG(bd.price))) AS salePrice,
-IF((SUM(bd.quantity)) IS NULL, 0, (SUM(bd.quantity))) AS quantity,
-IF((AVG(bd.price)*SUM(bd.quantity)) IS NULL, 0, (AVG(bd.price))*SUM(bd.quantity)) AS payment,
-IF(s.enable_flag = 1, 'Hoạt động', 'Vô hiệu') AS statusFlag
-FROM service s
-LEFT JOIN bill_detail bd ON bd.service_id = s.id
-LEFT JOIN service_type st ON st.id = s.type_id
-LEFT JOIN bill b ON b.id = bd.bill_id 
-where s.id = 19
-GROUP BY s.id 
-ORDER BY quantity DESC;
+ALTER TABLE material DROP COLUMN imgUrl;
+ALTER TABLE material
+RENAME COLUMN type to type_id;
+select * from material;
+-- Tạo bảng material_type_master
+CREATE TABLE material_type_master (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50) NOT NULL
+);
 
-select s.*, bd.price FROM service s
-LEFT JOIN bill_detail bd ON bd.service_id = s.id 
-where s.id = 19
+-- Thêm một số dữ liệu mẫu vào bảng material_type_master
+INSERT INTO material_type_master (name) VALUES ('Tiêu Hao');
+INSERT INTO material_type_master (name) VALUES ('Vật dụng');
 
-select * from service;
+-- Tạo bảng material
+CREATE TABLE material (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  type_id INT,
+  price DOUBLE,
+  unit VARCHAR(10),
+  quantity DOUBLE,
+  FOREIGN KEY (type) REFERENCES material_type_master(id)
+);
+
+-- Thêm một số dữ liệu mẫu vào bảng material
+INSERT INTO material (name, type, price, unit, quantity) VALUES ('Đường', 1, 20000, 'gr', 500);
+INSERT INTO material (name, type, price, unit, quantity) VALUES ('Sữa', 1, 40000, 'gr', 1000);
+INSERT INTO material (name, type, price, unit, quantity) VALUES ('Cafe bột', 1, 100000, 'gr', 500);
 
 
-update service set created_date = SYSDATE()
-SELECT SYSDATE()
+ALTER TABLE service
+ADD COLUMN `describe` VARCHAR(300),
+ADD COLUMN recipe_id INT,
+ADD CONSTRAINT fk_service_recipe FOREIGN KEY (recipe_id) REFERENCES recipe_master(id);
+
+CREATE TABLE recipe_master (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  material_id INT,
+  quantity DOUBLE,
+  price DOUBLE,
+  FOREIGN KEY (material_id) REFERENCES material(id)
+);
