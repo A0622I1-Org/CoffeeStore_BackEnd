@@ -101,7 +101,7 @@ CREATE TABLE `bill` (
   CONSTRAINT `FK2m93gqkiudrtm2aeyggaakxt` FOREIGN KEY (`tabke_order_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK5xrakd6psc87rtft2i5qeyrt6` FOREIGN KEY (`take_order_user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FKtmq3cosc49coogua0444cyht5` FOREIGN KEY (`take_payment_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,7 +110,7 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-INSERT INTO `bill` VALUES (1,'2023-07-06 11:16:58',1,1,_binary '','2023-12-07 10:41:38',1,1,1),(2,'2023-07-07 19:04:19',1,2,_binary '','2023-12-07 10:14:48',2,2,2),(3,'2023-07-07 20:06:47',1,6,_binary '','2023-07-07 20:08:40',2,3,2),(4,'2023-07-07 20:08:08',1,6,_binary '','2023-07-07 20:08:40',2,2,2),(5,'2023-07-07 20:27:31',1,5,_binary '','2023-12-07 10:50:03',1,2,3),(6,'2023-07-07 20:44:49',1,4,_binary '','2023-12-07 10:31:07',1,4,2),(7,'2023-07-12 19:19:32',1,1,_binary '','2023-12-07 10:41:38',2,2,2),(8,'2023-07-12 19:41:27',1,5,_binary '','2023-12-07 10:50:03',3,2,1),(9,'2023-07-13 21:06:24',1,9,_binary '','2023-07-18 21:35:35',2,4,3),(10,'2023-07-13 21:06:58',1,7,_binary '','2023-07-15 10:29:51',4,4,2),(11,'2023-07-16 16:33:15',1,9,_binary '','2023-07-18 21:35:35',NULL,NULL,NULL),(12,'2023-07-18 21:17:42',1,1,_binary '','2023-12-07 10:41:38',NULL,NULL,NULL),(13,'2023-07-18 21:32:17',1,9,_binary '','2023-07-18 21:35:35',NULL,NULL,NULL),(14,'2023-12-02 13:46:48',1,1,_binary '','2023-12-07 10:41:38',NULL,NULL,NULL),(15,'2023-12-02 15:15:03',1,1,_binary '','2023-12-07 10:41:38',NULL,NULL,NULL),(16,'2023-12-05 16:31:25',1,2,_binary '','2023-12-07 10:14:48',NULL,NULL,NULL),(17,'2023-12-07 10:13:47',1,3,_binary '','2023-12-07 10:26:12',NULL,NULL,NULL),(18,'2023-12-07 10:14:38',1,2,_binary '','2023-12-07 10:14:48',NULL,NULL,NULL),(19,'2023-12-07 10:26:00',1,3,_binary '','2023-12-07 10:26:12',NULL,NULL,NULL),(20,'2023-12-07 10:30:59',1,4,_binary '','2023-12-07 10:31:07',NULL,NULL,NULL),(21,'2023-12-07 10:33:07',1,5,_binary '','2023-12-07 10:50:03',NULL,NULL,NULL),(22,'2023-12-07 10:40:29',1,5,_binary '','2023-12-07 10:50:03',NULL,NULL,NULL),(23,'2023-12-07 10:41:30',1,1,_binary '','2023-12-07 10:41:38',NULL,NULL,NULL),(24,'2023-12-07 10:43:00',1,5,_binary '','2023-12-07 10:50:03',NULL,NULL,NULL),(25,'2023-12-07 10:49:54',1,5,_binary '','2023-12-07 10:50:03',NULL,NULL,NULL);
+INSERT INTO `bill` VALUES (1,'2023-07-06 11:16:58',1,1,_binary '','2023-12-07 14:30:20',1,1,1),(2,'2023-07-07 19:04:19',1,2,_binary '','2023-12-07 10:14:48',2,2,2),(3,'2023-07-07 20:06:47',1,6,_binary '','2023-07-07 20:08:40',2,3,2),(4,'2023-07-07 20:08:08',1,6,_binary '','2023-07-07 20:08:40',2,2,2),(5,'2023-07-07 20:27:31',1,5,_binary '','2023-12-07 11:09:27',1,2,3),(6,'2023-07-07 20:44:49',1,4,_binary '','2023-12-07 10:31:07',1,4,2),(7,'2023-07-12 19:19:32',1,1,_binary '','2023-12-07 14:30:20',2,2,2),(8,'2023-07-12 19:41:27',1,5,_binary '','2023-12-07 11:09:27',3,2,1),(9,'2023-07-13 21:06:24',1,9,_binary '','2023-07-18 21:35:35',2,4,3),(10,'2023-07-13 21:06:58',1,7,_binary '','2023-07-15 10:29:51',4,4,2),(11,'2023-07-16 16:33:15',1,9,_binary '','2023-07-18 21:35:35',NULL,NULL,NULL),(12,'2023-07-18 21:17:42',1,1,_binary '','2023-12-07 14:30:20',NULL,NULL,NULL),(13,'2023-07-18 21:32:17',1,9,_binary '','2023-07-18 21:35:35',NULL,NULL,NULL),(14,'2023-12-02 13:46:48',1,1,_binary '','2023-12-07 14:30:20',NULL,NULL,NULL),(15,'2023-12-02 15:15:03',1,1,_binary '','2023-12-07 14:30:20',NULL,NULL,NULL),(16,'2023-12-05 16:31:25',1,2,_binary '','2023-12-07 10:14:48',NULL,NULL,NULL),(17,'2023-12-07 10:13:47',1,3,_binary '','2023-12-07 10:26:12',NULL,NULL,NULL),(18,'2023-12-07 10:14:38',1,2,_binary '','2023-12-07 10:14:48',NULL,NULL,NULL),(19,'2023-12-07 10:26:00',1,3,_binary '','2023-12-07 10:26:12',NULL,NULL,NULL),(20,'2023-12-07 10:30:59',1,4,_binary '','2023-12-07 10:31:07',NULL,NULL,NULL),(21,'2023-12-07 10:33:07',1,5,_binary '','2023-12-07 11:09:27',NULL,NULL,NULL),(22,'2023-12-07 10:40:29',1,5,_binary '','2023-12-07 11:09:27',NULL,NULL,NULL),(23,'2023-12-07 10:41:30',1,1,_binary '','2023-12-07 14:30:20',NULL,NULL,NULL),(24,'2023-12-07 10:43:00',1,5,_binary '','2023-12-07 11:09:27',NULL,NULL,NULL),(25,'2023-12-07 10:49:54',1,5,_binary '','2023-12-07 11:09:27',NULL,NULL,NULL),(26,'2023-12-07 11:09:18',1,5,_binary '','2023-12-07 11:09:27',NULL,NULL,NULL),(27,'2023-12-07 14:30:06',1,1,_binary '','2023-12-07 14:30:20',NULL,NULL,NULL),(28,'2023-12-07 17:05:48',1,1,_binary '\0','',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +132,7 @@ CREATE TABLE `bill_detail` (
   KEY `service_id` (`service_id`),
   CONSTRAINT `bill_detail_ibfk_1` FOREIGN KEY (`bill_id`) REFERENCES `bill` (`id`),
   CONSTRAINT `bill_detail_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,7 +141,7 @@ CREATE TABLE `bill_detail` (
 
 LOCK TABLES `bill_detail` WRITE;
 /*!40000 ALTER TABLE `bill_detail` DISABLE KEYS */;
-INSERT INTO `bill_detail` VALUES (1,1,2,2,50000),(2,1,1,2,55000),(3,2,9,10,45000),(4,3,8,5,45000),(5,3,9,2,45000),(6,3,2,1,50000),(7,4,9,5,45000),(8,4,12,4,35000),(9,5,3,3,55000),(10,5,1,2,55000),(11,5,2,3,50000),(12,5,2,3,50000),(13,5,1,3,55000),(14,6,2,4,50000),(15,6,3,3,55000),(16,6,2,2,50000),(17,7,9,4,45000),(18,8,2,5,50000),(19,9,14,1,35000),(20,9,15,1,35000),(21,10,2,4,50000),(22,7,1,4,55000),(23,11,5,1,45000),(24,11,18,1,29000),(25,11,4,1,59000),(26,11,3,1,55000),(27,11,1,1,55000),(28,11,2,1,50000),(29,11,16,1,29000),(30,11,17,1,29000),(31,11,15,1,35000),(32,11,14,1,35000),(33,11,13,1,35000),(34,11,12,1,35000),(35,11,11,1,35000),(36,11,9,1,45000),(37,11,10,1,35000),(38,11,7,1,45000),(39,11,8,1,45000),(40,11,6,1,45000),(41,12,12,1,35000),(42,12,11,2,35000),(43,13,1,2,55000),(44,13,2,1,50000),(45,14,2,1,50000),(46,14,3,1,55000),(47,15,3,5,55000),(48,16,19,1,2323),(49,17,2,5,50000),(50,17,3,7,55000),(51,18,19,2,2323),(52,19,1,2,55000),(53,19,2,2,50000),(54,20,19,6,15000),(55,21,2,4,50000),(56,22,1,1,55000),(57,23,19,11,15000),(58,24,20,11,50001),(59,25,21,12,200000);
+INSERT INTO `bill_detail` VALUES (1,1,2,2,50000),(2,1,1,2,55000),(3,2,9,10,45000),(4,3,8,5,45000),(5,3,9,2,45000),(6,3,2,1,50000),(7,4,9,5,45000),(8,4,12,4,35000),(9,5,3,3,55000),(10,5,1,2,55000),(11,5,2,3,50000),(12,5,2,3,50000),(13,5,1,3,55000),(14,6,2,4,50000),(15,6,3,3,55000),(16,6,2,2,50000),(17,7,9,4,45000),(18,8,2,5,50000),(19,9,14,1,35000),(20,9,15,1,35000),(21,10,2,4,50000),(22,7,1,4,55000),(23,11,5,1,45000),(24,11,18,1,29000),(25,11,4,1,59000),(26,11,3,1,55000),(27,11,1,1,55000),(28,11,2,1,50000),(29,11,16,1,29000),(30,11,17,1,29000),(31,11,15,1,35000),(32,11,14,1,35000),(33,11,13,1,35000),(34,11,12,1,35000),(35,11,11,1,35000),(36,11,9,1,45000),(37,11,10,1,35000),(38,11,7,1,45000),(39,11,8,1,45000),(40,11,6,1,45000),(41,12,12,1,35000),(42,12,11,2,35000),(43,13,1,2,55000),(44,13,2,1,50000),(45,14,2,1,50000),(46,14,3,1,55000),(47,15,3,5,55000),(48,16,19,1,2323),(49,17,2,5,50000),(50,17,3,7,55000),(51,18,19,2,2323),(52,19,1,2,55000),(53,19,2,2,50000),(54,20,19,6,15000),(55,21,2,4,50000),(56,22,1,1,55000),(57,23,19,11,15000),(58,24,20,11,50001),(59,25,21,12,200000),(60,26,2,3,50000),(61,27,22,1,1000000),(62,28,2,1,NULL);
 /*!40000 ALTER TABLE `bill_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,6 +233,60 @@ INSERT INTO `feedback_type` VALUES (1,'Đồ ăn'),(2,'Đồ uống'),(3,'Khác'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `material`
+--
+
+DROP TABLE IF EXISTS `material`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `material` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `type_id` int DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `unit` varchar(10) DEFAULT NULL,
+  `quantity` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `type` (`type_id`),
+  CONSTRAINT `material_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `material_type_master` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `material`
+--
+
+LOCK TABLES `material` WRITE;
+/*!40000 ALTER TABLE `material` DISABLE KEYS */;
+INSERT INTO `material` VALUES (1,'Đường',1,20000,'gr',500),(2,'Sữa',1,40000,'gr',1000),(3,'Cafe bột',1,100000,'gr',500);
+/*!40000 ALTER TABLE `material` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `material_type_master`
+--
+
+DROP TABLE IF EXISTS `material_type_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `material_type_master` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `material_type_master`
+--
+
+LOCK TABLES `material_type_master` WRITE;
+/*!40000 ALTER TABLE `material_type_master` DISABLE KEYS */;
+INSERT INTO `material_type_master` VALUES (1,'Tiêu Hao'),(2,'Vật dụng');
+/*!40000 ALTER TABLE `material_type_master` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `message`
 --
 
@@ -243,7 +297,7 @@ CREATE TABLE `message` (
   `id` int NOT NULL AUTO_INCREMENT,
   `message` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,6 +331,37 @@ LOCK TABLES `position` WRITE;
 /*!40000 ALTER TABLE `position` DISABLE KEYS */;
 INSERT INTO `position` VALUES (1,'Chủ tịch'),(2,'Vợ chủ tịch'),(3,'nhân viên');
 /*!40000 ALTER TABLE `position` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `recipe_master`
+--
+
+DROP TABLE IF EXISTS `recipe_master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `recipe_master` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `service_id` int DEFAULT NULL,
+  `material_id` int DEFAULT NULL,
+  `quantity` double DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `service_id` (`service_id`),
+  KEY `material_id` (`material_id`),
+  CONSTRAINT `recipe_master_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`),
+  CONSTRAINT `recipe_master_ibfk_2` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `recipe_master`
+--
+
+LOCK TABLES `recipe_master` WRITE;
+/*!40000 ALTER TABLE `recipe_master` DISABLE KEYS */;
+INSERT INTO `recipe_master` VALUES (1,1,1,100,2.5),(2,1,2,50,1.25),(3,1,3,40,0.2),(4,2,1,100,2.5),(5,2,2,50,1.25),(6,2,3,40,0.2);
+/*!40000 ALTER TABLE `recipe_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -316,13 +401,13 @@ CREATE TABLE `service` (
   `price` double DEFAULT NULL,
   `type_id` int DEFAULT NULL,
   `enable_flag` int DEFAULT NULL,
-  `imgUrl` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `created_date` varchar(30) DEFAULT NULL,
   `img_url` varchar(1000) DEFAULT NULL,
+  `describe` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `type_id` (`type_id`),
   CONSTRAINT `service_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `service_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -331,7 +416,7 @@ CREATE TABLE `service` (
 
 LOCK TABLES `service` WRITE;
 /*!40000 ALTER TABLE `service` DISABLE KEYS */;
-INSERT INTO `service` VALUES (1,'FREEZE SÔ-CÔ-LA',55000,2,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__CARAMEL_FREEZE_PHINDI.jpg'),(2,'FREEZE TRÀ XANH',50000,2,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__FREEZE_TRA_XANH.jpg'),(3,'COOKIES & CREAM',55000,2,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__COOKIES_FREEZE.jpg'),(4,'TRÀ TUYẾT PHÚC BỒN TỬ',59000,3,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/05_2023/Granita-Avatarpsd4.png'),(5,'TRÀ THẠCH VẢI',45000,3,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_TACH_VAI.jpg'),(6,'TRÀ THẠCH ĐÀO',45000,3,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_THANH_DAO-09.jpg'),(7,'TRÀ XANH ĐẬU ĐỎ',45000,3,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_XANH_DAU_DO.jpg'),(8,'TRÀ THANH ĐÀO',45000,3,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_THANH_DAO-08.jpg'),(9,'TRÀ SEN VÀNG (SEN)',45000,3,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TSV.jpg'),(10,'BÁNH MOUSSE CACAO',35000,4,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/MOUSSECACAO.png'),(11,'BÁNH TIRAMISU',35000,4,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/TIRAMISU.jpg'),(12,'BÁNH SÔ-CÔ-LA HIGHLANDS',35000,4,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/SOCOLAHL.png'),(13,'BÁNH CARAMEL PHÔ MAI',35000,4,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/CARAMELPHOMAI.jpg'),(14,'BÁNH PHÔ MAI CHANH DÂY',35000,4,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/PHOMAICHANHDAY.jpg'),(15,'BÁNH PHÔ MAI TRÀ XANH',35000,4,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/PHOMAITRAXANH.jpg'),(16,'BẠC XỈU ĐÁ',29000,1,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/04_2023/New_product/HLC_New_logo_5.1_Products__BAC_XIU.jpg'),(17,'PHIN SỮA ĐÁ',29000,1,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/04_2023/New_product/HLC_New_logo_5.1_Products__PHIN_SUADA.jpg'),(18,'PHIN SỮA NÓNG',29000,1,1,NULL,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/11_2022/BR_Drink/HLC__PHIN_SUA_NONG.jpg'),(19,'CAFFEE SỮA',15000,2,1,NULL,'2023-12-07 10:46:59','https://firebasestorage.googleapis.com/v0/b/coffeproject-tuha.appspot.com/o/05-12-2023042351PMHLC_New_logo_5.1_Products__COOKIES_FREEZE.jpg?alt=media&token=aee1f876-c4d0-4d10-8dc5-b0e1153a1613'),(20,'BANHNGOT',50001,4,1,NULL,'2023-12-07 10:46:59','https://firebasestorage.googleapis.com/v0/b/coffeproject-tuha.appspot.com/o/07-12-2023104247AMCARAMELPHOMAI.jpg?alt=media&token=bddd2075-0fac-47c8-ade6-a778b230da59'),(21,'TIRAMISUUUUUU',200000,4,1,NULL,'2023-12-07 10:49:08','https://firebasestorage.googleapis.com/v0/b/coffeproject-tuha.appspot.com/o/07-12-2023104907AMTIRAMISU.jpg?alt=media&token=f8d5cf07-4d5a-4dec-bb22-11bf3ea079a9');
+INSERT INTO `service` VALUES (1,'FREEZE SÔ-CÔ-LA',55000,2,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__CARAMEL_FREEZE_PHINDI.jpg',NULL),(2,'FREEZE TRÀ XANH',50000,2,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__FREEZE_TRA_XANH.jpg',NULL),(3,'COOKIES & CREAM',55000,2,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__COOKIES_FREEZE.jpg',NULL),(4,'TRÀ TUYẾT PHÚC BỒN TỬ',59000,3,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/05_2023/Granita-Avatarpsd4.png',NULL),(5,'TRÀ THẠCH VẢI',45000,3,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_TACH_VAI.jpg',NULL),(6,'TRÀ THẠCH ĐÀO',45000,3,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_THANH_DAO-09.jpg',NULL),(7,'TRÀ XANH ĐẬU ĐỎ',45000,3,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_XANH_DAU_DO.jpg',NULL),(8,'TRÀ THANH ĐÀO',45000,3,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TRA_THANH_DAO-08.jpg',NULL),(9,'TRÀ SEN VÀNG (SEN)',45000,3,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/06_2023/HLC_New_logo_5.1_Products__TSV.jpg',NULL),(10,'BÁNH MOUSSE CACAO',35000,4,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/MOUSSECACAO.png',NULL),(11,'BÁNH TIRAMISU',35000,4,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/TIRAMISU.jpg',NULL),(12,'BÁNH SÔ-CÔ-LA HIGHLANDS',35000,4,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/SOCOLAHL.png',NULL),(13,'BÁNH CARAMEL PHÔ MAI',35000,4,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/CARAMELPHOMAI.jpg',NULL),(14,'BÁNH PHÔ MAI CHANH DÂY',35000,4,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/PHOMAICHANHDAY.jpg',NULL),(15,'BÁNH PHÔ MAI TRÀ XANH',35000,4,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/PHOMAITRAXANH.jpg',NULL),(16,'BẠC XỈU ĐÁ',29000,1,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/04_2023/New_product/HLC_New_logo_5.1_Products__BAC_XIU.jpg',NULL),(17,'PHIN SỮA ĐÁ',29000,1,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/04_2023/New_product/HLC_New_logo_5.1_Products__PHIN_SUADA.jpg',NULL),(18,'PHIN SỮA NÓNG',29000,1,1,'2023-12-07 10:46:59','https://www.highlandscoffee.com.vn/vnt_upload/product/11_2022/BR_Drink/HLC__PHIN_SUA_NONG.jpg',NULL),(19,'CAFFEE SỮA',15000,2,1,'2023-12-07 10:46:59','https://firebasestorage.googleapis.com/v0/b/coffeproject-tuha.appspot.com/o/05-12-2023042351PMHLC_New_logo_5.1_Products__COOKIES_FREEZE.jpg?alt=media&token=aee1f876-c4d0-4d10-8dc5-b0e1153a1613',NULL),(20,'BANHNGOT',50001,4,1,'2023-12-07 10:46:59','https://firebasestorage.googleapis.com/v0/b/coffeproject-tuha.appspot.com/o/07-12-2023104247AMCARAMELPHOMAI.jpg?alt=media&token=bddd2075-0fac-47c8-ade6-a778b230da59',NULL),(21,'TIRAMISUUUUUU',200000,4,1,'2023-12-07 10:49:08','https://firebasestorage.googleapis.com/v0/b/coffeproject-tuha.appspot.com/o/07-12-2023104907AMTIRAMISU.jpg?alt=media&token=f8d5cf07-4d5a-4dec-bb22-11bf3ea079a9',NULL),(22,'BANHDAUXANH',1000000,4,1,'2023-12-07 14:29:36','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/TIRAMISU.jpg',NULL),(23,'BANHDAUXANH223',100000,4,1,'2023-12-07 14:37:33','https://www.highlandscoffee.com.vn/vnt_upload/product/03_2018/TIRAMISU.jpg',NULL),(30,'NUOCCACHUA',50000,3,1,'2023-12-07 16:46:39','https://firebasestorage.googleapis.com/v0/b/coffeproject-tuha.appspot.com/o/07-12-2023044636PMGranita-Avatarpsd4.png?alt=media&token=9322bc41-b527-42a4-a5d7-f7078ff32c25',NULL),(33,'CAFETOP',1111,1,1,'2023-12-07 16:52:48','https://firebasestorage.googleapis.com/v0/b/coffeproject-tuha.appspot.com/o/07-12-2023045245PMHLC_New_logo_5.1_Products__CARAMEL_FREEZE_PHINDI.jpg?alt=media&token=fa96f39d-0a8b-454b-9b26-58fc37de30b8',NULL);
 /*!40000 ALTER TABLE `service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -381,7 +466,7 @@ CREATE TABLE `table` (
 
 LOCK TABLES `table` WRITE;
 /*!40000 ALTER TABLE `table` DISABLE KEYS */;
-INSERT INTO `table` VALUES (1,'Bàn số 1','Tốt',_binary '\0'),(2,'Bàn số 2','Tốt',_binary '\0'),(3,'Bàn số 3','Tốt',_binary '\0'),(4,'Bàn số 4','Tốt',_binary '\0'),(5,'Bàn số 5','Tốt',_binary '\0'),(6,'Bàn số 6','Tốt',_binary '\0'),(7,'Bàn số 7','Tốt',_binary '\0'),(8,'Bàn số 8','Tốt',_binary '\0'),(9,'Bàn số 9','Tốt',_binary '\0'),(10,'Bàn số 10','Tốt',_binary '\0');
+INSERT INTO `table` VALUES (1,'Bàn số 1','Tốt',_binary ''),(2,'Bàn số 2','Tốt',_binary '\0'),(3,'Bàn số 3','Tốt',_binary '\0'),(4,'Bàn số 4','Tốt',_binary '\0'),(5,'Bàn số 5','Tốt',_binary '\0'),(6,'Bàn số 6','Tốt',_binary '\0'),(7,'Bàn số 7','Tốt',_binary '\0'),(8,'Bàn số 8','Tốt',_binary '\0'),(9,'Bàn số 9','Tốt',_binary '\0'),(10,'Bàn số 10','Tốt',_binary '\0');
 /*!40000 ALTER TABLE `table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -432,4 +517,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-07 10:57:25
+-- Dump completed on 2023-12-08 16:46:56
