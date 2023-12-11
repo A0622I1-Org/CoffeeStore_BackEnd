@@ -31,7 +31,7 @@ public class MyQuerySQL {
     public static final String UPDATE_SERVICE_ENABLE_FLAG =
             "UPDATE service SET enable_flag = ? WHERE id = ?";
     public static final String SELECT_SERVICE_NO_JOIN =
-            "select id, name, price, type_id type_id, enable_flag enableFlag, created_date createdDate, img_url imgUrl from service";
+            "select id, name, price, type_id type_id, enable_flag enableFlag, created_date createdDate, img_url imgUrl, describe describe from service";
     public static final String SELECT_BILL =
             "SELECT b.id,b.created_time AS createdTime, t.id AS tableNumber, u.name, sum(bd.quantity*s.price) AS totalPayment FROM  bill b\n" +
             "JOIN `table` t ON b.table_id = t.id\n" +
@@ -58,4 +58,11 @@ public class MyQuerySQL {
             "where s.id = ?";
     public static final String SELECT_MATERIAL =
             "select id, name, type_id typeId, price, unit, quantity from material";
+    public static final String INSERT_RECIPE =
+                "insert into recipe_master (service_id, material_id, quantity, price) values\n" +
+                "(?,?,?,?);";
+    public static final String SELECT_LAST_SERVICE_ID =
+            "select id from service\n" +
+                    "order by id desc\n" +
+                    "limit 1";
 }

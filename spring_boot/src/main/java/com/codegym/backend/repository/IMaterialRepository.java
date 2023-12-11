@@ -16,4 +16,5 @@ public interface IMaterialRepository  extends JpaRepository<Material, Integer> {
 
     @Query(value = MyQuerySQL.SELECT_MATERIAL, nativeQuery = true)
     List<IMaterialDto> getAllMaterial();
+
 }

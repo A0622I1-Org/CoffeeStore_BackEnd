@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/private")
@@ -53,6 +52,9 @@ public class ServiceController {
 
     @Autowired
     ServiceCreateValidator serviceCreateValidator;
+
+    @Autowired
+    IRecipeService iRecipeService;
 
     @GetMapping("/list/service")
     public ResponseEntity<Page<Service>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
@@ -106,11 +108,20 @@ public class ServiceController {
     @PostMapping(value = "list/createService")
     public ResponseEntity<?> createService(@Valid @RequestBody CServiceDto serviceDto, BindingResult
             bindingResult) throws MessagingException {
-        serviceCreateValidator.validate(serviceDto, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
-        }
+//        serviceCreateValidator.validate(serviceDto, bindingResult);
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
+//        }
         iServiceService.createService(serviceDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "list/createRecipe")
+    public ResponseEntity<?> createRecipe(@Valid @RequestBody List<RecipeDto> ListRecipeDto, BindingResult
+            bindingResult) throws MessagingException {
+        for (RecipeDto recipeDto : ListRecipeDto) {
+            iRecipeService.insertRecipe(recipeDto.getMaterialId(), recipeDto.getQuantity(), recipeDto.getPrice());
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
