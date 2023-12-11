@@ -1,10 +1,7 @@
 package com.codegym.backend.repository;
 
 import com.codegym.backend.common.MyQuerySQL;
-import com.codegym.backend.dto.IRecipeDto;
-import com.codegym.backend.dto.CServiceDto;
-import com.codegym.backend.dto.ServiceDto;
-import com.codegym.backend.dto.IServiceDto;
+import com.codegym.backend.dto.*;
 import com.codegym.backend.model.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -77,4 +74,5 @@ public interface IServiceRepository extends JpaRepository<Service, Integer> {
 
     @Query(value = MyQuerySQL.SELECT_RECIPE_BY_SERVICE_ID, nativeQuery = true)
     List<IRecipeDto> getRecipeByServiceId(int service_id);
+
 }

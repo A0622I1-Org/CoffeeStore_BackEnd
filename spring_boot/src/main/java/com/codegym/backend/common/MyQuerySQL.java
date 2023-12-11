@@ -56,4 +56,6 @@ public class MyQuerySQL {
             "left join service s on s.id = rm.service_id\n" +
             "left join material m on m.id = rm.material_id\n" +
             "where s.id = ?";
+    public static final String SELECT_MATERIAL =
+            "select id, name, type_id typeId, price, unit, quantity from material";
 }

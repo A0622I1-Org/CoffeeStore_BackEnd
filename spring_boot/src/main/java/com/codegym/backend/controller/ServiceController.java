@@ -28,7 +28,10 @@ import java.util.Map;
 @RequestMapping("/api/private")
 public class ServiceController {
     @Autowired
-    IServiceService serviceService;
+    IServiceService iServiceService;
+
+    @Autowired
+    IMaterialService iMaterialService;
 
     @Autowired
     IServiceTypeService iServiceTypeService;
@@ -54,7 +57,7 @@ public class ServiceController {
     @GetMapping("/list/service")
     public ResponseEntity<Page<Service>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Service> serviceList = serviceService.findAllService(pageable);
+        Page<Service> serviceList = iServiceService.findAllService(pageable);
         if (serviceList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -79,7 +82,7 @@ public class ServiceController {
                                                                   @RequestParam(defaultValue = "2100-01-01 23:59") String paymentTimeT) {
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<IServiceDto> serviceList = serviceService.findService(
+        Page<IServiceDto> serviceList = iServiceService.findService(
                 pageable,
                 serviceName,
                 serviceType,
@@ -107,20 +110,20 @@ public class ServiceController {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
         }
-        serviceService.createService(serviceDto);
+        iServiceService.createService(serviceDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/list/serviceList/changeServiceEnableFlag")
     public ResponseEntity<?> changeFlag(@RequestParam(defaultValue = "9999") int id, @RequestParam(defaultValue = "true") boolean flag) {
-        serviceService.updateEnableFlag(flag ? 1 : 0, id);
+        iServiceService.updateEnableFlag(flag ? 1 : 0, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
     @GetMapping("/recipe/{id}")
     public ResponseEntity<List<IRecipeDto>> findRecipe(@PathVariable int id) {
-        List<IRecipeDto> iRecipeDto = serviceService.findRecipeByServiceId(id);
+        List<IRecipeDto> iRecipeDto = iServiceService.findRecipeByServiceId(id);
         if (iRecipeDto == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -129,7 +132,7 @@ public class ServiceController {
 
     @GetMapping("/service/{id}")
     public ResponseEntity<Service> findService(@PathVariable int id) {
-        Service service = serviceService.findById(id);
+        Service service = iServiceService.findById(id);
         if (service == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -139,7 +142,7 @@ public class ServiceController {
     @GetMapping("/type_id")
     public ResponseEntity<Page<Service>> getByTypeId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size, @RequestParam int id) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Service> serviceList = serviceService.findByServiceTypeId(id, pageable);
+        Page<Service> serviceList = iServiceService.findByServiceTypeId(id, pageable);
         if (serviceList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -224,5 +227,14 @@ public class ServiceController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
+    }
+
+    @GetMapping("/service/material")
+    public ResponseEntity<List<IMaterialDto>> getListMaterial() {
+        List<IMaterialDto> materials = iMaterialService.findAllMaterial();
+        if (materials.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(materials, HttpStatus.OK);
     }
 }

@@ -1,9 +1,6 @@
 package com.codegym.backend.service;
 
-import com.codegym.backend.dto.IRecipeDto;
-import com.codegym.backend.dto.CServiceDto;
-import com.codegym.backend.dto.ServiceDto;
-import com.codegym.backend.dto.IServiceDto;
+import com.codegym.backend.dto.*;
 import com.codegym.backend.model.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
