@@ -92,7 +92,7 @@ public class ServiceService implements IServiceService {
     @Override
     public void createService(CServiceDto serviceDto) {
         iServiceRepository.createNewService(serviceDto.getName(), serviceDto.getPrice(), serviceDto.getTypeId(),
-                Integer.parseInt(serviceDto.getEnableFlag()), serviceDto.getImgUrl());
+                Integer.parseInt(serviceDto.getEnableFlag()), serviceDto.getImgUrl(), serviceDto.getDescribe());
     }
 
     @Override

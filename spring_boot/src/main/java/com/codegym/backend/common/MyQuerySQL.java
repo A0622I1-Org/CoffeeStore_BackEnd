@@ -47,8 +47,8 @@ public class MyQuerySQL {
             "totalPayment BETWEEN ? AND ?\n" +
             "ORDER BY b.created_time DESC";
     public static final String INSERT_SERVICE =
-            "INSERT INTO service (name,price,type_id,enable_flag,img_url,created_date) values\n" +
-            "(?,?,?,?,?,SYSDATE())";
+            "INSERT INTO service (name,price,type_id,enable_flag,img_url,created_date, `describe`) values\n" +
+            "(?,?,?,?,?,SYSDATE(),?)";
     public static final String UPDATE_PRICE_BILL_DETAIL =
             "update bill_detail bd set price = (select price from service s where s.id = bd.service_id) where bd.price is null";
     public static final String SELECT_RECIPE_BY_SERVICE_ID =
@@ -65,4 +65,6 @@ public class MyQuerySQL {
             "select id from service\n" +
                     "order by id desc\n" +
                     "limit 1";
+//    public static final String SELECT_RECIPE_BY_SERVICE_ID =
+//    "select material_id, quantity, price from recipe_master where service_id = ?";
 }

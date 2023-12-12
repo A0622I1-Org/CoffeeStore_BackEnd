@@ -23,7 +23,7 @@ import java.util.Map;
 
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/private")
 public class ServiceController {
     @Autowired

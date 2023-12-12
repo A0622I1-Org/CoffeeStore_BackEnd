@@ -9,8 +9,9 @@ public class CServiceDto {
     String enableFlag;
     String createdDate;
     String imgUrl;
+    String describe;
 
-    public CServiceDto(Integer id, String name, Double price, Integer typeId, String enableFlag, String createdDate, String imgUrl) {
+    public CServiceDto(Integer id, String name, Double price, Integer typeId, String enableFlag, String createdDate, String imgUrl, String describe) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -18,6 +19,7 @@ public class CServiceDto {
         this.enableFlag = enableFlag;
         this.createdDate = createdDate;
         this.imgUrl = imgUrl;
+        this.describe = describe;
     }
 
     public Integer getId() {
@@ -74,5 +76,13 @@ public class CServiceDto {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 }
