@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/public")
 @RestController
 public class ServiceRestController {
@@ -27,6 +27,7 @@ public class ServiceRestController {
         }
         return new ResponseEntity<>(listNewService, HttpStatus.OK);
     }
+
     @GetMapping("body/best")
     public ResponseEntity<List<ServiceDto>> getListBestSeller() {
         List<ServiceDto> listBestSeller = service.findBestSeller();

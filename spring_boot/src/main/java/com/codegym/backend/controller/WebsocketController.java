@@ -9,16 +9,14 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController()
 public class WebsocketController {
     @Autowired
     IMessageService iMessageService;
-
     @Autowired
     ITableService iTableService;
 
-    //    @MessageExceptionHandler()
     @MessageMapping("/messages")
     @SendTo("/topic/messages")
     public Message broadcastNews(Message mess) {

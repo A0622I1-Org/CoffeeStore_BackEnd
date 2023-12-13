@@ -19,15 +19,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Objects;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/private")
 public class FeedbackResController {
     @Autowired
-    private IFeedbackService feedbackService;
+    IFeedbackService feedbackService;
 
     @GetMapping("/listFeedback")
     public ResponseEntity<Page<IFeedbackDto>> getFeedbacklist(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
@@ -47,7 +48,7 @@ public class FeedbackResController {
                                                                 @RequestParam(defaultValue = "2100-01-01") String dateT) {
         Pageable pageable = PageRequest.of(page, size);
         Page<IFeedbackDto> feedbackList;
-        if(Objects.equals(rate,"")) {
+        if (Objects.equals(rate, "")) {
             feedbackList = feedbackService.findListFeedbackByDate(pageable, dateF, dateT);
         } else {
             feedbackList = feedbackService.findListFeedbackByRateAndDate(pageable, rate, dateF, dateT);
@@ -59,20 +60,20 @@ public class FeedbackResController {
     }
 
     @GetMapping("/feedbackDetail/{id}")
-    public ResponseEntity<FeedbackDetailDto> getFeedbackById(@PathVariable int id){
+    public ResponseEntity<FeedbackDetailDto> getFeedbackById(@PathVariable int id) {
         FeedbackDetailDto feedbackDetail = feedbackService.findFeedbackById(id);
-        if(Objects.equals(feedbackDetail.getName(), "")){
+        if (Objects.equals(feedbackDetail.getName(), "")) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(feedbackDetail,HttpStatus.OK);
+        return new ResponseEntity<>(feedbackDetail, HttpStatus.OK);
     }
 
     @GetMapping("/feedbackImg/{id}")
-    public ResponseEntity<List<String>> getImgUrlById(@PathVariable int id){
+    public ResponseEntity<List<String>> getImgUrlById(@PathVariable int id) {
         List<String> imgList = feedbackService.findImgUrlById(id);
-        if(imgList.isEmpty()){
+        if (imgList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(imgList,HttpStatus.OK);
+        return new ResponseEntity<>(imgList, HttpStatus.OK);
     }
 }

@@ -1,7 +1,9 @@
 package com.codegym.backend.service;
 
-import com.codegym.backend.model.Material;
 
 public interface IRecipeService {
-    void insertRecipe(Long materialId, Double quantity, Double price);
+    void insertRecipe(Long serviceId, Long materialId, Double quantity, Double price);
+    void updateRecipe(Double quantity, Double price,Long id);
+    void deleteRecipe(Long id);
+    Long findLastServiceId();
 }

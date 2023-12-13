@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/private/feedback")
 public class FeedbackController {
     @Autowired
     private FeedbackProcessingService feedbackProcessingService;
+
     @Autowired
     private FeedbackCreateDto feedbackCreateDto;
 

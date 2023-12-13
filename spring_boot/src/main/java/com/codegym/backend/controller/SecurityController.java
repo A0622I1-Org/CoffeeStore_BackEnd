@@ -44,13 +44,13 @@ public class SecurityController {
     AccountService accountService;
 
     @Autowired
-    private JwtUtility jwtUtility;
+    JwtUtility jwtUtility;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    AuthenticationManager authenticationManager;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     IUserService userService;
@@ -96,7 +96,6 @@ public class SecurityController {
                 .body(new MessageResponse("Tài khoản không đúng"));
     }
 
-    //Kiểm tra đường dẫn xác thực của Email có chính xác không
     @PostMapping("/verify-change-password")
     public ResponseEntity<?> verifyPassword(@Valid @RequestBody VerificationCodeRequest verificationCodeRequest) {
         if (accountService.findAccountByVerificationCode(verificationCodeRequest.getCode()) != null) {

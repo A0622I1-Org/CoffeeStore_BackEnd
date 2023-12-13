@@ -19,34 +19,35 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/private/bill")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BillController {
     @Autowired
-    private BillService billService;
+    BillService billService;
 
     @Autowired
-    private BillDetailService billDetailService;
+    BillDetailService billDetailService;
 
     @GetMapping("list")
-    public ResponseEntity<Page<BillListDto>> getBill(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
-        Pageable pageable = PageRequest.of(page,size);
+    public ResponseEntity<Page<BillListDto>> getBill(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<BillListDto> billList = billService.findAll(pageable);
-        if(billList.isEmpty()) {
+        if (billList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(billList);
     }
+
     @GetMapping("listBill")
     public ResponseEntity<Page<IBillListDto>> getListWithCondition(@RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "8") int size,
-                                                                  @RequestParam(defaultValue = "") String billNo,
-                                                                  @RequestParam(defaultValue = "1900-01-01") String createdDateF,
-                                                                  @RequestParam(defaultValue = "2100-01-01") String createdDateT,
-                                                                  @RequestParam(defaultValue = "") String createdBy,
-                                                                  @RequestParam(defaultValue = "") String tableNo,
-                                                                  @RequestParam(defaultValue = "0.0") String paymentF,
-                                                                  @RequestParam(defaultValue = "10000000000.0") String paymentT) {
-        Pageable pageable = PageRequest.of(page,size);
+                                                                   @RequestParam(defaultValue = "8") int size,
+                                                                   @RequestParam(defaultValue = "") String billNo,
+                                                                   @RequestParam(defaultValue = "1900-01-01") String createdDateF,
+                                                                   @RequestParam(defaultValue = "2100-01-01") String createdDateT,
+                                                                   @RequestParam(defaultValue = "") String createdBy,
+                                                                   @RequestParam(defaultValue = "") String tableNo,
+                                                                   @RequestParam(defaultValue = "0.0") String paymentF,
+                                                                   @RequestParam(defaultValue = "10000000000.0") String paymentT) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<IBillListDto> billList = billService.findBill(pageable,
                 billNo,
                 createdDateF,
@@ -55,8 +56,8 @@ public class BillController {
                 tableNo,
                 paymentF,
                 paymentT
-                );
-        if(billList.isEmpty()) {
+        );
+        if (billList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(billList);
@@ -64,15 +65,15 @@ public class BillController {
 
 
     @GetMapping("/billDetail/{id}")
-    public ResponseEntity<List<BillDetailDto>> getBillDetail(@PathVariable int id){
+    public ResponseEntity<List<BillDetailDto>> getBillDetail(@PathVariable int id) {
         List<BillDetailDto> billDetail = billDetailService.findBillById(id);
         return ResponseEntity.ok(billDetail);
     }
 
     @GetMapping("/getListByUser")
-    public ResponseEntity<Page<BillListDto>> getBillByUser(@RequestParam(defaultValue = "") String name,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
-        Pageable pageable = PageRequest.of(page,size);
-        Page<BillListDto> billList = billService.findByUser(pageable, '%'+name+'%');
+    public ResponseEntity<Page<BillListDto>> getBillByUser(@RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BillListDto> billList = billService.findByUser(pageable, '%' + name + '%');
         return ResponseEntity.ok(billList);
     }
 }

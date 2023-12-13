@@ -28,31 +28,22 @@ import java.util.Map;
 public class ServiceController {
     @Autowired
     IServiceService iServiceService;
-
     @Autowired
     IMaterialService iMaterialService;
-
     @Autowired
     IServiceTypeService iServiceTypeService;
-
     @Autowired
     ITableService iTableService;
-
     @Autowired
     IBillDetailService iBillDetailService;
-
     @Autowired
     IBillService iBillService;
-
     @Autowired
     IMessageService iMessageService;
-
     @Autowired
     IMessageService iMessgaeServie;
-
     @Autowired
     ServiceCreateValidator serviceCreateValidator;
-
     @Autowired
     IRecipeService iRecipeService;
 
@@ -108,6 +99,7 @@ public class ServiceController {
     @PostMapping(value = "list/createService")
     public ResponseEntity<?> createService(@Valid @RequestBody CServiceDto serviceDto, BindingResult
             bindingResult) throws MessagingException {
+
 //        serviceCreateValidator.validate(serviceDto, bindingResult);
 //        if (bindingResult.hasErrors()) {
 //            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
@@ -116,11 +108,43 @@ public class ServiceController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "list/updateService")
+    public ResponseEntity<?> updateService(@Valid @RequestBody CServiceDto serviceDto, BindingResult
+            bindingResult) throws MessagingException {
+
+//        serviceCreateValidator.validate(serviceDto, bindingResult);
+//        if (bindingResult.hasErrors()) {
+//            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.OK);
+//        }
+        iServiceService.updateService(serviceDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping(value = "list/createRecipe")
     public ResponseEntity<?> createRecipe(@Valid @RequestBody List<RecipeDto> ListRecipeDto, BindingResult
             bindingResult) throws MessagingException {
         for (RecipeDto recipeDto : ListRecipeDto) {
-            iRecipeService.insertRecipe(recipeDto.getMaterialId(), recipeDto.getQuantity(), recipeDto.getPrice());
+            Long serviceId = iRecipeService.findLastServiceId();
+            iRecipeService.insertRecipe(serviceId, recipeDto.getMaterialId(), recipeDto.getQuantity(), recipeDto.getPrice());
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "list/updateRecipe")
+    public ResponseEntity<?> updateRecipe(@Valid @RequestBody List<CRecipeDto> ListRecipeDto, BindingResult
+            bindingResult) throws MessagingException {
+        for (CRecipeDto recipeDto : ListRecipeDto) {
+            List<IRecipeDto> iRecipeDto = iServiceService.findRecipeByServiceId(recipeDto.getServiceId());
+            for (IRecipeDto recipe: iRecipeDto) {
+                if (recipeDto.getMaterialId().shortValue(recipe.getMaterialId())) {
+                    iRecipeService.deleteRecipe(recipeDto.getId());
+                }
+            }
+            if(recipeDto.getId() == null) {
+                iRecipeService.insertRecipe(recipeDto.getServiceId(), recipeDto.getMaterialId(), recipeDto.getQuantity(), recipeDto.getPrice());
+            } else {
+                iRecipeService.updateRecipe(recipeDto.getQuantity(), recipeDto.getPrice(), recipeDto.getId());
+            }
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -133,7 +157,7 @@ public class ServiceController {
 
 
     @GetMapping("/recipe/{id}")
-    public ResponseEntity<List<IRecipeDto>> findRecipe(@PathVariable int id) {
+    public ResponseEntity<List<IRecipeDto>> findRecipe(@PathVariable Long id) {
         List<IRecipeDto> iRecipeDto = iServiceService.findRecipeByServiceId(id);
         if (iRecipeDto == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -169,7 +193,6 @@ public class ServiceController {
         return new ResponseEntity<>(tableList, HttpStatus.OK);
     }
 
-    // lấy danh sách billdetail theo table_id và payment_status = 0
     @GetMapping("/list/billdetail/table_id/{id}")
     public ResponseEntity<List<BillDetailListDTO>> getAllBillDetail(@PathVariable int id) {
         List<BillDetailListDTO> billDetailList = iBillDetailService.findByBillId(id);
@@ -179,11 +202,6 @@ public class ServiceController {
         return new ResponseEntity<>(billDetailList, HttpStatus.OK);
     }
 
-    /**
-     * Lấy bill theo table_id và payment_status = 0;
-     */
-
-    //Lấy bill theo table_id và payment_status = 0;
     @GetMapping("/bill/table_id/{id}")
     public ResponseEntity<BillDto> getBill(@PathVariable int id) {
         BillDto bill = iBillService.findByIdBill(id);
@@ -193,7 +211,6 @@ public class ServiceController {
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
-    //   Lấy dữ liệu bảng service_type
     @GetMapping("/list/service_type")
     public ResponseEntity<List<ServiceType>> getServiceType() {
         List<ServiceType> serviceTypeList = iServiceTypeService.findAllServiceType();
@@ -203,7 +220,6 @@ public class ServiceController {
         return new ResponseEntity<>(serviceTypeList, HttpStatus.OK);
     }
 
-    // thêm dữ liệu bill mới
     @PostMapping("/insert_bill")
     public ResponseEntity<?> insertBill(@Valid @RequestBody BillInsertDTO billInsertDTO) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -213,14 +229,12 @@ public class ServiceController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    //thêm dữ liệu billdetail mới
     @PostMapping("/insert_bill_detail")
     public ResponseEntity<?> insertBillDetail(@Valid @RequestBody InsertBillDetailDTO billDetailDTO) {
         iBillDetailService.insertBillDetail(billDetailDTO.getQuantity(), billDetailDTO.getBill_id(), billDetailDTO.getService_id());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    //    Lấy thông báo
     @GetMapping("/message")
     public ResponseEntity<List<Message>> getMessage() {
         List<Message> message = iMessageService.findMessage();
@@ -230,7 +244,6 @@ public class ServiceController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    //    xóa thông báo
     @DeleteMapping("/delete_message/{id}")
     public Map<String, Boolean> deleteMessage(@PathVariable Integer id) {
         Message message = iMessageService.findById(id);

@@ -27,15 +27,8 @@ public class BillChargingRestController {
     @Autowired
     ICoffeeTableService tableService;
     @Autowired
-    private AccountDetailServiceImpl accountDetailService;
+    AccountDetailServiceImpl accountDetailService;
 
-    /**
-     * <h3>Description: Hiển thị thành tiền, trạng thái và số bàn của hóa đơn.</h3>
-     *
-     * @param tableId
-     * @return Thành tiền, số bàn của hóa đơn
-     * @author CuongHM
-     */
     @GetMapping("/sales/bill-charging/{tableId}")
     public ResponseEntity<List<BillChargingListDTO>> getBillChargingByTableId(
             @Valid @PathVariable @Min(value = 0, message = "Table ID cannot lower than 0!")
@@ -47,13 +40,6 @@ public class BillChargingRestController {
         return new ResponseEntity<>(billChargingList, HttpStatus.OK);
     }
 
-    /**
-     * <h3>Description: Tính tiền bàn đã chọn, và đưa bàn đó về trạng thái không có khách.</h3>
-     *
-     * @param tableId
-     * @return Hóa đơn của bàn vừa được tính tiền
-     * @author CuongHM
-     */
     @GetMapping("/sales/bill-charge/{tableId}")
     public ResponseEntity<List<BillChargingListDTO>> updateBillStatus(
             @PathVariable @Min(value = 0, message = "Table ID cannot lower than 0!")

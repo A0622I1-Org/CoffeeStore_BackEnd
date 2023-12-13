@@ -22,7 +22,7 @@ public interface IServiceRepository extends JpaRepository<Service, Integer> {
     @Query(value = "select * from service where enable_flag = 1 and type_id = ?1", nativeQuery = true)
     Page<Service> findByServiceTypeId(int typeId, Pageable pageable);
 
-    @Query(value = "select * from service where id = ?1 and enable_flag = 1", nativeQuery = true)
+    @Query(value = "select * from service where id = ?1", nativeQuery = true)
     Service findById(int id);
 
     @Query(value = "select * from service where enable_flag = 1", nativeQuery = true)
@@ -72,7 +72,11 @@ public interface IServiceRepository extends JpaRepository<Service, Integer> {
     @Query(value = MyQuerySQL.INSERT_SERVICE, nativeQuery = true)
     void createNewService(String name, Double price, Integer typeId, Integer enableFlag, String imgUrl, String describe);
 
+    @Modifying
+    @Query(value = MyQuerySQL.UPDATE_SERVICE, nativeQuery = true)
+    void updateService(String name, Double price, Integer typeId, Integer enableFlag, String imgUrl, String describe, Integer id);
+
     @Query(value = MyQuerySQL.SELECT_RECIPE_BY_SERVICE_ID, nativeQuery = true)
-    List<IRecipeDto> getRecipeByServiceId(int service_id);
+    List<IRecipeDto> getRecipeByServiceId(Long service_id);
 
 }

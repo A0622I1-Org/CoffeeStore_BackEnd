@@ -96,7 +96,13 @@ public class ServiceService implements IServiceService {
     }
 
     @Override
-    public List<IRecipeDto> findRecipeByServiceId(int service_id) {
+    public void updateService(CServiceDto serviceDto) {
+        iServiceRepository.updateService(serviceDto.getName(), serviceDto.getPrice(), serviceDto.getTypeId(),
+                Integer.parseInt(serviceDto.getEnableFlag()), serviceDto.getImgUrl(), serviceDto.getDescribe(), serviceDto.getId());
+    }
+
+    @Override
+    public List<IRecipeDto> findRecipeByServiceId(Long service_id) {
         return iServiceRepository.getRecipeByServiceId(service_id);
     }
 }

@@ -31,40 +31,44 @@ public class MyQuerySQL {
     public static final String UPDATE_SERVICE_ENABLE_FLAG =
             "UPDATE service SET enable_flag = ? WHERE id = ?";
     public static final String SELECT_SERVICE_NO_JOIN =
-            "select id, name, price, type_id type_id, enable_flag enableFlag, created_date createdDate, img_url imgUrl, describe describe from service";
+            "SELECT id, name, price, type_id type_id, enable_flag enableFlag, created_date createdDate, img_url imgUrl, describe describe FROM service";
     public static final String SELECT_BILL =
             "SELECT b.id,b.created_time AS createdTime, t.id AS tableNumber, u.name, sum(bd.quantity*s.price) AS totalPayment FROM  bill b\n" +
-            "JOIN `table` t ON b.table_id = t.id\n" +
-            "JOIN user u ON b.user_id =u.id\n" +
-            "JOIN bill_detail bd ON bd.bill_id = b.id\n" +
-            "JOIN service s ON bd.service_id = s.id\n" +
-            "where b.id LIKE CONCAT('%', ?, '%')\n" +
-            "AND b.created_time BETWEEN ? AND ?\n" +
-            "AND u.name LIKE CONCAT('%', ?, '%')\n" +
-            "AND t.id LIKE CONCAT('%', ?, '%')\n" +
-            "GROUP BY b.id\n" +
-            "HAVING\n" +
-            "totalPayment BETWEEN ? AND ?\n" +
-            "ORDER BY b.created_time DESC";
+                    "JOIN `table` t ON b.table_id = t.id\n" +
+                    "JOIN user u ON b.user_id =u.id\n" +
+                    "JOIN bill_detail bd ON bd.bill_id = b.id\n" +
+                    "JOIN service s ON bd.service_id = s.id\n" +
+                    "WHERE b.id LIKE CONCAT('%', ?, '%')\n" +
+                    "AND b.created_time BETWEEN ? AND ?\n" +
+                    "AND u.name LIKE CONCAT('%', ?, '%')\n" +
+                    "AND t.id LIKE CONCAT('%', ?, '%')\n" +
+                    "GROUP BY b.id\n" +
+                    "HAVING\n" +
+                    "totalPayment BETWEEN ? AND ?\n" +
+                    "ORDER BY b.created_time DESC";
     public static final String INSERT_SERVICE =
-            "INSERT INTO service (name,price,type_id,enable_flag,img_url,created_date, `describe`) values\n" +
-            "(?,?,?,?,?,SYSDATE(),?)";
+            "INSERT INTO service (name,price,type_id,enable_flag,img_url,created_date, `describe`) VALUES\n" +
+                    "(?,?,?,?,?,SYSDATE(),?)";
+    public static final String UPDATE_SERVICE =
+            "UPDATE service SET name = ?, price = ?, type_id = ?, enable_flag = ?, img_url = ?, `describe` = ? WHERE id = ?";
     public static final String UPDATE_PRICE_BILL_DETAIL =
-            "update bill_detail bd set price = (select price from service s where s.id = bd.service_id) where bd.price is null";
+            "UPDATE bill_detail bd SET price = (SELECT price FROM service s WHERE s.id = bd.service_id) WHERE bd.price is null";
     public static final String SELECT_RECIPE_BY_SERVICE_ID =
-            "select rm.id id , m.name name, rm.quantity quantity, m.unit unit, rm.price price from recipe_master rm\n" +
-            "left join service s on s.id = rm.service_id\n" +
-            "left join material m on m.id = rm.material_id\n" +
-            "where s.id = ?";
+            "SELECT rm.id id , m.name name, m.id materialId, s.id serviceId, rm.quantity quantity, m.unit unit, rm.price price FROM recipe_master rm\n" +
+                    "LEFT JOIN service s ON s.id = rm.service_id\n" +
+                    "LEFT JOIN material m ON m.id = rm.material_id\n" +
+                    "WHERE s.id = ?";
     public static final String SELECT_MATERIAL =
-            "select id, name, type_id typeId, price, unit, quantity from material";
+            "SELECT id, name, type_id typeId, price, unit, quantity FROM material";
     public static final String INSERT_RECIPE =
-                "insert into recipe_master (service_id, material_id, quantity, price) values\n" +
-                "(?,?,?,?);";
+            "INSERT INTO recipe_master (service_id, material_id, quantity, price) VALUES\n" +
+                    "(?,?,?,?);";
+    public static final String UPDATE_RECIPE =
+            "update recipe_master set quantity = ?, price = ? where id = ?";
+    public static final String DELETE_RECIPE =
+            "delete from recipe_master where id = ?";
     public static final String SELECT_LAST_SERVICE_ID =
-            "select id from service\n" +
-                    "order by id desc\n" +
-                    "limit 1";
-//    public static final String SELECT_RECIPE_BY_SERVICE_ID =
-//    "select material_id, quantity, price from recipe_master where service_id = ?";
+            "SELECT id FROM service\n" +
+                    "ORDER BY id desc\n" +
+                    "LIMIT 1";
 }

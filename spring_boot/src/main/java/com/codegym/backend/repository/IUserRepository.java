@@ -19,11 +19,6 @@ import java.util.List;
 @Repository
 public interface IUserRepository extends JpaRepository<User, Integer> {
 
-
-    /**
-     * ThangLV
-     * get Information of User
-     */
     @Query(value = "select user.id as id, user.name,account.user_name as userName, user.birthday as dateOfBirth, user.address, user.phone_number as phone,\n" +
             "              user.gender, user.salary, position.name as position, user.img_url as img from user\n" +
             "              join position on position.id = user.position_id\n" +
@@ -35,7 +30,6 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "SELECT name FROM user where account_id = ?1 and enable_flag = ?2", nativeQuery = true)
     String findNameByAccountId(int accountId, Boolean enableFlag);
-
 
     String JOIN_ACCOUNT = "join account a on u.account_id = a.id\n";
     String SELECT_USER_ITEM = "select u.id, a.user_name account, u.name userName, u.address, u.phone_number PhoneNumber, u.gender, u.birthday, u.enable_flag enableFlag, u.salary, p.name position from user u\n";
@@ -85,7 +79,6 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "select count(email) from account where email = :email ", nativeQuery = true)
     Integer findByEmail(@Param("email") String email);
-
 
     @Query(value = "select user.id , a.user_name as username, user.name ,user.img_url as imgUrl, a.email, user.gender, user.birthday,user.address , user.phone_number as phoneNumber\n" +
             "            , user.position_id as position, user.salary from user \n" +

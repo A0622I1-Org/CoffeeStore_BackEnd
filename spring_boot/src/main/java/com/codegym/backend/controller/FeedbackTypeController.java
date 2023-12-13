@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/private")
 public class FeedbackTypeController {
     @Autowired
-    private IFeedbackTypeService feedbackTypeService;
+    IFeedbackTypeService feedbackTypeService;
 
     @GetMapping("/type/list")
     public ResponseEntity<List<FeedbackType>> getAllType() {

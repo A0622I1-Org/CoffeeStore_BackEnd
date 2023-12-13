@@ -45,38 +45,32 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/private")
 
 public class UserResController {
-
     @Autowired
-    private IUserService userService;
+    IUserService userService;
     @Autowired
-    private IAccountService accountService;
+    IAccountService accountService;
     @Autowired
-    private IAccountServiceBao accountServiceBao;
+    IAccountServiceBao accountServiceBao;
     @Autowired
-    private PasswordEncoder encoder;
+    PasswordEncoder encoder;
     @Autowired
-    private AccountDetailServiceImpl accountDetailService;
+    AccountDetailServiceImpl accountDetailService;
     @Autowired
-    private PasswordChangeValidator passwordChangeValidator;
+    PasswordChangeValidator passwordChangeValidator;
     @Autowired
-    private IPositionService positionService;
+    IPositionService positionService;
     @Autowired
-    private UserCreateByRequestDtoValidator userCreateByRequestDtoValidator;
+    UserCreateByRequestDtoValidator userCreateByRequestDtoValidator;
     @Autowired
-    private UserEditByRequestDtoValidator userEditByRequestDtoValidator;
+    UserEditByRequestDtoValidator userEditByRequestDtoValidator;
 
     String currentEmail = null;
     String currentPhoneNumber = null;
 
-
-    /**
-     * ThangLV
-     * get information of User by Username
-     */
     @GetMapping("/find-user-infor")
     public ResponseEntity<IUserInforDTO> findUserInformation() {
         String username = accountDetailService.getCurrentUserName();
@@ -87,10 +81,6 @@ public class UserResController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    /**
-     * ThangLV
-     * validation password, check password and change password
-     */
     @PostMapping("/change-password-request")
     public ResponseEntity<Object> changePassword(@RequestBody AccountDTO accountDTO, BindingResult
             bindingResult) {

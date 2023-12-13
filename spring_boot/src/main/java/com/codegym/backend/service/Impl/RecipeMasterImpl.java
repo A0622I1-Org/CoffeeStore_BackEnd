@@ -11,8 +11,22 @@ public class RecipeMasterImpl implements IRecipeService {
     IRecipeRepository iRecipeRepository;
 
     @Override
-    public void insertRecipe(Long materialId, Double quantity, Double price) {
-        int serviceId = iRecipeRepository.findLastServiceId();
+    public void insertRecipe(Long serviceId, Long materialId, Double quantity, Double price) {
         iRecipeRepository.insertRecipe(serviceId, materialId, quantity, price);
+    }
+
+    @Override
+    public void updateRecipe(Double quantity, Double price,Long id) {
+        iRecipeRepository.updateRecipe(quantity, price, id);
+    }
+
+    @Override
+    public void deleteRecipe(Long id) {
+        iRecipeRepository.deleteRecipe(id);
+    }
+
+    @Override
+    public Long findLastServiceId() {
+        return iRecipeRepository.findLastServiceId();
     }
 }

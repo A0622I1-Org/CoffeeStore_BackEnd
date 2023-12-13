@@ -7,12 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("api/private/image")
 public class FeedbackImageController {
     @Autowired
-    private FeedbackImageProcessingService feedbackImageProcessingService;
+    FeedbackImageProcessingService feedbackImageProcessingService;
 
     @PostMapping("/create")
     public ResponseEntity<Void> createFeedbackImage(@RequestBody CreateFeedbackImg createFeedbackImg) {
