@@ -2,7 +2,7 @@ package com.codegym.backend.dto;
 
 
 public class CServiceDto {
-    Integer id;
+    Long id;
     String name;
     Double price;
     Integer typeId;
@@ -11,7 +11,7 @@ public class CServiceDto {
     String imgUrl;
     String describe;
 
-    public CServiceDto(Integer id, String name, Double price, Integer typeId, String enableFlag, String createdDate, String imgUrl, String describe) {
+    public CServiceDto(Long id, String name, Double price, Integer typeId, String enableFlag, String createdDate, String imgUrl, String describe) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -22,11 +22,11 @@ public class CServiceDto {
         this.describe = describe;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

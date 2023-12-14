@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 @RestController
@@ -127,26 +128,39 @@ public class ServiceController {
             Long serviceId = iRecipeService.findLastServiceId();
             iRecipeService.insertRecipe(serviceId, recipeDto.getMaterialId(), recipeDto.getQuantity(), recipeDto.getPrice());
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "list/updateRecipe")
     public ResponseEntity<?> updateRecipe(@Valid @RequestBody List<CRecipeDto> ListRecipeDto, BindingResult
             bindingResult) throws MessagingException {
-        for (CRecipeDto recipeDto : ListRecipeDto) {
-            List<IRecipeDto> iRecipeDto = iServiceService.findRecipeByServiceId(recipeDto.getServiceId());
-            for (IRecipeDto recipe: iRecipeDto) {
-                if (recipeDto.getMaterialId().shortValue(recipe.getMaterialId())) {
-                    iRecipeService.deleteRecipe(recipeDto.getId());
+        if (!ListRecipeDto.isEmpty()) {
+            Long serviceId = ListRecipeDto.get(0).getServiceId();
+            List<IRecipeDto> originRecipes = iServiceService.findRecipeByServiceId(serviceId);
+            for (IRecipeDto recipe : originRecipes) {
+                boolean deleteFlag = true;
+                for (CRecipeDto recipeDto : ListRecipeDto) {
+                    if (Objects.equals(recipe.getMaterialId(), recipeDto.getMaterialId())) {
+                        deleteFlag = false;
+                        break;
+                    }
+                }
+                if (deleteFlag) {
+                    iRecipeService.deleteRecipe(recipe.getId());
                 }
             }
-            if(recipeDto.getId() == null) {
-                iRecipeService.insertRecipe(recipeDto.getServiceId(), recipeDto.getMaterialId(), recipeDto.getQuantity(), recipeDto.getPrice());
-            } else {
-                iRecipeService.updateRecipe(recipeDto.getQuantity(), recipeDto.getPrice(), recipeDto.getId());
+
+            for (CRecipeDto recipeDto : ListRecipeDto) {
+                if (recipeDto.getId() == null) {
+                    iRecipeService.insertRecipe(recipeDto.getServiceId(), recipeDto.getMaterialId(), recipeDto.getQuantity(), recipeDto.getPrice());
+                } else {
+                    iRecipeService.updateRecipe(recipeDto.getQuantity(), recipeDto.getPrice(), recipeDto.getId());
+                }
             }
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/list/serviceList/changeServiceEnableFlag")

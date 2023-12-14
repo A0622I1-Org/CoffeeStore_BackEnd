@@ -4,7 +4,7 @@ public interface IRecipeDto {
     Long getId();
     String getName();
     Long getServiceId();
-    String getMaterialId();
+    Long getMaterialId();
     Double getQuantity();
     String getUnit();
     Double getPrice();

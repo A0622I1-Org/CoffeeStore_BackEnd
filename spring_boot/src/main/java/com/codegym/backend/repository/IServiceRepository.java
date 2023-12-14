@@ -74,7 +74,7 @@ public interface IServiceRepository extends JpaRepository<Service, Integer> {
 
     @Modifying
     @Query(value = MyQuerySQL.UPDATE_SERVICE, nativeQuery = true)
-    void updateService(String name, Double price, Integer typeId, Integer enableFlag, String imgUrl, String describe, Integer id);
+    void updateService(String name, Double price, Integer typeId, Integer enableFlag, String imgUrl, String describe, Long id);
 
     @Query(value = MyQuerySQL.SELECT_RECIPE_BY_SERVICE_ID, nativeQuery = true)
     List<IRecipeDto> getRecipeByServiceId(Long service_id);
