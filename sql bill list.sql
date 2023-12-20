@@ -36,3 +36,12 @@ ALTER TABLE service
 ADD COLUMN `describe` VARCHAR(300),
 ADD COLUMN recipe_id INT,
 ADD CONSTRAINT fk_service_recipe FOREIGN KEY (recipe_id) REFERENCES recipe_master(id);
+
+
+select * from service;
+select * from recipe_master;
+
+delete from recipe_master where service_id = ?;
+update service set name = ?, price = ?, type_id = ?, enable_flag = ?, img_url = ?, `describe` = ? where id = ?;
+
+update recipe_master set quantity = ?, price = ? where service_id = ? and material_id = ?
