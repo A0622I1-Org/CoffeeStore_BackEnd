@@ -15,12 +15,7 @@ import java.util.List;
 @Transactional
 public interface IBillChargingRepository extends JpaRepository<Bill, Integer> {
     @Modifying
-    @Query(value = "SELECT b.id AS billId, b.user_id AS userId, b.table_id AS tableId, " +
-            " b.payment_status AS paymentStatus, b.payment_time AS paymentTime, sum(bd.quantity * s.price) AS sum from bill b " +
-            "JOIN bill_detail bd ON bd.bill_id = b.id " +
-            "JOIN service s ON s.id = bd.service_id " +
-            "WHERE b.payment_status = 0 AND b.table_id = ?1 " +
-            "GROUP BY b.table_id ", nativeQuery = true)
+    @Query(value = MyQuerySQL.SELECT_CHARGING_BILL, nativeQuery = true)
     List<BillChargingListDTO> getAllBillCharging(Integer tableId);
 
     @Query(value = "SELECT u.id FROM user u " +

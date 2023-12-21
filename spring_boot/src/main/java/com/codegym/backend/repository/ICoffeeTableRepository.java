@@ -1,5 +1,6 @@
 package com.codegym.backend.repository;
 
+import com.codegym.backend.common.MyQuerySQL;
 import com.codegym.backend.dto.BillDetailListDTO;
 import com.codegym.backend.model.CoffeeTable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,29 +26,12 @@ public interface ICoffeeTableRepository extends JpaRepository<CoffeeTable, Integ
     @Query(value = "UPDATE bill SET payment_status = 1, payment_time = ?2, user_id = ?3 WHERE table_id = ?1;", nativeQuery = true)
     void updateBillStatusById(int tableId, String paymentTime, int userId);
 
-    /**
-     * @return A list of table
-     */
     @Modifying
     @Query(value = "SELECT * FROM `table` WHERE status = 'Tốt' OR 'tốt';", nativeQuery = true)
     List<CoffeeTable> getAllTable();
 
-    /**
-     *
-     * @param tableId
-     * @return List of bill detail list of selected table
-     * @author CuongHM
-     */
     @Modifying
-    @Query(value = "SELECT t.id AS tableId, s.img_url AS imgUrl, s.name AS serviceName, \n" +
-            "               sum(bd.quantity) quantity, s.price, t.name AS tableName, sum(bd.quantity * s.price) AS sum, \n" +
-            "               b.payment_status as paymentStatus from bill b \n" +
-            "        JOIN `table` t ON b.table_id = t.id \n" +
-            "        JOIN bill_detail bd ON b.id = bd.bill_id \n" +
-            "        JOIN service s ON bd.service_id = s.id \n" +
-            "        WHERE payment_status = 0 AND table_id = ?1\n" +
-            "        GROUP BY s.id \n" +
-            "        ORDER BY table_id asc", nativeQuery = true)
+    @Query(value = MyQuerySQL.SELECT_BILL_DETAIL, nativeQuery = true)
     List<BillDetailListDTO> getBillDetailByTableId(Integer tableId);
 
     @Query(value = "SELECT * from `table` WHERE id = ?", nativeQuery = true)

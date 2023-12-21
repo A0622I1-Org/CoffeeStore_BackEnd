@@ -71,4 +71,21 @@ public class MyQuerySQL {
             "SELECT id FROM service\n" +
                     "ORDER BY id desc\n" +
                     "LIMIT 1";
+    public static final String SELECT_BILL_DETAIL =
+            "SELECT t.id AS tableId, s.img_url AS imgUrl, s.name AS serviceName, \n" +
+                    "               sum(bd.quantity) quantity, s.price, t.name AS tableName, sum(bd.quantity * s.price) AS sum, \n" +
+                    "               b.payment_status as paymentStatus from bill b \n" +
+                    "        JOIN `table` t ON b.table_id = t.id \n" +
+                    "        JOIN bill_detail bd ON b.id = bd.bill_id \n" +
+                    "        JOIN service s ON bd.service_id = s.id \n" +
+                    "        WHERE payment_status = 0 AND table_id = ?1 and delete_flag = 0\n" +
+                    "        GROUP BY s.id \n" +
+                    "        ORDER BY table_id asc";
+    public static final String SELECT_CHARGING_BILL =
+            "SELECT b.id AS billId, b.user_id AS userId, b.table_id AS tableId,\n" +
+                    " b.payment_status AS paymentStatus, b.payment_time AS paymentTime, sum(bd.quantity * s.price) AS sum from bill b \n" +
+                    "JOIN bill_detail bd ON bd.bill_id = b.id \n" +
+                    "JOIN service s ON s.id = bd.service_id \n" +
+                    "WHERE b.payment_status = 0 AND b.table_id = ?1 AND bd.delete_flag = 0\n" +
+                    "GROUP BY b.table_id ";
 }
