@@ -13,8 +13,8 @@ import java.util.List;
 public interface IBillDetailRepository extends JpaRepository<BillDetail,Integer> {
     @Transactional
     @Modifying
-    @Query(value = "insert into bill_detail(quantity,bill_id,service_id)" +
-            "values(?1,?2,?3)",nativeQuery = true)
+    @Query(value = "insert into bill_detail(quantity,bill_id,service_id, delete_flag)" +
+            "values(?1,?2,?3,0)",nativeQuery = true)
     void insertBillDetail(int quantity,int billIdd,int serviceId);
 
     @Transactional
