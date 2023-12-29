@@ -131,6 +131,15 @@ public class ServiceController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("list/deleteRecipe/{id}")
+    public ResponseEntity<?> deleteRecipe(@PathVariable long id) {
+        List<IRecipeDto> iRecipeDto = iServiceService.findRecipeByServiceId(id);
+        for (IRecipeDto recipe : iRecipeDto) {
+            iRecipeService.deleteRecipe(recipe.getId());
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping(value = "list/updateRecipe")
     public ResponseEntity<?> updateRecipe(@Valid @RequestBody List<CRecipeDto> ListRecipeDto, BindingResult
             bindingResult) throws MessagingException {
