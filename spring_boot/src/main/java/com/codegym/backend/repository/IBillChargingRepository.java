@@ -18,14 +18,11 @@ public interface IBillChargingRepository extends JpaRepository<Bill, Integer> {
     @Query(value = MyQuerySQL.SELECT_CHARGING_BILL, nativeQuery = true)
     List<BillChargingListDTO> getAllBillCharging(Integer tableId);
 
-    @Query(value = "SELECT u.id FROM user u " +
-            "JOIN account a ON u.account_id = a.id " +
-            "WHERE a.user_name = ?1", nativeQuery = true)
+    @Query(value = MyQuerySQL.SELECT_USER_ID_FROM_USERNAME, nativeQuery = true)
     int getUserId(String userName);
 
     @Modifying
-    @Query(value = "UPDATE bill SET payment_status = 1, payment_time = ?1, user_id = ?2\n" +
-            "WHERE table_id = ?3", nativeQuery = true)
+    @Query(value = MyQuerySQL.UPDATE_PAYMENT_BY_TABLE_ID, nativeQuery = true)
     void updateBillStatusByTableId(String paymentTime, int userId, int tableId);
 
     @Modifying

@@ -1,5 +1,6 @@
 package com.codegym.backend.repository;
 
+import com.codegym.backend.common.MyQuerySQL;
 import com.codegym.backend.dto.BillDto;
 import com.codegym.backend.model.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,12 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface IBillRepository extends JpaRepository<Bill,Integer> {
 
-    @Query(value = "select b.id,b.created_time as createdTime,b.payment_status as paymentStatus," +
-            "b.payment_time as paymentTime, b.table_id as tableId, b.user_id as userId from bill b where table_id = ?1 and payment_status = 0 order by id desc limit 1",nativeQuery = true)
+    @Query(value = MyQuerySQL.SELECT_BILL_BY_TABLE_ID,nativeQuery = true)
     BillDto findByIdBill(int table_id);
 
     @Modifying
-    @Query(value = "insert into bill (created_time,payment_status,payment_time,table_id,user_id) " +
-            "values(?1,?2,?3,?4,?5)",nativeQuery = true)
+    @Query(value = MyQuerySQL.INSERT_BILL,nativeQuery = true)
     void insertBill(String createdTime,int paymentStatus,String paymentTime,int tableId,int userId);
 }

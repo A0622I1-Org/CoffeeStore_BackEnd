@@ -12,25 +12,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
-    String SelectAllBill_Sql = "select b.id,b.created_time as createdTime, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b\n" +
-            "            join `table` t on b.table_id = t.id\n" +
-            "            join user u on b.user_id =u.id\n" +
-            "            join bill_detail bd on bd.bill_id = b.id\n" +
-            "            join service s on bd.service_id = s.id\n" +
-            "            group by b.id\n" +
-            "            order by b.id";
-    @Query(value = SelectAllBill_Sql, countQuery = SelectAllBill_Sql, nativeQuery = true)
+    @Query(value = MyQuerySQL.SELECT_ALL_BILL_BILL_LIST_DTO, countQuery = MyQuerySQL.SELECT_ALL_BILL_BILL_LIST_DTO, nativeQuery = true)
     Page<BillListDto> findAllList(Pageable pageable);
 
-    String SelectBillListByUser_Sql = "select b.id,b.created_time as createdTime, t.id as tableNumber, u.name, sum(bd.quantity*s.price) as totalPrice from  bill b\n" +
-            "            join `table` t on b.table_id = t.id\n" +
-            "            join user u on b.user_id =u.id\n" +
-            "            join bill_detail bd on bd.bill_id = b.id\n" +
-            "            join service s on bd.service_id = s.id\n" +
-            "            where u.name like ?\n " +
-            "            group by b.id\n" +
-            "            order by b.id";
-    @Query(value = SelectBillListByUser_Sql, countQuery = SelectBillListByUser_Sql, nativeQuery = true)
+    @Query(value = MyQuerySQL.SELECT_BILL_LIST_BY_USER_BILL_LIST_DTO, countQuery = MyQuerySQL.SELECT_BILL_LIST_BY_USER_BILL_LIST_DTO, nativeQuery = true)
     Page<BillListDto> findBillByUser(Pageable pageable,String name);
 
     @Query(value = MyQuerySQL.SELECT_BILL, countQuery = MyQuerySQL.SELECT_BILL,  nativeQuery = true)
