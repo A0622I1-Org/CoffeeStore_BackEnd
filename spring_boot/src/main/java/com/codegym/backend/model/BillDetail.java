@@ -24,6 +24,9 @@ public class BillDetail {
     @Column(name = "price")
     private double price;
 
+    @Column(name = "cost")
+    private double cost;
+
     // Constructors, getters, and setters
 
     public BillDetail() {
@@ -36,7 +39,24 @@ public class BillDetail {
         this.price = price;
     }
 
-    // Getters and Setters
+    public BillDetail(int id, Bill bill, Service service, int quantity, double price, double cost) {
+        this.id = id;
+        this.bill = bill;
+        this.service = service;
+        this.quantity = quantity;
+        this.price = price;
+        this.cost = cost;
+    }
+// Getters and Setters
+
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 
     public int getId() {
         return id;
